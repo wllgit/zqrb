@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <meta content="width=device-width, initial-scale=1.0" name="viewport">
+                <meta content="ie=edge" http-equiv="X-UA-Compatible">
+                    <link href="__CSS__/h5.css" media="all" rel="stylesheet" type="text/css"/>
+                    <meta content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" name="viewport"/>
+                    <title>
+                        新闻详情
+                    </title>
+                </meta>
+            </meta>
+        </meta>
+    </head>
+    <body>
+        <div class="news">
+            <div class="header">
+                {switch name="info.source_type"}
+        {case value="2"}
+                <img alt="" class="header_img" src="{$info.top_pic}">
+                    {/case}
+        {case value="4"}
+                    <video alt="" class="header_img" controls="controls" src="{$info.video}">
+                    </video>
+                    >{/case}
+    {/switch}
+                    <p class="header_title">
+                        {$info.title}
+                    </p>
+                    <div>
+                        <span class="header_date">
+                            {$info.publish_time} 来源：{$info.source}
+                        </span>
+                        <!-- <img class="header_tubiao" src="__IMG__/Group Copy 4@2x.png" alt=""> -->
+                        {if !empty($info.audio)}
+                        <div class="btn-audio">
+                            <audio id="audio">
+                                <source id="src" src="{$info.audio}">
+                                </source>
+                            </audio>
+                        </div>
+                        <div class="audio-play">
+                            <div class="audio-play">
+                            </div>
+                            <div class="audio-right">
+                                <div class="progress-bar-bg" id="progressBarBg">
+                                    <span id="progressDot">
+                                    </span>
+                                    <div class="progress-bar" id="progressBar">
+                                    </div>
+                                </div>
+                                <div class="audio-time">
+                                    <span class="audio-length-current" id="audioCurTime">
+                                        00:00
+                                    </span>
+                                    <span class="audio-length-total" id="audioTime">
+                                        05:10
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                    </div>
+                    <span class="header_reader">
+                        {$info.author}
+                    </span>
+                </img>
+            </div>
+            <div class="content">
+                <p class="content_text">
+                    {$info.detail}
+                </p>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="download_btn" id="downloadBtn">
+            </div>
+        </div>
+        <div class="guide">
+            <div class="content1">
+                <h5 class="guide-text">
+                    请在浏览器中打开
+                </h5>
+                <img src="__IMG__/guide.png">
+                </img>
+            </div>
+        </div>
+    </body>
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.0/jquery.min.js" type="text/javascript">
+    </script>
+    <script>
+        $(function(){
+          const ua = window.navigator.userAgent.toLowerCase();
+          if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+          $('.guide').show();
+        }else{
+          $('.guide').hide();
+        }
+
+   
+    var audio = $("#audio")[0];
+    var btn = $(".btn-audio");
+    btn.click(function(){
+      if(audio.paused){
+        audio.play();
+      }else{
+        audio.pause();
+      }
+    });
+    //监听音频播放时间、更新进度条
+    if(audio){
+      audio.addEventListener('timeupdate', function(){
+      updateProgress(audio);
+    });
+    }
+    /*
+    * 更新进度条
+    * @parma {object} audio
+    * */
+    function updateProgress(audio){
+//      console.log(audio.currentTime, audio.duration);
+      var value = audio.currentTime / audio.duration;
+      $("#progressBar").css('width', value * 100 + '%');
+      $("#progressDot").css('left', value * 100 + '%');
+      $("#audioCurTime").html(transTime(audio.currentTime));
+      $("#audioTime").html(transTime(audio.duration));
+    }
+    /*
+    * 音频播放时间换算
+    * parma {number} value 单位：秒
+    *
+    * */
+    function transTime(value){
+      var time = "";
+      var h = parseInt(value / 3600);
+      value %= 3600;
+      var m = parseInt(value / 60);
+      var s = parseInt(value % 60);
+      if(h > 0){
+        time = formatTime(h + ':' + m + ':' + s);
+      }else{
+        time = formatTime(m + ':' + s);
+      }
+      return time;
+    }
+    /*
+    * 格式化时间
+    * eg 2:4 ----> 02:04
+    * parma {string} value   -  形如 h:m:s 这样的字符串
+    * */
+    function formatTime(value){
+      var time = "";
+      var s = value.split(':');
+      var i = 0;
+      for(; i < s.length - 1; i++){
+        time += s[i].length == 1 ? ('0' + s[i]) : s[i];
+        time += ':';
+      }
+      time += s[i].length == 1 ? ('0' + s[i]) : s[i];
+      return time;
+    }
+
+    //监听播放完成事件
+    if(audio){
+      audio.addEventListener('ended', function(){
+      audioEnded();
+    }, false);
+    }
+    /*
+    * 播放完成 进度条归零
+    * */
+    function audioEnded(){
+      $("#progressBar").css('width', 0);
+      $("#progressDot").css('left', 0);
+      $("#audioCurTime").html(transTime(0));
+    }
+
+    //添加进度调节事件
+    $("#progressBarBg").on('mousedown', function(e){
+      //只有开始播放后才可是调节，开始之后暂停也可以。
+      if(!audio.paused || audio.currentTime !=0){
+        var pgsWidth = $("#progressBarBg").width();
+        var rate = e.offsetX / pgsWidth;
+        audio.currentTime = audio.duration * rate;
+        updateProgress(audio);
+      }
+    });
+    //添加拖动事件,拖动进度条到指定位置
+    var dot  = document.getElementById("progressDot");
+    dot.onmousedown = function(e){
+      if(!audio.paused || audio.currentTime != 0){
+        var oriLeft = dot.offsetLeft;
+        var mouseX = e.clientX;
+        var maxLeft = oriLeft;
+        var maxRight = document.getElementById('progressBarBg').offsetWidth - oriLeft;
+
+        if(e.preventDefault){
+          e.preventDefault();
+        }else{
+          e.returnValue = false;
+        }
+
+        if(e && e.stopPropagation){
+          e.stopPropagation();
+        }else{
+          window.event.cancelBubble = true;
+        }
+        //开始拖动
+        document.onmousemove = function(e){
+          var length = e.clientX - mouseX;
+          if(length > maxRight){
+            length = maxRight;
+          }else if(length < -maxLeft){
+            length = -maxLeft;
+          }
+          var pgsWidth = $(".progress-bar-bg").width();
+          var rate = (oriLeft + length) / pgsWidth;
+          audio.currentTime = audio.duration * rate;
+          updateProgress(audio);
+        };
+        //拖动结束
+        document.onmouseup = function(){
+          document.onmousemove = null;
+          document.onmouseup = null;
+        };
+      }
+    };
+
+
+    //下载app
+    const u = navigator.userAgent;
+     $("#downloadBtn").click(function(){
+      if (!!u.match(/\(i[^;]+;( U; )? CPU.+Mac OS X/)) {
+        window.location = "SecuritiesDaily://app.wxyyapp.minfonmet2";
+        setTimeout(function(){
+          window.location = "https://itunes.apple.com/cn/app/%E8%AF%81%E5%88%B8%E6%97%A5%E6%8A%A5/id573460119?mt=8";
+        }, 1000);
+      } else {
+        window.location = "zqrbandroid://"
+        setTimeout(function(){
+          window.location = "https://a.app.qq.com/o/simple.jsp?pkgname=zqrb.cn.app";
+        }, 1000);
+      }
+    });
+
+  });
+    </script>
+</html>

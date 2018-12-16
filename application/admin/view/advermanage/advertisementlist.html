@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑角色</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__CSS__/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__CSS__/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__CSS__/animate.min.css" rel="stylesheet">
+    <link href="__CSS__/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__CSS__/style.min.css?v=4.1.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+    <style>
+        .slt{width: 80px!important;}
+        .col-sm-2{padding-top: 0px!important;}
+        .self_div_lab{width: 250px; }
+        .self_title{margin-left: 40px;width: 600px!important;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <header class="panel-heading">
+                        <h2>广告发布：</h2>
+                    </header>
+                    <form class="form-horizontal m-t" id="commentForm" method="post">
+                        <input type="hidden" value="" name="id"/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">banner设置：</label>
+                            <div class="input-group col-sm-8">
+                                <p>第 <input type="text" name="vehicle" value="" /> 位</p>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">标题：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="标题"/>
+                                </div>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">简介：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="简介"/>
+                                </div>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">详情：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="详情"/>
+                                </div>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">链接：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="链接"/>
+                                </div>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">图片：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="图片"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">栏目下第几条信息之后：</label>
+                            <div class="input-group col-sm-8">
+                                <p>第 <input type="text" name="vehicle" value="" /> 条</p>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">标题：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="标题"/>
+                                </div>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">简介：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="简介"/>
+                                </div>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">详情：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="详情"/>
+                                </div>
+                                <div class="self_div_lab">
+                                    <label class="self_lab">链接：</label>
+                                    <input type="text" name="vehicle" class="form-control self_title" value="" placeholder="链接"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">启动页设置：</label>
+                            <div class="input-group col-sm-8">
+                                <p>第 <input type="text" name="vehicle" value="" /> 张</p>
+                                <p>图片：<input type="file" name="vehicle" value="" /></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">发布时间：</label>
+                            <div class="input-group col-sm-8">
+                                <input id="r1" type="radio" value="0" name="gender">直接发布</input>
+                                <input id="r2" type="radio" value="1" name="gender">保存至待发布</input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" style="margin-left:150px;" type="button" onclick="publish()">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/content.min.js?v=1.0.0"></script>
+<script src="__JS__/plugins/validate/jquery.validate.min.js"></script>
+<script src="__JS__/plugins/validate/messages_zh.min.js"></script>
+<script src="__JS__/plugins/iCheck/icheck.min.js"></script>
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="__JS__/plugins/layer/laydate/laydate.js"></script>
+<script src="__JS__/plugins/suggest/bootstrap-suggest.min.js"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+<script type="text/javascript">
+
+    $(function(){
+        $('#summernote').summernote({
+            height:1200,
+            lang:'zh-CN',
+            placeholder: '',
+            toolbar: [
+                ['fontname', ['fontname']], //字体系列
+                ['style', ['bold', 'italic', 'underline', 'clear']], // 字体粗体、字体斜体、字体下划线、字体格式清除
+                ['font', ['strikethrough', 'superscript', 'subscript']], //字体划线、字体上标、字体下标
+                ['fontsize', ['fontsize']], //字体大小
+                ['color', ['color']], //字体颜色
+                ['style', ['style']],//样式
+                ['para', ['ul', 'ol', 'paragraph']], //无序列表、有序列表、段落对齐方式
+                ['height', ['height']], //行高
+                ['table',['table']], //插入表格
+                ['hr',['hr']],//插入水平线
+//                ['link',['link']], //插入链接
+//                ['picture',['picture']], //插入图片
+                // ['video',['video']], //插入视频
+                ['fullscreen',['fullscreen']], //全屏
+                ['codeview',['codeview']], //查看html代码
+                ['undo',['undo']], //撤销
+                ['redo',['redo']], //取消撤销
+                ['help',['help']], //帮助
+            ],
+            callbacks:{
+                onImageUpload:function (files) {
+                    var formdata = new FormData();
+                    formdata.append("image", files[0]);
+                    $.ajax({
+                        url: `/admin/fastrise/test5`,
+                        method: 'POST',
+                        data:formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data['message']=='ok') {
+                                $('#summernote').summernote('insertImage',`http://news.stockalert.cn` + data['payload']['imgPath']);
+                            }
+                            else{
+                                op.utils.toastr('插入图片失败','error');
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        //设置文本框的高度
+        $(".note-editable").attr('style','height:527px;');
+
+
+    })
+
+    function show_deep() {
+        $("#addr").append('<p class="deep_addr"> 深度中专题的位置： <input type="text" placeholder="选择深度时必填" name="vehicle" value="" class="deep_to"/></p>');
+        $(".deep_from").attr('onclick','hide_deep()');
+    }
+    function hide_deep(){
+        $(".deep_addr").remove();
+        $(".deep_to").remove();
+        $(".deep_from").attr('onclick','show_deep()');
+    }
+
+    function publish($mm){
+
+        // alert(44444444444);
+        var mm = $("form").serialize();
+        var jz;
+        $.ajax({
+            type:"POST",
+            url:"./publish",
+            data:mm,// 你的formid
+            async: false,
+            beforeSend:function()
+            {
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            error: function(request)
+            {
+                layer.close(jz);
+                swal('网络错误,请从新发布');
+            },
+            success: function(data)
+            {
+                //关闭加载层
+                layer.close(jz);
+                var str = JSON.parse(data);
+                //alert(data);
+                if (str.message == "ok")
+                {
+                    //layer.msg('发布成功成功');
+                    swal("发布成功 2秒后刷新页面");
+                    setTimeout("parent.location.reload()",2000);
+                }
+                else
+                {
+                    swal("发布失败了， 请重新刷新发布");
+                    //setTimeout("parent.location.reload()",5000);
+                }
+            }
+        });
+
+        return false;
+
+    }
+
+
+</script>
+</body>
+</html>
+
+
+

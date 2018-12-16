@@ -1,0 +1,103 @@
+<{include file="./header" title='编辑员工假期'/}
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>编辑假期时间</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="commentForm" method="post" onsubmit="return toVaild()">
+                        <input type="hidden" name="user_id" value="{$user}">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">员工姓名：</label><label class="col-sm-1 control-label">{$userName}</label>
+                        </div>
+                        {volist name="list" id="li"}
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{$li.leave_name} <small style="color:#1f87ff">{$li.status ?  '(剩余)'  : '(共计)'}</small></label>
+                            <div class="input-group col-sm-4">
+                                <input type="number" class="form-control" name="type[{$li.leave_type}]" required="" aria-required="true" min=0 value="{$li.hours}">
+                            </div>
+                        </div>
+                        {/volist}
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{include file="./footer"}
+<script type="text/javascript">
+
+    //表单提交
+    function toVaild(){
+        var jz;
+        var url = "./vacationEdit";
+        var dd=$('#commentForm').serialize();
+        console.log(dd);
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:{'data' : $('#commentForm').serialize()},// 你的formid
+            async: false,
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            error: function(request) {
+                layer.close(jz);
+                swal("网络错误!", "", "error");
+                setTimeout("location.reload()",2000);
+            },
+            success: function(data) {
+                //关闭加载层
+                layer.close(jz);
+                if(data.code == 1){
+                    swal(data.msg, "", "success");
+                }else{
+                    swal(data.msg, "", "error");
+                }
+                setTimeout("location.reload()",2000);
+            }
+        });
+
+        return false;
+    }
+
+    //表单验证
+    $(document).ready(function(){
+        $(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
+    });
+    $.validator.setDefaults({
+        highlight: function(e) {
+            $(e).closest(".form-group").removeClass("has-success").addClass("has-error")
+        },
+        success: function(e) {
+            e.closest(".form-group").removeClass("has-error").addClass("has-success")
+        },
+        errorElement: "span",
+        errorPlacement: function(e, r) {
+            e.appendTo(r.is(":radio") || r.is(":checkbox") ? r.parent().parent().parent() : r.parent())
+        },
+        errorClass: "help-block m-b-none",
+        validClass: "help-block m-b-none"
+    });
+
+</script>

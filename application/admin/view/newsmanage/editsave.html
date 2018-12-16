@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻编辑发布</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__CSS__/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__CSS__/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__CSS__/animate.min.css" rel="stylesheet">
+    <link href="__CSS__/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__CSS__/style.min.css?v=4.1.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="__CSS__/fileup.css" type="text/css" />
+    <link rel="stylesheet" href="__CSS__/upload_file.css" type="text/css" />
+    <!--日期插件样式-->
+    <link rel="stylesheet" href="__JS__/jedate/jedate.css" type="text/css" />
+
+    <!-- 富文本编辑开始-->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.config.js"></script>
+    <!--<script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.all.min.js"> </script>-->
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.all.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/lang/zh-cn/zh-cn.js"></script>
+
+    <style type="text/css">
+        div{
+            width:100%;
+        }
+    </style>
+    <!-- 富文本编辑结束-->
+
+    <style>
+        .slt{width: 80px!important;}
+        .col-sm-2{padding-top: 0px!important;}
+        .fileImage{display: inline-block!important;}
+        .self_file{width: 1080px!important;}
+        .self_main_three{height: 302px!important;}
+        .self_main_multi{height: 502px!important;}
+        .upload_append_list{height:140px!important; padding:0 1em; float:left; position:relative;}
+    </style>
+
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <!--<form class="form-horizontal m-t" id="commentForm" method="post" onsubmit="return toVaild()">-->
+                    <form class="form-horizontal m-t" id="commentForm" method="post" onsubmit="return getContent()">
+                        <input type="hidden" value="" name="id"/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">新闻标题：</label>
+                            <div class="input-group col-sm-8">
+                                <input type="text" placeholder="新闻标题" required="required" name="news_title" class="form-control" value="{$news_list[0]['title']}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">新闻简介：</label>
+                            <div class="input-group col-sm-8">
+                                <input type="text" placeholder="新闻简介" required="required" name="news_summary" class="form-control" value="{$news_list[0]['summary']}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上传信息：</label>
+                            <div class="input-group col-sm-8">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <section class="panel">
+                                            <header class="panel-heading tab-bg-dark-navy-blue ">
+                                                <ul class="nav nav-tabs">
+                                                    <li name="li_about"  class="">
+                                                        <a data-toggle="tab" href="#about" name="mode">纯文本</a>
+                                                    </li>
+                                                    <li name="li_home" class="">
+                                                        <a data-toggle="tab" href="#home" name="mode">视频</a>
+                                                    </li>
+                                                    <li name="li_profile" class="">
+                                                        <a data-toggle="tab" href="#profile" class="c_mod" name="mode">单图片</a>
+                                                    </li>
+                                                    <li name="li_contact" class="">
+                                                        <a data-toggle="tab" href="#contact" class="d_mod" name="mode">多图片</a>
+                                                    </li>
+                                                </ul>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="tab-content">
+                                                    <input id="{$type['type']}" type='hidden'  value="{$source_list['source_path']}" />
+                                                    <div id="about" class="tab-pane"></div>
+                                                    <div id="home" class="tab-pane">
+                                                        视频文件：
+                                                        <div id="editor" name="editor" type="text/plain" style="width:100%;height:400px;"></div>
+                                                    </div>
+                                                    <div id="profile" class="tab-pane self_file">
+                                                        <div class="self_profile_box">
+                                                            <!--三张图片:-->
+                                                            <div id="editor1" name="editor1" type="text/plain" style="width:100%;height:400px;"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="contact" class="tab-pane self_file">
+                                                        <div class="self_contact_box">
+                                                            多张图片:<div id="editor2" name="editor2" type="text/plain" style="width:100%;height:400px;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">权限设置：</label>
+                            <div class="input-group col-sm-8">
+                                <p><input type="checkbox" name="auth_discuss" value="1" {if condition="$news_list[0]['allow_comment'] eq 1"}checked{/if} /> 评论</p>
+                                <p><input type="checkbox" name="auth_share" value="1" {if condition="$news_list[0]['allow_share'] eq 1"}checked{/if} /> 分享</p>
+                                <p><input type="checkbox" name="auth_forward" value="1" {if condition="$news_list[0]['allow_transmit'] eq 1"}checked{/if} /> 转发</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">发布至banner：</label>
+                            <div class="input-group col-sm-8">
+                                <input  type="radio" value="0" name="is_banner"  onclick="banner_n()" {if condition="$news_list[0]['is_banner'] eq 0"}checked{/if} >否</input>
+                                <input  type="radio" value="1" name="is_banner" onclick="banner_y()" {if condition="$news_list[0]['is_banner'] eq 1"}checked{/if} >是</input>
+                                <!--<div class="self_banner" hidden="hidden">-->
+                                <div class="self_banner" {if condition="$news_list[0]['is_banner'] eq 0"}hidden{/if} >
+                                    <!--<div id="editor3" name="editor3" type="text/plain" style="width:100%;height:400px;"></div>-->
+                                    <input id='temp3' type='hidden'  value="{$banner_list['picture_path']}" />
+                                    <div style="width: 99%;"><script id="editor3" name="editor3"  type="text/plain" style="width:100%;height:400px;"></script></div>
+                                </div>
+
+                            <!--<div class="self_banner" {if condition="$news_list[0]['is_banner'] eq 0"}hidden{/if} >-->
+                            <!--<script id="editor3" name="editor3" type="text/plain" style="width:100%;height:400px;">-->
+                        <!--</div>-->
+                                <!--<p>第 <input type="text" name="banner_sort" value="" /> 位</p>-->
+                                <!--<div id="" name="editor3" type="text/plain" style="width:100%;height:400px;"></div>-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">发布位置：</label>
+                            <div class="input-group col-sm-8" id="addr">
+                                <p><input type="checkbox" name="publish_position[]" value="0" {if condition="$position[0] eq 0"}checked{/if}  /> 新闻</p>
+                                <p><input type="checkbox" name="publish_position[]" value="1" {if condition="$position[1] eq 1"}checked{/if}  /> 热点</p>
+                                <p><input type="checkbox" name="publish_position[]" value="2" {if condition="$position[2] eq 2"}checked{/if}  class="deep_from" onclick="show_deep()"/> 深度</p>
+                                <input type="hidden" id="hid_deep" value="{$second_num[0]}">
+                                {if !empty($second_list)}
+                                {foreach name="second_list" item="vo"}
+                                    <p class="deep_addr">
+                                        专题{$key+1}： <input type="text" name="zt[]" value="{$vo['title']}" class="deep_to"/>
+                                        {if $key==0}
+                                            <a class="zt" href="javascript:void(0)" onclick="zt_add()">添加专题</a>
+                                        {/if}
+                                    </p>
+                                {/foreach}
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">新闻推送：</label>
+                            <div class="input-group col-sm-8">
+                                <select  class="form-control slt"  name="ts_order">
+                                    <option value="1" {if condition="$news_list[0]['sort'] eq 1"}selected{/if}>1</option>
+                                    <option value="2" {if condition="$news_list[0]['sort'] eq 2"}selected{/if}>2</option>
+                                    <option value="3" {if condition="$news_list[0]['sort'] eq 3"}selected{/if}>3</option>
+                                    <option value="4" {if condition="$news_list[0]['sort'] eq 4"}selected{/if}>4</option>
+                                    <option value="5" {if condition="$news_list[0]['sort'] eq 5"}selected{/if}>5</option>
+                                    <option value="6" {if condition="$news_list[0]['sort'] eq 6"}selected{/if}>6</option>
+                                    <option value="7" {if condition="$news_list[0]['sort'] eq 7"}selected{/if}>7</option>
+                                    <option value="8" {if condition="$news_list[0]['sort'] eq 8"}selected{/if}>8</option>
+                                    <option value="9" {if condition="$news_list[0]['sort'] eq 9"}selected{/if}>9</option>
+                                    <option value="10" {if condition="$news_list[0]['sort'] eq 10"}selected{/if}>10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">发布时间：</label>
+                            <div class="input-group col-sm-8 fixed_send">
+                                <input id="r1" type="radio" value="1" name="publish_time" onclick="right_send()" {if condition="$news_list[0]['is_show'] eq 1"}checked{/if} >直接发布</input>
+                                <input id="r2" type="radio" value="0" name="publish_time" onclick="save_send()" {if condition="$news_list[0]['is_show'] eq 0"}checked{/if} >保存至待发布</input>
+                                <input id="r3" type="radio" value="2" name="publish_time" onclick="fixed_send()" class="fixed_send" {if condition="$news_list[0]['is_show'] eq 2"}checked{/if} >定时发送</input>
+                                <input type="text" hidden="hidden" readonly='readonly' id="txtbeginDate" name="send_time" onclick="$.jeDate('#txtbeginDate',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">新闻正文：</label>
+                            <div class="input-group col-sm-8">
+
+                                <!-- 文本编辑器  开始 -->
+                                <input id='temp4' type='hidden'  value="{$news_list[0]['detail']}" />
+                                <div style="width: 99%;"><script id="editor4" name="editor4"  type="text/plain" style="width:100%;height:400px;"></script></div>
+                                <!-- 文本编辑器  结束-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">新闻关键字：</label>
+                            <div class="input-group col-sm-8">
+                                <input type="text" placeholder="新闻关键字" required="required" name="news_keyword" class="form-control" value="{$news_list[0]['keywords']}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">作者：</label>
+                            <div class="input-group col-sm-8">
+                                <input type="text" placeholder="作者" required="required" name="news_author" class="form-control" value="{$news_list[0]['author']}">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <!--<button class="btn btn-primary" style="margin-left:150px;" type="button" onclick="publish()">提交</button>-->
+                                <!--<button class="btn btn-primary" style="margin-left:150px;" type="submit" onclick="publish()">提交</button>-->
+                                <div id="btns">
+                                    <button class="btn btn-primary" style="margin-left:150px;" type="submit">提交</button>
+                                    <!--<button onclick="getContent()">获得内容</button>-->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/content.min.js?v=1.0.0"></script>
+<script src="__JS__/plugins/validate/jquery.validate.min.js"></script>
+
+<script src="__JS__/plugins/validate/messages_zh.min.js"></script>
+<script src="__JS__/plugins/iCheck/icheck.min.js"></script>
+<script src="__JS__/plugins/swee
+talert/sweetalert.min.js"></script>
+<!--layer插件-->
+<script src="__JS__/plugins/layer/laydate/laydate.js"></script>
+<script src="__JS__/plugins/suggest/bootstrap-suggest.min.js"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+<!--时间插件-->
+<script src="__JS__/jquery.min.js"></script>
+<script src="__JS__/jedate/jquery.jedate.js"></script>
+
+
+<script type="text/javascript">
+
+    $(function(){
+        //富文本编辑器开始
+        //实例化编辑器建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+        //视频上传
+        var ue = UE.getEditor('editor',{toolbars: [['insertvideo']]}); //视频
+        //3图上传
+        var ue1 = UE.getEditor('editor1',{toolbars: [['simpleupload']]}); //单图上传
+        //多图上传
+        var ue2 = UE.getEditor('editor2',{toolbars: [['insertimage']]});//多图上传
+        //banner图上传
+        var ue3 = UE.getEditor('editor3',{toolbars: [['insertimage']]}); //多图上传
+        //新闻正文
+        var ue4 = UE.getEditor('editor4');
+        //富文本编辑器结束
+
+        //获取新闻正文回显
+        ue4.ready(function()
+        {ue4.setContent($("#temp4").val());});
+        //获取banner图片回显
+        ue3.ready(function()
+        {ue3.setContent($("#temp3").val());});
+        //获取新闻多图回显
+        ue2.ready(function()
+        {ue2.setContent($("#temp1").val());});
+        //获取新闻单图回显
+        ue1.ready(function()
+        {ue1.setContent($("#temp0").val());});
+        //获取新闻视频回显
+        ue.ready(function()
+        {ue.setContent($("#temp2").val());});
+        //判断新闻资源类型  1:纯文本,2:单图,3多图,4:视频
+        var a = '{$news_list[0]['source_type']}';
+        if(a==1){
+            $("li[name='li_about']").attr('class','tab-pane active');
+            $("#about").attr('class','tab-pane self_file active');
+        }
+        if(a==2){
+            $("li[name='li_profile']").attr('class','tab-pane active');
+            $("#profile").attr('class','tab-pane self_file active');
+        }
+        if(a==3){
+            $("li[name='li_contact']").attr('class','tab-pane active');
+            $("#contact").attr('class','tab-pane self_file active');
+        }
+        if(a==4){
+            $("li[name='li_home']").attr('class','tab-pane active');
+            $("#home").attr('class','tab-pane self_file active');
+        }
+    })
+
+
+    //选择发布新闻到深度时触发
+    function show_deep() {
+        var input_num = $("input[name='zt[]']").length;
+//        $("#addr").append('<p class="deep_addr"> 深度中专题的位置： <input type="text" placeholder="选择深度时必填" name="vehicle" value="" class="deep_to"/></p>');
+        $("#addr").append('<p class="deep_addr"> 专题'+(input_num+1)+'： <input type="text" placeholder="选择深度时必填" name="zt[]" value="" class="deep_to"/> <a class="zt" href="javascript:void(0)" onclick="zt_add()">添加专题</a></p>');
+        $(".deep_from").attr('onclick','hide_deep()');
+    }
+    function hide_deep(){
+        $(".deep_addr").remove();
+        $(".deep_from").attr('onclick','show_deep()');
+    }
+    //添加专题
+    var seccond_num = $("#hid_deep").val();
+    var zt_num = seccond_num;
+    function zt_add(){
+        zt_num++;
+        $("#addr").append('<p class="deep_addr"> 专题'+ zt_num +'： <input type="text" placeholder="专题" name="zt[]" value="" class="deep_to"/></p>');
+    }
+    //定时发送按钮
+    function fixed_send(){
+        $("#txtbeginDate").removeAttr('hidden');
+    }
+    function right_send(){
+        $("#txtbeginDate").attr('hidden','hidden');
+    }
+    function save_send(){
+        $("#txtbeginDate").attr('hidden','hidden');
+    }
+    //是否可发布到banner
+    function banner_n(){
+        $(".banner_position").remove();
+        $(".self_banner").attr("hidden","hidden");
+    }
+    function banner_y(){
+        $("#editor3").before('<p class="banner_position">第 <input type="text" name="banner_sort" value="" /> 位</p>');
+        $(".self_banner").removeAttr('hidden');
+    }
+    //表单提交
+    //function toVaild(){
+    function getContent(){
+        var jz;
+//        var url = "./editSave";
+        var url = "http://www.daily.com/admin/newsmanage/editSave";
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:{'data' : $('#commentForm').serialize()},// 你的formid
+            async: false,
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            error: function(request) {
+                layer.close(jz);
+                swal("网络错误!", "", "error");
+            },
+            success: function(data) {
+                //关闭加载层
+                layer.close(jz);
+                if(data.code == 1){
+                    alert(JSON.stringify(data.msg));
+                    alert(data.msg);
+                    layer.msg(data.msg, {time : 1000});
+                    console.log(data.err_msg);
+//                    setTimeout("javascript:location.href='./publish'", 1000);
+                }else{
+                    console.log(data.err_msg);
+                    layer.msg(data.msg, {time : 1000});
+                }
+
+            }
+        });
+
+        return false;
+    }
+
+    //    //表单验证
+    //    $(document).ready(function(){
+    //        $(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green"});
+    //    });
+    //    $.validator.setDefaults({
+    //        highlight: function(e) {
+    //            $(e).closest(".form-group").removeClass("has-success").addClass("has-error")
+    //        },
+    //        success: function(e) {
+    //            e.closest(".form-group").removeClass("has-error").addClass("has-success")
+    //        },
+    //        errorElement: "span",
+    //        errorPlacement: function(e, r) {
+    //            e.appendTo(r.is(":radio") || r.is(":checkbox") ? r.parent().parent().parent() : r.parent())
+    //        },
+    //        errorClass: "help-block m-b-none",
+    //        validClass: "help-block m-b-none"
+    //    });
+
+
+</script>
+
+
+</body>
+</html>
+
+
+

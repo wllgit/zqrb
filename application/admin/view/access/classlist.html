@@ -1,0 +1,109 @@
+{include file="./header" title='班次列表'/}
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>班次列表</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="form-group clearfix col-sm-1">
+                <a href="./classAdd"><button class="btn btn-outline btn-primary" type="button">添加班次</button></a>
+            </div>
+            <!--搜索框结束-->
+            <div class="example-wrap">
+                <div class="example">
+                    <table id="cusTable">
+                        <thead>
+                        <th data-field="id">序号</th>
+                        <th data-field="name">班次名</th>
+                        <th data-field="start_time">上班时间</th>
+                        <th data-field="end_time">下班时间</th>
+                        <th data-field="restStartTime">午休开始时间</th>
+                        <th data-field="restEndTime">午休结束时间</th>
+                        <th data-field="operate">操作</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="./footer"}
+<script type="text/javascript">
+    function initTable() {
+        //先销毁表格
+        $('#cusTable').bootstrapTable('destroy');
+        //初始化表格,动态从服务器加载数据
+        $("#cusTable").bootstrapTable({
+            method: "get",  //使用get请求到服务器获取数据
+            url: "./classlist", //获取数据的地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [5, 10, 15, 20, 25],  //记录数可选列表
+            sidePagination: "server", //表示服务端请求
+            //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+            //设置为limit可以获取limit, offset, search, sort, order
+            queryParamsType : "undefined",
+            queryParams: function queryParams(params) {   //设置查询参数
+                var param = {
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    searchText:$('#username').val()
+                };
+                return param;
+            },
+            onLoadSuccess: function(){  //加载成功时执行
+                layer.msg("加载成功", {time : 1000});
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        //调用函数，初始化表格
+        initTable();
+
+        //当点击查询按钮的时候执行
+        $("#search").bind("click", initTable);
+    });
+    function changeAttitude(id){
+        var ati=$('#attitude').attr('value');
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "{:url('changeAttitude')}",
+            data: "id=" + id+"&attitude="+ ati,
+            success: function (data) {
+                if(data.code==1){
+                    alert('修改成功');
+                }else{
+                    alert('修改失败');
+                }
+            },
+            error: function (data) {
+                alert("请求超时!")
+            }
+        });
+    }
+    function userDel(id){
+        layer.confirm('确认删除此管理员?', {icon: 3, title:'提示'}, function(index){
+            //do something
+            $.getJSON('./userDel', {'id' : id}, function(res){
+                if(res.code == 1){
+                    layer.alert('删除成功');
+                    initTable();
+                }else{
+                    layer.alert('删除失败');
+                }
+            });
+
+            layer.close(index);
+        })
+
+    }
+</script>

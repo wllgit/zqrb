@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻发布</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__CSS__/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__CSS__/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__CSS__/animate.min.css" rel="stylesheet">
+    <link href="__CSS__/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__CSS__/style.min.css?v=4.1.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="__CSS__/fileup.css" type="text/css" />
+    <link rel="stylesheet" href="__CSS__/upload_file.css" type="text/css" />
+    <link href="__CSS__/adpublish.css?v=1.0.3" rel="stylesheet">
+    <link href="__CSS__/newspublish.css?v=1.0.3" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox-content">
+        <header class="panel-heading tab-bg-dark-navy-blue">
+            <h2 class="nav nav-tabs">新闻发布</h2>
+        </header>
+        <form class="form-horizontal m-t" id="commentForm" method="post" onsubmit="return getContent()">
+            <div class="form-group">
+                <div class="input-group col-sm-8" id="addr">
+                    <div class="news-position form-group">
+                        <label class="col-sm-2 control-label fb_posi" for="inputSuccess" style="padding-top: 0px;"><h3>新闻发布位置选择</h3></label>
+                        <input type="hidden" name="news_id" value="{$new_list[0]['id']}">
+                        <input type="hidden" name="column_flag1" value="{$flag[0]}">
+                        <input type="hidden" name="column_flag2" value="{$flag[1]}">
+                        <input type="hidden" name="column_flag3" value="{$flag[2]}">
+                        <input type="hidden" name="column_flag4" value="{$flag[3]}">
+                        <input type="hidden" name="img_style" value="{$new_list[0]['style']}">
+                        <div class="news checkbox-inline" >
+                            <div style="width: 100px;display: inline-block;">
+                                <p onclick="self_list_show()" class="list_p" >
+                                    <input id="check_new" class="" type="checkbox" name="publish_position[]" value="0"/> 新闻 <span class="banner_span"></span><span class="news_span"></span>
+                                </p>
+                            </div>
+                            <div class="btn-group" style="margin: -30px 0 0 35px;">
+                                <ul class="dropdown-menu self_menu" role="menu">
+                                    <li><a href="#" onclick="banner_select()">banner</a></li>
+                                    <li><a href="#" onclick="news_select()">新闻列表</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="deep" style="float: right;width: 80px;height: 50px;display: inline-block;">
+                            <p onclick="shows()" class="list_deep"  style="width: 500px;">
+                                <input id="check_deep" type="checkbox" name="publish_position[]" value="1" /> 深度
+                            </p>
+                            <div style="width: 500px;height: 20px;margin-left: 50px;margin-top: -30px;"  class="zt_cont">
+                                {if !empty($child_zt)}
+                                {foreach name="child_zt" item="vv"}
+                                    <input class="cont" style="border: 0;" name="zt[]" readonly value="{$vv['title']}" />
+                                {/foreach}
+                                {/if}
+                            </div>
+                            <div class="btn-group" style="margin: -40px 0 0 35px;">
+                                <ul class="dropdown-menu self_deep_menu" role="menu">
+                                    {if !empty($zt)}
+                                    {foreach name="zt" item="vo"}
+                                        <li><input type="checkbox" name="zt[]" value="{$vo['title']}">{$vo['title']}</li>
+                                    {/foreach}
+                                    {/if}
+                                    <li style="display: block;width: 130px;">
+                                        <div style="width: 120px;">
+                                            <a class="zt_conf" style="width: 30px;float: left;margin: 10px 0 10px 0;" href="#" onclick="zt_confirm_show()">确定</a>
+                                            <!--<a class="zt_conf" style="width: 30px;float: right;margin: 10px 0 10px 0;" href="#" onclick="zt_confirm_hid()">取消</a>-->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="hot" style="float: right;width: 80px;height: 50px;display: inline-block;">
+                            <p onclick="hot_shows()">
+                                <input id="check_hot" type="checkbox" name="publish_position[]" value="2" class="deep_from"/> 热点
+                            </p>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <div class="all_content" style="margin-top: 10px;height: 1400px;" hidden>
+                <!--banner-->
+                <div class="banner_content" hidden>
+                    <h4>上传banner图片</h4>
+                    <div class="ber_file" style="width: 360px;height: 70px;">
+                        {if condition="($new_list[0]['style'] == 0)"}
+                            <div>
+                                <div class="self_banner_img" hidden>
+                                    <input style="float: left;" type="file" name="bannerfile[]">
+                                    <span style="color: red;line-height: 25px;">请上传750*340尺寸的jpg图片文件</span>
+                                </div>
+                                {if !empty($banner_img[0]['sort'])}
+                                {if condition="($new_list[0]['style'] == 0)"}
+                                    <img class="del_banner_img" src="{$banner_img[0]['source_path'][0]}" style="width: 100px;" alt=""><a class="pic_banner" href="#" onclick="del_banner_pic()" style="margin-left: 20px;">修改</a>
+                                {/if}
+                                {/if}
+                            </div><br>
+                        {/if}
+                        <input type="file" name="bannerfile[]" style="float: left;width: 160px;" >
+                        <span style="float: right;line-height: 25px;margin-right: 98px;">请上传音频文件</span>
+                    </div>
+                    <div class="form-group" style="margin-top: 30px;">
+                        <label class="col-sm-5 control-label" style="margin-top: 10px;width: 160px;">请选择banner位置：</label>
+                        <div class="input-group col-sm-5" style="width: 100px;">
+                            <select  class="form-control slt"  name="banner_order"  style="margin-top: 5px;">
+                                {if !empty($banner_img[0]['sort'])}
+                                {if condition="($new_list[0]['style'] == 0)"}
+                                <option value="1" {if condition="$banner_img[0]['sort'][0] eq 1"}selected{/if} >1</option>
+                                <option value="2" {if condition="$banner_img[0]['sort'][0] eq 2"}selected{/if} >2</option>
+                                <option value="3" {if condition="$banner_img[0]['sort'][0] eq 3"}selected{/if} >3</option>
+                                <option value="4" {if condition="$banner_img[0]['sort'][0] eq 4"}selected{/if} >4</option>
+                                {/if}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--banner-->
+                <!--新闻-->
+                <div class="news_content" hidden>
+                    <div class="input-group col-sm-8">
+                        请选择新闻样式：
+                        <input  type="radio" value="1" required="required" class="wrap style_one" name="is_style" onclick="three_img()" {if condition="$new_list[0]['style'] eq 1"}checked{/if}>样式1<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                        <input  type="radio" value="2" required="required" class="wrap style_two"  name="is_style" onclick="one_img()" {if condition="$new_list[0]['style'] eq 2"}checked{/if}>样式2<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                        <input  type="radio" value="3" required="required" class="wrap style_three"  name="is_style" onclick="one_video()" {if condition="$new_list[0]['style'] eq 3"}checked{/if}>样式3<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                        <input  type="radio" value="4" required="required" class="wrap style_four"  name="is_style" onclick="texts()" {if condition="$new_list[0]['style'] eq 4"}checked{/if}>样式4<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                        <p class="inner">
+                            <img src="__IMG__/a1.jpg" />
+                        </p>
+                        <p class="inner">
+                            <img src="__IMG__/a2.jpg" />
+                        </p>
+                        <p class="inner">
+                            <img src="__IMG__/a3.jpg" />
+                        </p>
+                        <p class="inner">
+                            <img src="__IMG__/a4.jpg" />
+                        </p>
+                    </div>
+                    <div class="news_pic">
+                        {if condition="($new_list[0]['style'] == 1)"}
+                            <div style="margin-top: 20px;" class="three_img">
+                                <div class="self_img1" hidden>
+                                    <input style="float: left;" type="file" name="newsfile[]">
+                                    <span style="color: red;line-height: 25px;">请选择220*140的图片上传</span>
+                                </div>
+                                <img class="del_img1" src="{$news_img[0]['source_path'][0]}" style="width: 100px;" alt=""><a class="pic_a1" href="#" onclick="del_pic1(1)" style="margin-left: 20px;">修改</a>
+                            </div>
+                            <div style="margin-top: 20px;" class="three_img">
+                                <div class="self_img2" hidden>
+                                    <input style="float: left;" type="file" name="newsfile[]">
+                                    <span style="color: red;line-height: 25px;">请选择220*140的图片上传</span>
+                                </div>
+                                <img class="del_img2" src="{$news_img[0]['source_path'][1]}" style="width: 100px;" alt=""><a class="pic_a2" href="#" onclick="del_pic1(2)" style="margin-left: 20px;">修改</a>
+                            </div>
+                            <div style="margin-top: 20px;" class="three_img">
+                                <div class="self_img3" hidden>
+                                    <input style="float: left;" type="file" name="newsfile[]">
+                                    <span style="color: red;line-height: 25px;">请选择220*140的图片上传</span>
+                                </div>
+                                <img class="del_img3" src="{$news_img[0]['source_path'][2]}" style="width: 100px;" alt=""><a class="pic_a3" href="#" onclick="del_pic1(3)" style="margin-left: 20px;">修改</a>
+                            </div>
+                        {/if}
+                        {if condition="($new_list[0]['style'] == 2) or ($new_list[0]['style'] == 3)"}
+                            <div style="margin-top: 20px;" class="one_img">
+                                <div class="self_img" hidden>
+                                    <input style="float: left;" type="file" name="newsfile[]">
+                                    <span style="color: red;line-height: 25px;">请选择750*340的图片或视频上传</span>
+                                </div>
+                                <img src="{$news_img[0]['source_path'][0]}" style="width: 100px;" alt=""><a class="pic_a" href="#" onclick="del_pic()" style="margin-left: 20px;">修改</a>
+                            </div>
+                        {/if}
+                        <div class="video" style="margin: 20px 0 20px 0;">
+                            <input style="float: left;" type="file" name="newsfile[]">
+                            <span style="color: red;line-height: 25px;">选择音频文件</span>
+                        </div>
+                    </div>
+                </div>
+                <!--新闻-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="width: 160px;">标题：</label>
+                    <div class="input-group col-sm-8">
+                        <input type="text" placeholder="标题" required="required" name="news_title" class="form-control" value="{$new_list[0]['title']}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="width: 160px;">简介：</label>
+                    <div class="input-group col-sm-8">
+                        <input type="text" placeholder="简介" required="required" name="news_summary" class="form-control" value="{$new_list[0]['summary']}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="width: 160px;">正文：</label>
+                    <div class="input-group col-sm-8">
+                        <div class="input-group col-sm-8">
+                            <!-- 文本编辑器  开始 -->
+                            <textarea name="content" id="summernote" >{$new_list[0]['detail']}</textarea>
+                            <!-- 文本编辑器  结束-->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">权限设置：</label>
+                    <div class="input-group col-sm-8">
+                        <p><input type="checkbox" name="auth_discuss" value="1" {if condition="$new_list[0]['allow_comment'] eq 1"}checked{/if} /> 评论</p>
+                        <p><input type="checkbox" name="auth_forward" value="1" {if condition="$new_list[0]['allow_transmit'] eq 1"}checked{/if} /> 转发</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">相关新闻推送：</label>
+                    <div class="input-group col-sm-8">
+                        <select  class="form-control slt"  name="ts_order">
+                            <option value="1" {if condition="$new_list[0]['sort'] eq 1"}selected{/if} >1</option>
+                            <option value="2" {if condition="$new_list[0]['sort'] eq 2"}selected{/if} >2</option>
+                            <option value="3" {if condition="$new_list[0]['sort'] eq 3"}selected{/if} >3</option>
+                            <option value="4" {if condition="$new_list[0]['sort'] eq 4"}selected{/if} >4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否显示广告：</label>
+                    <div class="input-group col-sm-8">
+                        <input  type="radio" value="1" name="allow_ad" required="required" {if condition="$new_list[0]['allow_ad'] eq 1"}checked{/if} >是</input>
+                        <input  type="radio" value="0" name="allow_ad" required="required" {if condition="$new_list[0]['allow_ad'] eq 0"}checked{/if} >否</input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">新闻关键字：</label>
+                    <div class="input-group col-sm-8">
+                        <input type="text" placeholder="新闻关键字" required="required" name="news_keyword" class="form-control" value="{$new_list[0]['keywords']}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">作者：</label>
+                    <div class="input-group col-sm-8">
+                        <input type="text" placeholder="新闻作者" required="required" name="news_author" class="form-control" value="{$new_list[0]['author']}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="fixed_send" style="margin: 40px 0 0 160px;">
+                        <input type="radio" value="1" name="publish_time" required="required" {if condition="$new_list[0]['is_show'] eq 1"}checked{/if} >立即发布</input>
+                        <input type="radio" value="0" name="publish_time" required="required" {if condition="$new_list[0]['is_show'] eq 0"}checked{/if} >待发布</input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-3">
+                        <button class="btn btn-primary" style="margin-left:150px;" type="submit">提交</button>
+                        <!--<input class="btn btn-primary bt" type="button" value="提交" onclick="test()"/>-->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/content.min.js?v=1.0.0"></script>
+<script src="__JS__/plugins/validate/jquery.validate.min.js"></script>
+
+<script src="__JS__/plugins/validate/messages_zh.min.js"></script>
+<script src="__JS__/plugins/iCheck/icheck.min.js"></script>
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<!--layer插件-->
+<script src="__JS__/plugins/layer/laydate/laydate.js"></script>
+<script src="__JS__/plugins/suggest/bootstrap-suggest.min.js"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#summernote').summernote({
+            height:1200,
+            lang:'zh-CN',
+            placeholder: '',
+            toolbar: [
+                ['fontname', ['fontname']], //字体系列
+                ['style', ['bold', 'italic', 'underline', 'clear']], // 字体粗体、字体斜体、字体下划线、字体格式清除
+                ['font', ['strikethrough', 'superscript', 'subscript']], //字体划线、字体上标、字体下标
+                ['fontsize', ['fontsize']], //字体大小
+                ['color', ['color']], //字体颜色
+                ['style', ['style']],//样式
+                ['para', ['ul', 'ol', 'paragraph']], //无序列表、有序列表、段落对齐方式
+                ['height', ['height']], //行高
+                ['table',['table']], //插入表格
+                ['hr',['hr']],//插入水平线
+                //['link',['link']], //插入链接
+                ['picture',['picture']], //插入图片
+                // ['video',['video']], //插入视频
+                ['fullscreen',['fullscreen']], //全屏
+                ['codeview',['codeview']], //查看html代码
+                ['undo',['undo']], //撤销
+                ['redo',['redo']], //取消撤销
+                ['help',['help']], //帮助
+            ],
+            callbacks:{
+                onImageUpload:function (files) {
+                    var formdata = new FormData();
+                    formdata.append("image", files[0]);
+                    $.ajax({
+                        url: '/admin/newsmanage/test',
+                        method: 'POST',
+                        data:formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data['message']=='ok') {
+                                alert(data.message);
+                                $('#summernote').summernote('insertImage', data['payload']['imgPath']);
+                            }
+                            else{
+                                op.utils.toastr('插入图片失败','error');
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        //设置文本框的高度
+        $(".note-editable").attr('style','height:527px;');
+    })
+    $(function(){
+        //悬浮图片显示
+        var $ = function(id){
+            return document.getElementById(id);
+        };
+        var $t = function(tag, cot){
+            cot = cot || document;
+            return cot.getElementsByTagName(tag);
+        };
+        $t("label")[2].onmouseover = function(){
+            $t('p', this.parentNode)[0].style.display = 'block';
+        }
+        $t('label')[2].onmouseout = function(){
+            $t('p', this.parentNode)[0].style.display = 'none';
+        }
+        $t("label")[3].onmouseover = function(){
+            $t('p', this.parentNode)[1].style.display = 'block';
+        }
+        $t('label')[3].onmouseout = function(){
+            $t('p', this.parentNode)[1].style.display = 'none';
+        }
+        $t("label")[4].onmouseover = function(){
+            $t('p', this.parentNode)[2].style.display = 'block';
+        }
+        $t('label')[4].onmouseout = function(){
+            $t('p', this.parentNode)[2].style.display = 'none';
+        }
+        $t("label")[5].onmouseover = function(){
+            $t('p', this.parentNode)[3].style.display = 'block';
+        }
+        $t('label')[5].onmouseout = function(){
+            $t('p', this.parentNode)[3].style.display = 'none';
+        }
+    })
+    $(document).ready(function(){
+        if($("input[name='column_flag1']").val()==0){
+            self_list_show();
+            banner_select();
+            $("#check_new").prop("checked",true);
+        }
+        if($("input[name='column_flag2']").val()==1){
+            self_list_show();
+            news_select();
+            $("#check_new").prop("checked",true);
+        }
+        if($("input[name='column_flag3']").val()==2){
+            shows();
+            $("#check_deep").prop("checked",true);
+            $(".self_deep_menu").hide();
+//            $(".self_deep_menu").show();
+        }
+        if($("input[name='column_flag4']").val()==3){
+            hot_shows();
+            $("#check_hot").prop("checked",true);
+        }
+    });
+
+    //新闻
+    function self_list_show(){
+        $(".self_menu").show();
+        $(".list_p").attr('onclick','self_list_hide()');
+    }
+    function self_list_hide(){
+        $(".self_menu").hide();
+        $(".list_p").attr('onclick','self_list_show()');
+        $(".news_span").html('');
+        $(".banner_span").html('');
+    }
+    //发布至banner
+    function banner_select(){
+        $(".all_content").removeAttr('hidden');
+        $(".banner_content").removeAttr('hidden');
+        $(".news_content").remove();
+        $(".deep").hide();
+        $(".hot").hide();
+        $(".self_menu").hide();
+        $(".banner_span").html('banner');
+        $(".news_span").html('');
+    }
+    //发布至新闻列表
+    function news_select(){
+        $(".all_content").removeAttr('hidden');
+        $(".news_content").removeAttr('hidden');
+        $(".banner_content").attr('hidden','hidden');
+        $(".deep").show();
+        $(".hot").show();
+        $(".self_menu").hide();
+        $(".news_span").html('新闻列表');
+        $(".banner_span").html('');
+    }
+    //深度
+    function shows(){
+        $(".self_deep_menu").show();
+        $(".list_deep").attr('onclick','hid()');
+        $(".all_content").removeAttr('hidden');
+        $(".news_content").removeAttr('hidden');
+    }
+    function hid(){
+        $(".self_deep_menu").hide();
+        $(".list_deep").attr('onclick','shows()');
+        $(".cont").remove();
+    }
+    //选择深度时确认专题
+    function zt_confirm_show(){
+        $("input[name='zt[]']").each(function(){
+            var zt_ = $(this).val();
+            if ($(this).is(':checked')) {
+                $(".zt_cont").append('<span class="cont" style="margin-left: 10px;">'+zt_+'</span>');
+            }
+        });
+        $(".self_deep_menu").hide();
+    }
+    function zt_confirm_hid(){
+        $(".self_deep_menu").hide();
+    }
+    //热点
+    function hot_shows(){
+        $(".all_content").removeAttr('hidden');
+        $(".news_content").removeAttr('hidden');
+    }
+
+
+    //图片编辑
+    function del_pic1(num){
+        $(".self_img"+num).removeAttr('hidden');
+        $(".del_img"+num).remove();
+        $(".pic_a"+num).remove();
+    }
+    function del_pic(){
+        $(".self_img").removeAttr('hidden');
+        $("img").remove();
+        $(".pic_a").remove();
+    }
+    function del_banner_pic(){
+        $(".self_banner_img").removeAttr('hidden');
+        $(".del_banner_img").remove();
+        $(".pic_banner").remove();
+    }
+    //新闻列表页
+    function three_img(){
+        $(".video").before(' ' +
+            '<p class="three_img"><input style="float: left;" type="file" name="newsfile[]"><span style="color: red;line-height: 25px;">请选择220*140的图片上传</span></p>' +
+            '<p class="three_img"><input  type="file" name="newsfile[]"></p>'+
+            '<p class="three_img"><input  type="file" name="newsfile[]"></p>'
+        )
+        $(".one_img").remove();
+        $(".one_video").remove();
+        $(".self_img").remove();
+        $(".style_one").removeAttr('onclick');
+        $(".style_two").attr('onclick','one_img()');
+        $(".style_three").attr('onclick','one_video()');
+        $(".style_four").attr('onclick','texts()');
+    }
+    function one_img(){
+        $(".video").before(' ' +
+            '<p class="one_img"><input style="float: left;" type="file" name="newsfile[]"><span style="color: red;line-height: 25px;">请选择140*140的图片上传</span></p>'
+        )
+        $(".three_img").remove();
+        $(".one_video").remove();
+        $(".self_img").remove();
+        $(".style_two").removeAttr('onclick');
+        $(".style_one").attr('onclick','three_img()');
+        $(".style_three").attr('onclick','one_video()');
+        $(".style_four").attr('onclick','texts()');
+    }
+    function one_video(){
+        $(".video").before(' ' +
+            '<p class="one_video"><input style="float: left;" type="file" name="newsfile[]"><span style="color: red;line-height: 25px;">请选择750*340的图片或者视频上传</span></p>'
+        )
+        $(".three_img").remove();
+        $(".one_img").remove();
+        $(".self_img").remove();
+        $(".style_three").removeAttr('onclick');
+        $(".style_one").attr('onclick','three_img()');
+        $(".style_two").attr('onclick','one_img()');
+        $(".style_four").attr('onclick','texts()');
+    }
+    function texts(){
+        $(".one_img").remove();
+        $(".one_video").remove();
+        $(".three_img").remove();
+        $(".style_four").removeAttr('onclick');
+        $(".style_one").attr('onclick','three_img()');
+        $(".style_two").attr('onclick','one_img()');
+        $(".style_three").attr('onclick','one_video()');
+    }
+    //表单提交
+    function getContent(){
+        var jz;
+        var url = "__URL__/newsmanage/editSave";
+        var form = new FormData(document.getElementById("commentForm"));
+        $.ajax({
+            url:url,
+            type:"post",
+            data:form,
+            async: false,
+            processData:false,
+            contentType:false,
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            error: function(request) {
+                layer.close(jz);
+                swal("网络错误!", "", "error");
+            },
+            success: function(data) {
+                //关闭加载层
+                layer.close(jz);
+                if(data.code == 1){
+                    alert(data.msg);
+                    layer.msg(data.msg, {time : 1000});
+                    console.log(data.err_msg);
+                }else{
+                    console.log(data.err_msg);
+                    layer.msg(data.msg, {time : 1000});
+                }
+            }
+        });
+        return false;
+    }
+</script>
+</body>
+</html>
+
+
+

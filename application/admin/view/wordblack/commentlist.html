@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Editable Table</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/__BOOT__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/__BOOT__/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="/__BOOT__/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/__BOOT__/assets/data-tables/DT_bootstrap.css" />
+    <!-- Custom styles for this template -->
+    <link href="/__BOOT__/css/style.css" rel="stylesheet">
+    <link href="/__BOOT__/css/style-responsive.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/__BOOT__/js/html5shiv.js"></script>
+    <script src="/__BOOT__/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!--自定义样式-->
+    <style>
+        #main-content{margin-left:0px;}
+        .wrapper{margin-top:0px;}
+        .custom_cls{width: 120px;}
+        .pull-right{width: 100px;}
+        .slt{width: 90px;}
+        .self_selct{padding-left: 0px;width: 180px;}
+        .self_topic_left{float: right;line-height: 33px;}
+        .self_topic{float: right;line-height: 30px;margin-left: 30px;}
+        .self_topic_selct{float: left;}
+        #self_do{text-align: center;}
+    </style>
+</head>
+
+<body>
+<section id="container" class="">
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper site-min-height">
+            <!-- page start-->
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="adv-table editable-table ">
+                        <div class="clearfix">
+                            <form role="form" id="comForm" action="/admin/wordblack/commentlist" method="get">
+                            <div class="btn-group">
+                                <header class="panel-heading">
+                                    评论列表
+                                </header>
+                                <br>
+                                <div class="col-lg-10 self_selct">
+                                    <div class="self_topic_left">评论分类</div>
+                                    <div class="self_topic_selct">
+                                        <select  class="form-control slt" id="self_selct_id" onchange="window.location=this.value"  name="column_order">
+                                            <option {if condition="$column[0]==1" }selected{/if} value="{:url('admin/Wordblack/commentlist')}?level=1">一级评论</option>
+                                            <option {if condition="$column[0]==2" }selected{/if} value="{:url('admin/Wordblack/commentlist')}?level=2">二级评论</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="width: 400px" role="form" class="form-inline pull-right">
+                                <div class="content clearfix m-b" style="margin-top: 25px">
+                                    <div class="form-group">
+                                        <label style="float: left;margin-top: 5px">评论内容：</label>
+                                        <input style="float: right" type="text" class="form-control" id="comment" name="comment">
+                                    </div>
+                                    <button class="btn button_btn bg-deep-blue " onclick="this.form.submit()" type="button"><i class="fa  fa-search"></i>&nbsp;搜索</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        <table class="table table-striped table-hover table-bordered">
+                            <colgroup>
+                                <col width="10">
+                                <col width="60%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>评论内容</th>
+                                <th>评论级</th>
+                                <th>评论时间</th>
+                                <!--<th>推广周期</th>-->
+                                <!--<th>发布人</th>-->
+                                <th id="self_do">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {if !empty($list)}
+                            {foreach name="list" item="vo"}
+                            <tr class="">
+                                <td>{$key+1}</td>
+                                <td>{$vo['comment']}</td>
+                                <td>{$vo['level']}</td>
+                                <td>{$vo['create_time']}</td>
+                                <!--<td class="center"></td>-->
+                                <!--<td><a class="edit" href="javascript:;"></a></td>-->
+                                <td class="custom_cls">
+                                    <div class="pull-right hidden-phone">
+
+                                        <?php if($vo['is_show'] == 1){ ?>
+                                        <button onclick="is_show(this,'{$vo.id}',0,'{$vo.level}','{$vo.news_id}');" class="btn btn-danger btn-xs del"><a href="">隐藏</a></button>
+                                        <?php }else{ ?>
+                                        <button onclick="is_show(this,'{$vo.id}',1,'{$vo.level}','{$vo.news_id}');" class="btn btn-success btn-xs del"><a href="">通过</a></button>
+                                        <?php } ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/if}
+                            </tbody>
+                        </table>
+                        {$list->render()}
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+    <footer class="site-footer">
+        <div class="text-center">
+            2013 &copy; FlatLab by VectorLab.
+            <a href="#" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+</section>
+<script src="/__BOOT__/js/jquery-1.8.3.min.js"></script>
+<script src="/__BOOT__/js/bootstrap.min.js"></script>
+<script class="include" type="text/javascript" src="/__BOOT__/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/__BOOT__/js/jquery.scrollTo.min.js"></script>
+<script src="/__BOOT__/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script type="text/javascript" src="/__BOOT__/assets/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/__BOOT__/assets/data-tables/DT_bootstrap.js"></script>
+<script src="/__BOOT__/js/respond.min.js" ></script>
+<script src="/__BOOT__/js/common-scripts.js"></script>
+<script src="/__BOOT__/js/editable-table.js"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        EditableTable.init();
+    });
+    $(function() {
+        $(".pub").click(function(){
+            alert("将新闻选择移动到待发布内");
+        })
+        $(".self_btn_time").click(function(){
+            alert("按照发布时间展示");
+        })
+        $(".medium").attr("placeholder","搜索");
+    });
+    //更改栏目以及主题是改变
+    function upperCase(x)
+    {
+        var y=document.getElementById(x).value
+        document.getElementById(x).value=y.toUpperCase()
+        alert(y);
+    }
+    //
+    function downline(id){
+        layer.confirm("确认要下线吗", { title: "下线确认" }, function (index) {
+            layer.close(index);
+            var jz;
+            var url = "/admin/advermanage/adDownline";
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:{'id' : id},
+                async: false,
+                beforeSend:function(){
+                    jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+                },
+                error: function(request) {
+                    layer.close(jz);
+                    swal("网络错误!", "", "error");
+                },
+                success: function(data) {
+                    //关闭加载层
+                    layer.close(jz);
+                    if(data.code == 1){
+                        layer.msg(data.msg, {time : 1000});
+                        setTimeout("javascript:history.back()", 1000);
+                    }else{
+                        console.log(data.err_msg);
+                        layer.msg(data.msg, {time : 1000});
+                    }
+                }
+            })
+            return false;
+        });
+    }
+    //暂时没用到
+    function getContent(){
+        var jz;
+        var url = "/admin/advermanage/advertisementPublish";
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:{'data' : $('#commentForm').serialize()},
+            async: false,
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            error: function(request) {
+                layer.close(jz);
+                swal("网络错误!", "", "error");
+            },
+            success: function(data) {
+                //关闭加载层
+                layer.close(jz);
+                if(data.code == 1){
+                    layer.msg(data.msg, {time : 1000});
+                    console.log(data.err_msg);
+                    //setTimeout("javascript:location.href='./advertisementPublish'", 1000);
+                }else{
+                    console.log(data.err_msg);
+                    layer.msg(data.msg, {time : 1000});
+                }
+            }
+        })
+        return false;
+    }
+
+    function is_show(obj,id,type,level,news_id) {
+        var data = {'id':id,'type':type,'level':level,'news_id':news_id};
+        var url = '/admin/wordblack/isShow';
+
+        $.post(url,data,function(data){
+            var info = $.parseJSON(data);
+            if (info.isSuccess!=0) {
+                layer.msg('成功!',{icon: 6,time:1000});
+            }else{
+                layer.msg('失败!',{icon: 6,time:1000});
+            };
+
+        });
+    }
+</script>
+</body>
+</html>

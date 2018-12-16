@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻发布</title>
+    <link href="__CSS__/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__CSS__/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__CSS__/animate.min.css" rel="stylesheet">
+    <link href="__CSS__/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__CSS__/style.min.css?v=4.1.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!--日期插件样式-->
+    <link rel="stylesheet" href="__JS__/jedate/jedate.css" type="text/css" />
+    <!-- 富文本编辑开始-->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.config.js"></script>
+    <!--<script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.all.min.js"> </script>-->
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.all.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/lang/zh-cn/zh-cn.js"></script>
+
+    <style type="text/css">
+        div{
+            width:100%;
+        }
+    </style>
+    <!-- 富文本编辑结束-->
+
+    <style>
+        .slt{width: 80px!important;height: 21px;padding: 0;margin: 0;}
+        .col-sm-2{padding-top: 0px!important;}
+        .fileImage{display: inline-block!important;}
+        .self_file{width: 1080px!important;}
+        .self_main_three{height: 302px!important;}
+        .self_main_multi{height: 502px!important;}
+        .upload_append_list{height:140px!important; padding:0 1em; float:left; position:relative;}
+        .banner_pic{float: left!important;display: inline-block;width: 560px;margin-top: 10px;}
+        .news_pic{float: left!important;display: inline-block;width: 560px;margin-top: 10px;}
+        .btn{width: 30px;margin-left: -135px;margin-top: 20px;}
+        .bt{width: 50px;}
+        .ss{margin-left: 210px;}
+        .sel_lab{width:128px;}
+        .start_img{width: 800px;}
+
+        /* 鼠标悬浮显示图片*/
+        .wrap {position:relative;}
+        .inner {display:none;position:absolute; top:30px; left:100px;width:100px; height:100px;border:0px solid #000;background:#fff;z-index: 999}
+    </style>
+
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="commentForm" method="post" onsubmit="return getContent()">
+                    <!--<form class="form-horizontal m-t" id= "commentForm" method= "post" enctype ="multipart/form-data" onsubmit="return getContent()">-->
+                    <!--<form class="form-horizontal m-t" id= "tijiao">-->
+                        <input type="hidden" id="pub1" name="hid_pub1" value="{$list[0]['type']}">
+                        <input type="hidden" id="pub2" name="hid_pub2" value="{$list[0]['type']}">
+                        <input type="hidden" id="pub3" name="hid_pub3" value="{$list[0]['type']}">
+                        <input type="hidden" name="id" value="{$list[0]['id']}">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">广告发布位置：</label>
+                            <div class="input-group col-sm-8">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <section class="panel">
+                                            <header class="panel-heading tab-bg-dark-navy-blue">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="{if condition="$list[0]['type']==0" }active{else /}hidden{/if}">
+                                                    <a data-toggle="tab" href="#about" name="mode">启动页</a>
+                                                    </li>
+                                                    <li class="{if condition="$list[0]['type']==1" }active{else /}hidden{/if}">
+                                                    <a data-toggle="tab" href="#home" name="mode">banner</a>
+                                                    </li>
+                                                    <li class="{if condition="$list[0]['type']==2" }active{else /}hidden{/if}">
+                                                    <a data-toggle="tab" href="#profile" class="c_mod" name="mode" >新闻列表</a>
+                                                    </li>
+                                                </ul>
+                                            </header>
+                                            <div class="panel-body">
+
+                                                <div class="tab-content">
+                                                    <div id="about" class="tab-pane {if condition="$list[0]['type']==0" }active{/if}">
+                                                    <h4>上传广告图片</h4>
+                                                    <div class="start_img">
+                                                        {if !empty($source[0]['pic_path'])}<img src="{$source[0]['pic_path'][0]}" style="width: 100px;" alt=""><a class="pic_a" href="#" onclick="del_pic()" style="margin-left: 20px;">修改</a>{/if}
+                                                        <div class="self_img" hidden>
+                                                            <input style="float: left;" type="file" name="startfile">
+                                                            <span style="color: red;line-height: 25px;">请上传750*1334尺寸的jpg图片或者750*1334尺寸flash文件</span>
+                                                        </div>
+                                                    </div>
+                                                    <div style="margin-top: 30px;margin-left: -10px;">
+                                                        <label class="col-sm-4 control-label">请选择启动页位置：</label>
+                                                        <div class="input-group col-sm-7 fixed_send">
+                                                            <select  class="form-control slt"  name="start_position">
+                                                                <option value="1" {if condition="$list[0]['position'] eq 1"}selected{/if}>1</option>
+                                                                <option value="2" {if condition="$list[0]['position'] eq 2"}selected{/if}>2</option>
+                                                                <option value="3" {if condition="$list[0]['position'] eq 3"}selected{/if}>3</option>
+                                                                <option value="4" {if condition="$list[0]['position'] eq 4"}selected{/if}>4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div style="margin-top: 60px;">
+                                                        推广周期:
+                                                        <input type="text" name="start_stime" readonly='readonly' id="txtbeginDate" onclick="$.jeDate('#txtbeginDate',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="{$list[0]['circle_time_start']}" >
+                                                        至
+                                                        <input type="text" name="start_etime" readonly='readonly' id="txtEndDate" onclick="$.jeDate('#txtEndDate',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="{$list[0]['circle_time_start']}" >
+                                                    </div>
+                                                    <div style="margin-top: 40px;margin-left: -10px;">
+                                                        <div class="input-group col-sm-7 fixed_send">
+                                                            <input type="radio" value="2" {if condition="$list[0]['is_show'] eq 1"}checked{/if} name="publish1" >立即发布</input>
+                                                            <input type="radio" value="1" {if condition="$list[0]['is_show'] eq 0"}checked{/if} name="publish1" >待发布</input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ss">
+                                                        <input class="btn btn-primary bt" type="button" value="提交" onclick="test();"/>
+                                                    </div>
+                                                </div>
+                                                <div id="home" class="tab-pane  {if condition="$list[0]['type']==1" }active{/if}">
+                                                <h4>上传广告图片</h4>
+                                                <!--<div class="banner_pic">-->
+                                                <!--<input style="float: left;" type="file" name="bannerfile">-->
+                                                <!--<span style="color: red;line-height: 25px;">请选择750*300的图片上传</span>-->
+                                                <!--</div>-->
+                                                <div class="start_img">
+                                                    {if !empty($source[0]['pic_path'][0])}
+                                                    <img src="{$source[0]['pic_path'][0]}" style="width: 100px;" alt=""><a class="pic_a" href="#" onclick="del_pic()" style="margin-left: 20px;">修改</a>
+                                                    {/if}
+                                                    <div class="self_img" hidden>
+                                                        <input style="float: left;" type="file" name="bannerfile">
+                                                        <span style="color: red;line-height: 25px;">请选择750*300的图片上传</span>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-top: 60px;margin-left: -10px;">
+                                                    <label class="col-sm-5 control-label">请选择banner位置：</label>
+                                                    <div class="input-group col-sm-7 fixed_send">
+                                                        <select  class="form-control slt"  name="banner_position">
+                                                            <option value="1" {if condition="$list[0]['position'] eq 1"}selected{/if} >1</option>
+                                                            <option value="2" {if condition="$list[0]['position'] eq 2"}selected{/if} >2</option>
+                                                            <option value="3" {if condition="$list[0]['position'] eq 3"}selected{/if} >3</option>
+                                                            <option value="4" {if condition="$list[0]['position'] eq 4"}selected{/if} >4</option>
+                                                            <option value="5" {if condition="$list[0]['position'] eq 5"}selected{/if} >5</option>
+                                                            <option value="6" {if condition="$list[0]['position'] eq 6"}selected{/if} >6</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-top: 40px;margin-left: -10px;">
+                                                    <div class="input-group col-sm-7 fixed_send">
+                                                        <input type="radio" value="0" {if condition="$list[0]['state'] eq 0"}checked{/if}  name="bner_show" onclick="url_y()">填写链接地址</input>
+                                                        <input type="radio" value="1" {if condition="$list[0]['state'] eq 1"}checked{/if}  name="bner_show" onclick="url_n()">填写新闻详情</input>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-top: 10px;" class="hid_url" {if condition="$list[0]['state'] eq 1"}hidden{/if}>
+                                                请输入链接地址: <input type="text" name="baner_url" value="{$list[0]['out_url']}"> <a href="#" onclick="a_del()">清空</a>
+                                            </div>
+                                            <div style="margin-top: 10px;" class="hid_cont" {if condition="$list[0]['state'] eq 0"}hidden{/if}>
+                                            <p>标题： <input type="text" name="baner_title" value="{$list[0]['title']}"></p>
+                                            <p>简介： <textarea name="baner_summary"  cols="80" rows="3">{$list[0]['summary']}</textarea></p>
+                                            <p>正文： <textarea name="baner_cont" cols="80" rows="6">{$list[0]['description']}</textarea></p>
+                                    </div>
+                                    <div style="margin-top: 10px;">
+                                        推广周期:
+                                        <input type="text" name="banner_stime" readonly='readonly' id="txtbeginDate2" onclick="$.jeDate('#txtbeginDate2',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="{$list[0]['circle_time_start']}">
+                                        至
+                                        <input type="text" name="banner_etime" readonly='readonly' id="txtbeginDate3" onclick="$.jeDate('#txtbeginDate3',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="{$list[0]['circle_time_start']}">
+                                    </div>
+                                    <div style="margin-top: 40px;margin-left: -10px;">
+                                        <div class="input-group col-sm-7 fixed_send">
+                                            <input type="radio" {if condition="$list[0]['is_show'] eq 1"}checked{/if} value="4" name="publish2" >立即发布</input>
+                                            <input type="radio" {if condition="$list[0]['is_show'] eq 0"}checked{/if} value="3" name="publish2" >待发布</input>
+                                        </div>
+                                    </div>
+                                    <div class="ss">
+                                        <input class="btn btn-primary bt" type="button" value="提交" onclick="test();"/>
+                                    </div>
+                                </div>
+                                <div id="profile" class="tab-pane self_file  {if condition="$list[0]['type']==2" }active{/if}">
+                                <div class="input-group col-sm-8">
+                                    请选择广告列表样式：
+                                    <input  type="radio" value="1" class="wrap style_one" name="is_style" onclick="three_img()" {if condition="$list[0]['style'] eq 1"}checked{/if} >样式1<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                                    <input  type="radio" value="2" class="wrap style_two"  name="is_style" onclick="one_img()" {if condition="$list[0]['style'] eq 2"}checked{/if} >样式2<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                                    <input  type="radio" value="3" class="wrap style_three"  name="is_style" onclick="one_video()" {if condition="$list[0]['style'] eq 3"}checked{/if} >样式3<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                                    <div class="inner">
+                                        <img src="__IMG__/a1.jpg" />
+                                    </div>
+                                    <div class="inner">
+                                        <img src="__IMG__/a2.jpg" />
+                                    </div>
+                                    <div class="inner">
+                                        <img src="__IMG__/a3.jpg" />
+                                    </div>
+                                </div>
+                                <div class="start_img">
+                                    {if condition="($list[0]['style'] == 1) AND ($source[0]['pic_num'] > 1) "}
+                                    <div>
+                                        <div class="self_img1" hidden>
+                                            <input style="float: left;" type="file" name="newsfile[]">
+                                            <span style="color: red;line-height: 25px;">请选择750*300的图片上传</span>
+                                        </div>
+                                        {if !empty($source[0]['pic_path'][0])}
+                                        <img class="del_img1" src="{$source[0]['pic_path'][0]}" style="width: 100px;" alt=""><a class="pic_a1" href="#" onclick="del_pic1(1)" style="margin-left: 20px;">修改</a>
+                                        {/if}
+                                    </div><br>
+                                    <div>
+                                        <div class="self_img2" hidden>
+                                            <input style="float: left;" type="file" name="newsfile[]">
+                                            <span style="color: red;line-height: 25px;">请选择750*300的图片上传</span>
+                                        </div>
+                                        {if !empty($source[0]['pic_path'][0])}
+                                        <img class="del_img2" src="{$source[0]['pic_path'][1]}" style="width: 100px;" alt=""><a class="pic_a2" href="#" onclick="del_pic1(2)" style="margin-left: 20px;">修改</a></div><br>
+                                        {/if}
+                                    <div>
+                                        <div class="self_img3" hidden>
+                                            <input style="float: left;" type="file" name="newsfile[]">
+                                            <span style="color: red;line-height: 25px;">请选择750*300的图片上传</span>
+                                        </div>
+                                        {if !empty($source[0]['pic_path'][0])}
+                                        <img class="del_img3" src="{$source[0]['pic_path'][2]}" style="width: 100px;" alt=""><a class="pic_a3" href="#" onclick="del_pic1(3)" style="margin-left: 20px;">修改</a></div>
+                                        {/if}
+                                    {else /}
+                                    <div class="self_img" hidden>
+                                        <input style="float: left;" type="file" name="newsfile">
+                                        <span style="color: red;line-height: 25px;">请选择750*300的图片上传</span>
+                                    </div>
+                                    {if !empty($source[0]['pic_path'][0])}
+                                    <img src="{$source[0]['pic_path'][0]}" style="width: 100px;" alt=""><a class="pic_a" href="#" onclick="del_pic()" style="margin-left: 20px;">修改</a>
+                                    {/if}
+                                    {/if}
+                                </div>
+                                <div class="news_pic">
+                                </div>
+                                <div style="margin-top: 10px;margin-left: -40px;width: 610px;;">
+                                    <label class="col-sm-2 control-label sel_lab">请选择广告位置：</label>
+                                    <select  class="form-control slt"  name="ad_position">
+                                        <option value="1" {if condition="$list[0]['posi_type'] eq 1"}selected{/if}>起始页</option>
+                                        <option value="2" {if condition="$list[0]['posi_type'] eq 2"}selected{/if}>banner</option>
+                                        <option value="3" {if condition="$list[0]['posi_type'] eq 3"}selected{/if}>新闻列表</option>
+                                        <option value="4" {if condition="$list[0]['posi_type'] eq 4"}selected{/if}>新闻详情</option>
+                                        <option value="5" {if condition="$list[0]['posi_type'] eq 5"}selected{/if}>热点</option>
+                                        <option value="6" {if condition="$list[0]['posi_type'] eq 6"}selected{/if}>深度</option>
+                                    </select>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    栏目第 <input type="text" name="ad_sort" placeholder="请输入数字" value="{$list[0]['position']}"> 条新闻列表前
+                                </div>
+                                <div style="margin-top: 40px;margin-left: -10px;">
+                                    <div class="input-group col-sm-7 fixed_send">
+                                        <input type="radio" value="0" {if condition="$list[0]['state'] eq 0"}checked{/if} name="ad_state" onclick="url_y()">填写链接地址</input>
+                                        <input type="radio" value="1" {if condition="$list[0]['state'] eq 1"}checked{/if} name="ad_state" onclick="url_n()">填写新闻详情</input>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 10px;" class="hid_url" {if condition="$list[0]['state'] eq 1"}hidden{/if}>
+                                请输入链接地址: <input type="text" name="news_url" value="{$list[0]['out_url']}"> <a href="#" onclick="a_del()">清空</a>
+                            </div>
+                            <div style="margin-top: 10px;" class="hid_cont"  {if condition="$list[0]['state'] eq 0"}hidden{/if}>
+                            <p>标题： <input type="text" name="news_title" value="{$list[0]['title']}"></p>
+                            <p> 简介： <textarea name="news_summary"  cols="80" rows="3">{$list[0]['summary']}</textarea></p>
+                            <p>正文： <textarea name="news_cont"  cols="80" rows="6">{$list[0]['description']}</textarea></p>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            推广周期:
+                            <input type="text" name="new_stime" readonly='readonly' id="txtbeginDate5" onclick="$.jeDate('#txtbeginDate5',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="{$list[0]['circle_time_start']}">
+                            至
+                            <input type="text" name="news_etime" readonly='readonly' id="txtbeginDate4" onclick="$.jeDate('#txtbeginDate4',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="{$list[0]['circle_time_start']}">
+                        </div>
+                        <div style="margin-top: 40px;margin-left: -10px;">
+                            <div class="input-group col-sm-7 fixed_send">
+                                <input type="radio" value="6" {if condition="$list[0]['is_show'] eq 1"}checked{/if} name="publish3" >立即发布</input>
+                                <input type="radio" value="5" {if condition="$list[0]['is_show'] eq 0"}checked{/if} name="publish3" >待发布</input>
+                            </div>
+                        </div>
+                        <div class="ss">
+                            <!--<input class="btn btn-primary bt" type="button" value="提交" onclick="test();"/>-->
+                            <button class="btn btn-primary" style="margin-left:150px;" type="submit">提交</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </section>
+    </div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/content.min.js?v=1.0.0"></script>
+<script src="__JS__/plugins/validate/jquery.validate.min.js"></script>
+<script src="__JS__/plugins/validate/messages_zh.min.js"></script>
+<script src="__JS__/plugins/iCheck/icheck.min.js"></script>
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<!--layer插件-->
+<script src="__JS__/plugins/layer/laydate/laydate.js"></script>
+<script src="__JS__/plugins/suggest/bootstrap-suggest.min.js"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+<!--时间插件-->
+<script src="__JS__/jquery.js"></script>
+<script src="__JS__/jedate/jquery.jedate.js"></script>
+<script type="text/javascript">
+
+    $(function(){
+        //悬浮图片显示
+        var $ = function(id){
+            return document.getElementById(id);
+        };
+        var $t = function(tag, cot){
+            cot = cot || document;
+            return cot.getElementsByTagName(tag);
+        };
+        $t("label")[3].onmouseover = function(){
+            $t('p', this.parentNode)[0].style.display = 'block';
+        }
+        $t('label')[3].onmouseout = function(){
+            $t('p', this.parentNode)[0].style.display = 'none';
+        }
+        $t("label")[4].onmouseover = function(){
+            $t('p', this.parentNode)[1].style.display = 'block';
+        }
+        $t('label')[4].onmouseout = function(){
+            $t('p', this.parentNode)[1].style.display = 'none';
+        }
+        $t("label")[5].onmouseover = function(){
+            $t('p', this.parentNode)[2].style.display = 'block';
+        }
+        $t('label')[5].onmouseout = function(){
+            $t('p', this.parentNode)[2].style.display = 'none';
+        }
+    })
+
+    //$(function(){
+    //广告类型
+    var type = $("#pub1").val();
+//    var type2 = $("#pub2").val();
+//    var type3 = $("#pub3").val();
+    if(type == 0){
+        $("#home").remove();
+        $("#profile").remove();
+    };
+    if(type == 1){
+        $("#about").remove();
+        $("#profile").remove();
+    };
+    if(type == 2){
+        $("#about").remove();
+        $("#home").remove();
+    };
+    //})
+
+
+
+    //提交保单
+    function getContent(){
+        var jz;
+        var url = "__URL__/advermanage/editadvertise";
+        var form = new FormData(document.getElementById("commentForm"));
+        $.ajax({
+            url:url,
+            type:"POST",
+            data:form,
+            async: false,
+            processData:false,
+            contentType:false,
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            error: function(request) {
+                layer.close(jz);
+                swal("网络错误!", "", "error");
+            },
+            success: function(data) {
+                //关闭加载层
+                layer.close(jz);
+                if(data.code == 1){
+                    layer.msg(data.msg, {time : 1000});
+                    console.log(data.err_msg);
+                }else{
+                    console.log(data.err_msg);
+                    layer.msg(data.msg, {time : 1000});
+                }
+
+            }
+        })
+        return false;
+    }
+
+    //
+    function del_pic1(num){
+        $(".self_img"+num).removeAttr('hidden');
+        $(".del_img"+num).remove();
+        $(".pic_a"+num).remove();
+    }
+
+    //编辑图片
+    function del_pic(){
+        $(".self_img").removeAttr('hidden');
+        $("img").remove();
+        $(".pic_a").remove();
+    }
+
+    //新闻列表页
+    function three_img(){
+        $(".news_pic").append(' ' +
+            '<p class="three_img"><input style="float: left;" type="file" name="newsfile[]"><span style="color: red;line-height: 25px;">请选择220*140的图片上传</span></p>' +
+            '<p class="three_img"><input  type="file" name="newsfile[]"></p>'+
+            '<p class="three_img"><input  type="file" name="newsfile[]"></p>'
+        )
+        $(".one_img").remove();
+        $(".one_video").remove();
+        $(".self_img").remove();
+        $(".style_one").removeAttr('onclick');
+        $(".style_two").attr('onclick','one_img()');
+        $(".style_three").attr('onclick','one_video()');
+    }
+    function one_img(){
+        $(".news_pic").append(' ' +
+            '<p class="one_img"><input style="float: left;" type="file" name="newsfile"><span style="color: red;line-height: 25px;">请选择140*140的图片上传</span></p>'
+        )
+        $(".three_img").remove();
+        $(".one_video").remove();
+        $(".self_img").remove();
+        $(".style_two").removeAttr('onclick');
+        $(".style_one").attr('onclick','three_img()');
+        $(".style_three").attr('onclick','one_video()');
+    }
+    function one_video(){
+        $(".news_pic").append(' ' +
+            '<p class="one_video"><input style="float: left;" type="file" name="newsfile"><span style="color: red;line-height: 25px;">请选择750*340的图片或者视频上传</span></p>'
+        )
+        $(".three_img").remove();
+        $(".one_img").remove();
+        $(".self_img").remove();
+        $(".style_three").removeAttr('onclick');
+        $(".style_one").attr('onclick','three_img()');
+        $(".style_two").attr('onclick','one_img()');
+    }
+
+
+    //链接
+    function url_y(){
+        $(".hid_url").removeAttr('hidden');
+        $(".hid_cont").attr('hidden','hidden');
+    }
+    function url_n(){
+        $(".hid_cont").removeAttr('hidden');
+        $(".hid_url").attr('hidden','hidden');
+    }
+
+    //是否可发布到启动页
+    function start_n(){
+        $(".start_position").remove();
+        $(".self_start").attr("hidden","hidden");
+        $(".s_y").attr('onclick','start_y()');
+        $(".sel_baner").show();
+    }
+    function start_y(){
+        $(".self_start").append(
+            '<br><div class="start_position">第 <input type="text" name="start_sort" value="" /> 位</div>' +
+            '<div style="width: 300px;height: 30px;display: inline-block;" class="start_position">' +
+            '<div style="float: right;width: 300px;">' +
+            '<br><input style="float: left;" type="file" name="startfile[]"/>' +
+            '<a style="float: right;line-height: 30px;margin-left: 20px;" href="#" onclick="add_start_img()" ">添加</a>' +
+            '<a style="float: right;line-height: 30px;" href="#" class="del_s" onclick="del_start_img()">删除</a>' +
+            '</div>'+
+            '</div><br><br>'
+        );
+        $(".self_start").removeAttr('hidden');
+        $(".s_y").attr('onclick','start_n()');
+        $(".sel_baner").hide();
+    }
+
+    function add_start_img() {
+        var s_num = $(".self_start p").length;
+        if(s_num==0){
+            $(".del_s").show();
+        }
+        $(".self_start").append('<p class="start_position"><input type="file" name="startfile[]"/></p>');
+    }
+    function del_start_img() {
+        var s_num = $(".self_start p").length;
+        $(".self_start p").last().remove();
+        if(s_num==1){
+            $(".del_s").hide();
+        }
+    }
+
+    //是否可发布到banner
+    function banner_n(){
+        $(".banner_position").remove();
+        $(".self_banner").attr("hidden","hidden");
+        $(".b_y").attr('onclick','banner_y()');
+    }
+    function banner_y(){
+        $(".self_banner").append(
+            '<div style="margin-top: 10px;" class="banner_position">第 <input type="text" name="banner_sort" value="" /> 位</div>' +
+            '<p style="margin-top: 10px;" class="banner_position"> 链接：' +
+            '<input  type="radio" value="0" name="is_column" onclick="column_n()">否</input>' +
+            '<input  type="radio" value="1" name="is_column" class="c_y" onclick="column_y()">是</input>' +
+            '<input  type="text" name="banner_url" class="b_url" >' +
+            '</p>'+
+            '<div style="width: 300px;height: 30px;display: inline-block;margin-top: 10px;" class="banner_position">' +
+            '<div style="float: right;width: 300px;">' +
+            '<input style="float: left;" type="file" name="bannerfile[]"/>' +
+            '<a style="float: right;line-height: 30px;margin-left: 20px;" href="#" onclick="add_banner_img()" ">添加</a>' +
+            '<a style="float: right;line-height: 30px;" href="#" class="del_p" onclick="del_banner_img()">删除</a>' +
+            '</div>'+
+            '</div>'
+        );
+        $(".self_banner").removeAttr('hidden');
+        $(".b_y").attr('onclick','banner_n()');
+    }
+
+    function add_banner_img() {
+        var p_num = $(".self_banner p").length;
+        if(p_num==0){
+            $(".del_p").show();
+        }
+        $(".self_banner").append('<p class="banner_position"><input type="file" name="bannerfile[]"/></p>');
+    }
+    function del_banner_img() {
+        var p_num = $(".self_banner p").length;
+        $(".self_banner p").last().remove();
+        if(p_num==1){
+            $(".del_p").hide();
+        }
+    }
+
+    //是否可发布到栏目
+    function column_n(){
+        $(".column_position").remove();
+        $(".self_column").attr("hidden","hidden");
+        $(".c_y").attr('onclick','column_y()');
+    }
+    function column_y(){
+        $(".self_column").append(
+            '<br><div class="column_position">第 <input type="text" name="column_sort" value="" /> 位</div>' +
+            '<div style="width: 300px;height: 30px;display: inline-block;" class="column_position">' +
+            '<div style="float: right;width: 300px;">' +
+            '<br><input style="float: left;" type="file" name="columnfile[]"/>' +
+            '<a style="float: right;line-height: 30px;margin-left: 20px;" href="#" onclick="add_column_img()" ">添加</a>' +
+            '<a style="float: right;line-height: 30px;" href="#" class="del_c" onclick="del_column_img()">删除</a>' +
+            '</div>'+
+            '</div><br><br>'
+        );
+        $(".self_column").removeAttr('hidden');
+        $(".c_y").attr('onclick','column_n()');
+    }
+
+    function add_column_img() {
+        var c_num = $(".self_column p").length;
+        if(c_num==0){
+            $(".del_c").show();
+        }
+        $(".self_column").append('<p class="column_position"><input type="file" name="columnfile[]"/></p>');
+    }
+    function del_column_img() {
+        var c_num = $(".self_column p").length;
+        $(".self_column p").last().remove();
+        if(c_num==1){
+            $(".del_c").hide();
+        }
+    }
+
+
+</script>
+
+
+</body>
+</html>
+
+
+

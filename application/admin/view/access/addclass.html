@@ -1,0 +1,86 @@
+{include file="./header" title='添加人员班次'/}
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="classForm" method="post">
+                        <div class="form-inline">
+                            <label class="col-sm-2 control-label">选择人:</label>
+                            <div class="input-inline col-sm-4">
+                                <select class="form-control" name="user_id" id="uid">
+                                    <option value=0 aria-selected="true">请选择人</option>
+                                    {foreach name="user" item="us" }
+                                    <option value="{$key}">{$us}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-inline">
+                            <label class="col-sm-2 control-label">选择班次：</label>
+                            <div class="input-inline">
+                                <select class="form-control col-sm-4" name="class_id" id="class">
+                                    <option value=0 aria-selected="true">请选择班次</option>
+                                    {foreach name="class" item="cl" }
+                                    <option value="{$key}">{$cl}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary center-block" type="submit" >提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{include file="./footer"}
+<script type="text/javascript">
+    //表单提交
+    $("#classForm").on("submit", function(ev) {
+        uid = $('#uid option:selected').val();
+        class_id = $('#class option:selected').val();
+        if(uid == 0 || class_id == 0){
+            swal('请选择完整','失败','error');
+            setTimeout("self.location.reload()", 2000);
+            ev.preventDefault();
+            return;
+        }else{
+            var mm = $("#classForm").serialize();
+            var jz;
+            $.ajax({
+                type: "POST",
+                url: "./addClass",
+                data: mm,
+                async: false,
+                beforeSend: function () {
+                    jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+                },
+                error: function (request) {
+                    layer.close(jz);
+                    layer.msg('网络错误,请重新添加');
+                },
+                success: function (data) {
+                    //关闭加载层
+                    layer.close(jz);
+                    if (data.code == 1) {
+                        swal("班次添加完成！ 2秒后刷新页面",'成功','success');
+                    } else {
+                        swal(data.msg,'失败','error');
+                    }
+                    setTimeout("self.location.reload()", 2000);
+                }
+            });
+        }
+        //阻止submit表单提交
+        ev.preventDefault();
+    })
+</script>
+

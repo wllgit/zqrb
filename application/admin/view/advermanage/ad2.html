@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻发布</title>
+    <link href="__CSS__/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__CSS__/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__CSS__/animate.min.css" rel="stylesheet">
+    <link href="__CSS__/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__CSS__/style.min.css?v=4.1.0" rel="stylesheet">
+    <!-- <link href="__CSS__/bootstrap-reset.css" rel="stylesheet"> -->
+    <!-- Sweet Alert -->
+    <link href="__CSS__/adpublish.css" rel="stylesheet">
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!--日期插件样式-->
+    <link rel="stylesheet" href="__JS__/jedate/jedate.css" type="text/css" />
+    <!-- 富文本编辑开始-->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.config.js"></script>
+    <!--<script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.all.min.js"> </script>-->
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/ueditor.all.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="__FILE_UPLOAD__/lang/zh-cn/zh-cn.js"></script>
+    <!-- 富文本编辑结束-->
+
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content">
+            <header class="panel-heading tab-bg-dark-navy-blue">
+                <h2 class="nav nav-tabs">广告发布</h2>
+            </header>
+            <div class="content">
+                <div class="position-select">
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="inputSuccess"><h3>广告位置选择：</h3></label>
+                        <div class="col-sm-10">
+                            <label class="checkbox-inline col-sm-2">
+                                <input type="radio" value="start" name="position" checked> 启动页
+                            </label>
+                            <label class="checkbox-inline col-sm-2">
+                                <input type="radio" value="banner" name="position"> banner
+                            </label>
+                            <label class="checkbox-inline col-sm-2">
+                                <input type="radio" value="newsList" name="position"> 新闻列表
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="position-form">
+                    <div class="form-group">
+                         <form class="start-form" id="commentForm" method="post" onsubmit="return getContent('commentForm')">
+                            <div class="form-group col-sm-12">
+                                <div class="control-label pic-note-tip col-sm-10">
+                                    <lable class="control-label pic-tip col-sm-2">上传广告图片</lable>
+                                    <span class="pic-note col-sm-7">注：请上传750*1334尺寸的jpg图片或者750*1334尺寸flash文件</span>
+                                </div>
+                                <div class="control-label col-sm-10">
+                                    <div class="uploadfile-box">
+                                        <div class="plus-img">
+                                            <img src="__IMG__/imgplus.png" alt="">
+                                        </div>
+                                        <div class="plus-note">点击上传图片</div>
+                                        <input type="file"  class="inputstyle check_file"  accept="image/*" required="required" name="startfile"/>
+                                    </div>
+                                    <div class="pre-img" id="localImag">
+                                        <img src="" id="preview" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="control-label col-sm-2">请选择启动页位置：</label>
+                                <div class="input-group col-sm-2 fixed_send">
+                                    <select  class="form-control slt"  name="start_position">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <div>
+                                    <label class="control-label col-sm-2">推广周期:</label>
+                                    <div>
+                                        <input type="text" name="start_stime" required="required" readonly='readonly' id="txtbeginDate" onclick="$.jeDate('#txtbeginDate',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="" >
+                                        至
+                                        <input type="text" name="start_etime" readonly='readonly' id="txtEndDate" onclick="$.jeDate('#txtEndDate',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="" >
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="control-label col-sm-2" for="inputSuccess">发布状态:</label>
+                                <div>
+                                    <label class="checkbox-inline">
+                                        <input type="radio" value="start" name="publish1" required="required" checked> 立即发布
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="radio" value="banner" name="publish1" required="required"> 待发布
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="ss col-sm-12">
+                                <button class="btn btn-primary bt" id="btn1" name="publish">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                       
+                    <form class="banner-form" id="commentForm2" method="post" onsubmit="return getContent('commentForm2')">
+                        <h4>上传广告图片</h4>
+                        <div class="banner_pic">
+                            <input style="float: left;" type="file" required="required" name="bannerfile" class="check_file">
+                            <span style="color: red;line-height: 25px;">请选择750*300的图片上传</span>
+                        </div>
+                        <div style="margin-top: 60px;margin-left: -10px;">
+                            <label class="col-sm-5 control-label">请选择banner位置：</label>
+                            <div class="input-group col-sm-7 fixed_send">
+                                <select  class="form-control slt"  name="banner_position">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin-top: 40px;margin-left: -10px;">
+                            <div class="input-group col-sm-7 fixed_send">
+                                <input type="radio" value="0" required="required" name="bner_show" onclick="banner_url_y()">填写链接地址</input>
+                                <input type="radio" value="1" required="required" name="bner_show" onclick="banner_url_n()">填写新闻详情</input>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;" class="hid_url" >
+                        </div>
+                        <div style="margin-top: 10px;" class="hid_cont" >
+                        </div>
+                        <div style="margin-top: 10px;">
+                            推广周期:
+                            <input type="text" required="required" name="banner_stime" readonly='readonly' id="txtbeginDate2" onclick="$.jeDate('#txtbeginDate2',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="">
+                            至
+                            <input type="text" name="banner_etime" readonly='readonly' id="txtbeginDate3" onclick="$.jeDate('#txtbeginDate3',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="">
+                        </div>
+                        <div style="margin-top: 40px;margin-left: -10px;">
+                            <div class="input-group col-sm-7 fixed_send">
+                                <input type="radio" value="4" required="required" name="publish2" >立即发布</input>
+                                <input type="radio" value="3" required="required" name="publish2" >待发布</input>
+                            </div>
+                        </div>
+                        <div class="ss">
+                            <button class="btn btn-primary bt" id="btn2" name="publish">提交</button>
+                        </div>
+                    </form>
+
+                    <form class="newsList-form" id="commentForm3" method="post" onsubmit="return getContent('commentForm3')">
+                        <div class="input-group col-sm-8">
+                            请选择广告列表样式：
+                            <input  type="radio" value="1" required="required" class="wrap style_one" name="is_style" onclick="three_img()">样式1<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                            <input  type="radio" value="2" required="required" class="wrap style_two"  name="is_style" onclick="one_img()">样式2<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                            <input  type="radio" value="3" required="required" class="wrap style_three"  name="is_style" onclick="one_video()">样式3<label style="size: 20px;margin: 0 20px 0 20px;"><strong>！</strong></label></input>
+                            <p class="inner">
+                                <img src="__IMG__/a1.jpg" />
+                            </p>
+                            <p class="inner">
+                                <img src="__IMG__/a2.jpg" />
+                            </p>
+                            <p class="inner">
+                                <img src="__IMG__/a3.jpg" />
+                            </p>
+                        </div>
+                        <div class="news_pic">
+                        </div>
+                        <div style="margin-top: 40px;margin-left: -10px;">
+                            <div class="input-group col-sm-7 fixed_send">
+                                <input type="radio" value="0" required="required" name="ad_state" onclick="news_url_y()">填写链接地址</input>
+                                <input type="radio" value="1" required="required" name="ad_state" onclick="news_url_n()">填写新闻详情</input>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;" class="hid_url" >
+                        </div>
+                        <div style="margin-top: 10px;" class="hid_cont" >
+                        </div>
+                        <div style="margin-top: 10px;">
+                            推广周期:
+                            <input type="text" name="new_stime" readonly='readonly' id="txtbeginDate5" onclick="$.jeDate('#txtbeginDate5',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="">
+                            至
+                            <input type="text" name="news_etime" readonly='readonly' id="txtbeginDate4" onclick="$.jeDate('#txtbeginDate4',{insTrigger:false,isTime:true,format:'YYYY-MM-DD hh:mm:ss'})" value="">
+                        </div>
+                        <div style="margin-top: 40px;margin-left: -10px;">
+                            <div class="input-group col-sm-7 fixed_send">
+                                <input type="radio" value="6" name="publish3" >立即发布</input>
+                                <input type="radio" value="5" name="publish3" >待发布</input>
+                            </div>
+                        </div>
+                        <div class="ss">
+                            <button class="btn btn-primary bt" id="btn3" name="publish" type="submit">提交</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script src="__JS__/img.js?v=2.1.4"></script>
+<script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/content.min.js?v=1.0.0"></script>
+<script src="__JS__/plugins/validate/jquery.validate.min.js"></script>
+<script src="__JS__/plugins/validate/messages_zh.min.js"></script>
+<script src="__JS__/plugins/iCheck/icheck.min.js"></script>
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<!--layer插件-->
+<script src="__JS__/plugins/layer/laydate/laydate.js"></script>
+<script src="__JS__/plugins/suggest/bootstrap-suggest.min.js"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+<!--时间插件-->
+<script src="__JS__/jquery.js"></script>
+<script src="__JS__/jedate/jquery.jedate.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        //悬浮图片显示
+        var $ = function(id){
+            return document.getElementById(id);
+        };
+        var $t = function(tag, cot){
+            cot = cot || document;
+            return cot.getElementsByTagName(tag);
+        };
+        $t("label")[3].onmouseover = function(){
+            $t('p', this.parentNode)[0].style.display = 'block';
+        };
+        $t('label')[3].onmouseout = function(){
+            $t('p', this.parentNode)[0].style.display = 'none';
+        };
+        $t("label")[4].onmouseover = function(){
+            $t('p', this.parentNode)[1].style.display = 'block';
+        };
+        $t('label')[4].onmouseout = function(){
+            $t('p', this.parentNode)[1].style.display = 'none';
+        };
+        $t("label")[5].onmouseover = function(){
+            $t('p', this.parentNode)[2].style.display = 'block';
+        };
+        $t('label')[5].onmouseout = function(){
+            $t('p', this.parentNode)[2].style.display = 'none';
+        };
+    });
+
+    $(":radio[name='position']").change(function() {
+        if(this.value == "start") {
+            $(".start-form").show();
+            $(".banner-form").hide();
+            $(".newsList-form").hide();
+        }else if(this.value == "banner") {
+            $(".banner-form").show();
+            $(".start-form").hide();
+            $(".newsList-form").hide();
+        }else if(this.value == "newsList") {
+            $(".newsList-form").show();
+            $(".start-form").hide();
+            $(".banner-form").hide();
+        }
+    });
+
+//    //
+//    var btn = document.getElementById("btn");
+//    var file=document.getElementById("file");
+////    var file=document.getElementsByClassName("check_file");
+////    var promise=["png","jpg","jpeg","gif","mp3","mp4","svg"];
+//    var promise=["gif"];
+//
+//    file.onchange=function(){
+//        var name=file.value;
+//        var ext=name.substring(name.lastIndexOf(".") + 1).toLowerCase();
+//        var res=promise.indexOf(ext);
+//        if (res<0) {
+//            alert("文件格式不正确");
+//            document.getElementById("btn1").disabled=true;
+////            document.getElementsByClassName("check_file").disabled=true;
+//        }else{
+//            document.getElementById("btn1").disabled=false;
+////            document.getElementsByClassName("check_file").disabled=false;
+//        }
+//    }
+
+
+    //保存
+    var profile_box=$("#profile_box");
+    var home_box=$("#home_box");
+    var about_box=$("#about_box");
+    $(".banner-form").hide();
+    $(".newsList-form").hide();
+
+
+    function about(){
+        $("#about_box").show();
+        $("#profile_box").hide();
+        $("#home_box").hide();
+
+    }
+    function home(){
+        $("#home_box").show();
+        $("#profile_box").hide();
+        $("#about_box").hide();
+    }
+    function profile(){
+        $("#profile_box").show();
+        $("#home_box").hide();
+        $("#about_box").hide();
+    }
+
+
+    //新闻列表页
+    function three_img(){
+        $(".news_pic").append(' ' +
+            '<p class="three_img"><input style="float: left;" type="file" name="newsfile[]" class="check_file"><span style="color: red;line-height: 25px;">请选择220*140的图片上传</span></p>' +
+            '<p class="three_img"><input  type="file" name="newsfile[]" class="check_file"></p>'+
+            '<p class="three_img"><input  type="file" name="newsfile[]" class="check_file"></p>'
+        )
+        $(".one_img").remove();
+        $(".one_video").remove();
+        $(".style_one").removeAttr('onclick');
+        $(".style_two").attr('onclick','one_img()');
+        $(".style_three").attr('onclick','one_video()');
+    }
+    function one_img(){
+        $(".news_pic").append(' ' +
+            '<p class="one_img"><input style="float: left;" type="file" name="newsfile" class="check_file"><span style="color: red;line-height: 25px;">请选择140*140的图片上传</span></p>'
+        )
+        $(".three_img").remove();
+        $(".one_video").remove();
+        $(".style_two").removeAttr('onclick');
+        $(".style_one").attr('onclick','three_img()');
+        $(".style_three").attr('onclick','one_video()');
+    }
+    function one_video(){
+        $(".news_pic").append(' ' +
+            '<p class="one_video"><input style="float: left;" type="file" name="newsfile" class="check_file"><span style="color: red;line-height: 25px;">请选择750*340的图片或者视频上传</span></p>'
+        )
+        $(".three_img").remove();
+        $(".one_img").remove();
+        $(".style_three").removeAttr('onclick');
+        $(".style_one").attr('onclick','three_img()');
+        $(".style_two").attr('onclick','one_img()');
+    }
+
+
+    //链接
+    //链接
+    function banner_url_y(){
+        var hid_url = '<div>请输入链接地址: <input type="text" name="baner_url" value=""> <a href="#" onclick="a_del()"></a></div> ';
+        $(".hid_url").append(hid_url);
+        $(".hid_cont").children("p").remove();
+    }
+    function banner_url_n(){
+        var hid_cont = '<p>标题： <input type="text" name="baner_title" required="required"></p> <p> 简介： <textarea name="baner_summary"  cols="80" rows="3" required="required"></textarea></p> <p>正文： <textarea name="baner_cont"  cols="80" rows="6" required="required"></textarea></p> ';
+        $(".hid_cont").append(hid_cont);
+        $(".hid_url").children("div").remove();
+    }
+    function news_url_y(){
+        var hid_url = '<div>请输入链接地址: <input type="text" name="news_url" value=""> <a href="#" onclick="a_del()"></a></div> ';
+        $(".hid_url").append(hid_url);
+        $(".hid_cont").children("p").remove();
+    }
+    function news_url_n(){
+        var hid_cont = '<p>标题： <input type="text" name="news_title" required="required"></p> <p> 简介： <textarea name="news_summary"  cols="80" rows="3" required="required"></textarea></p> <p>正文： <textarea name="news_cont"  cols="80" rows="6" required="required"></textarea></p> ';
+        $(".hid_cont").append(hid_cont);
+        $(".hid_url").children("div").remove();
+    }
+
+    //是否可发布到启动页
+    function start_n(){
+        $(".start_position").remove();
+        $(".self_start").attr("hidden","hidden");
+        $(".s_y").attr('onclick','start_y()');
+        $(".sel_baner").show();
+    }
+    function start_y(){
+        $(".self_start").append(
+            '<br><div class="start_position">第 <input type="text" name="start_sort" value="" /> 位</div>' +
+            '<div style="width: 300px;height: 30px;display: inline-block;" class="start_position">' +
+            '<div style="float: right;width: 300px;">' +
+            '<br><input style="float: left;" type="file" name="startfile[]" class="check_file"/>' +
+            '<a style="float: right;line-height: 30px;margin-left: 20px;" href="#" onclick="add_start_img()" ">添加</a>' +
+            '<a style="float: right;line-height: 30px;" href="#" class="del_s" onclick="del_start_img()">删除</a>' +
+            '</div>'+
+            '</div><br><br>'
+        );
+        $(".self_start").removeAttr('hidden');
+        $(".s_y").attr('onclick','start_n()');
+        $(".sel_baner").hide();
+    }
+
+    function add_start_img() {
+        var s_num = $(".self_start p").length;
+        if(s_num==0){
+            $(".del_s").show();
+        }
+        $(".self_start").append('<p class="start_position"><input type="file" name="startfile[]" class="check_file"/></p>');
+    }
+    function del_start_img() {
+        var s_num = $(".self_start p").length;
+        $(".self_start p").last().remove();
+        if(s_num==1){
+            $(".del_s").hide();
+        }
+    }
+
+    //是否可发布到banner
+    function banner_n(){
+        $(".banner_position").remove();
+        $(".self_banner").attr("hidden","hidden");
+        $(".b_y").attr('onclick','banner_y()');
+    }
+    function banner_y(){
+        $(".self_banner").append(
+            '<div style="margin-top: 10px;" class="banner_position">第 <input type="text" name="banner_sort" value="" /> 位</div>' +
+            '<p style="margin-top: 10px;" class="banner_position"> 链接：' +
+            '<input  type="radio" value="0" name="is_column" onclick="column_n()">否</input>' +
+            '<input  type="radio" value="1" name="is_column" class="c_y" onclick="column_y()">是</input>' +
+            '<input  type="text" name="banner_url" class="b_url" >' +
+            '</p>'+
+            '<div style="width: 300px;height: 30px;display: inline-block;margin-top: 10px;" class="banner_position">' +
+            '<div style="float: right;width: 300px;">' +
+            '<input style="float: left;" type="file" name="bannerfile[]" class="check_file"/>' +
+            '<a style="float: right;line-height: 30px;margin-left: 20px;" href="#" onclick="add_banner_img()" ">添加</a>' +
+            '<a style="float: right;line-height: 30px;" href="#" class="del_p" onclick="del_banner_img()">删除</a>' +
+            '</div>'+
+            '</div>'
+        );
+        $(".self_banner").removeAttr('hidden');
+        $(".b_y").attr('onclick','banner_n()');
+    }
+
+    function add_banner_img() {
+        var p_num = $(".self_banner p").length;
+        if(p_num==0){
+            $(".del_p").show();
+        }
+        $(".self_banner").append('<p class="banner_position"><input type="file" name="bannerfile[]" class="check_file"/></p>');
+    }
+    function del_banner_img() {
+        var p_num = $(".self_banner p").length;
+        $(".self_banner p").last().remove();
+        if(p_num==1){
+            $(".del_p").hide();
+        }
+    }
+
+    //是否可发布到栏目
+    function column_n(){
+        $(".column_position").remove();
+        $(".self_column").attr("hidden","hidden");
+        $(".c_y").attr('onclick','column_y()');
+    }
+    function column_y(){
+        $(".self_column").append(
+            '<br><div class="column_position">第 <input type="text" name="column_sort" value="" /> 位</div>' +
+            '<div style="width: 300px;height: 30px;display: inline-block;" class="column_position">' +
+            '<div style="float: right;width: 300px;">' +
+            '<br><input style="float: left;" type="file" name="columnfile[]" class="check_file"/>' +
+            '<a style="float: right;line-height: 30px;margin-left: 20px;" href="#" onclick="add_column_img()" ">添加</a>' +
+            '<a style="float: right;line-height: 30px;" href="#" class="del_c" onclick="del_column_img()">删除</a>' +
+            '</div>'+
+            '</div><br><br>'
+        );
+        $(".self_column").removeAttr('hidden');
+        $(".c_y").attr('onclick','column_n()');
+    }
+
+    function add_column_img() {
+        var c_num = $(".self_column p").length;
+        if(c_num==0){
+            $(".del_c").show();
+        }
+        $(".self_column").append('<p class="column_position"><input type="file" name="columnfile[]" class="check_file"/></p>');
+    }
+    function del_column_img() {
+        var c_num = $(".self_column p").length;
+        $(".self_column p").last().remove();
+        if(c_num==1){
+            $(".del_c").hide();
+        }
+    }
+    //选择发布新闻到深度时触发
+    function show_deep() {
+        $("#addr").append('<p class="deep_addr"> 专题1： <input type="text" placeholder="选择深度时必填" name="zt[]" value="" class="deep_to"/> <a class="zt" href="javascript:void(0)" onclick="zt_add()">添加专题</a><span style="margin-left: 26px;" class="sp_zt">1</span>个专题</p>');
+        $(".deep_from").attr('onclick','hide_deep()');
+    }
+    function hide_deep(){
+        $(".deep_addr").remove();
+        $(".deep_from").attr('onclick','show_deep()');
+    }
+
+    //添加专题
+    function zt_add(){
+        var zt_num = $(".deep_addr").length;
+        $(".sp_zt").text(zt_num+1);
+        $("#addr").append('<p class="deep_addr"> 专题'+(zt_num+1)+'： <input type="text" placeholder="专题" name="zt[]" value="" class="deep_to"/></p>');
+    }
+
+
+    function getContent(id){
+        var jz;
+        var url = "/admin/advermanage/advertisementPublish";
+        var form = new FormData(document.getElementById(id));
+        $.ajax({
+            url:url,
+            type:"post",
+            data:form,
+            async: false,
+            processData:false,
+            contentType:false,
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            error: function(request) {
+                layer.close(jz);
+                swal("网络错误!", "", "error");
+            },
+            success: function(data) {
+                //关闭加载层
+                layer.close(jz);
+                if(data.code == 1){
+//                    alert(JSON.stringify(data.msg));
+//                    alert(data.msg);
+                    layer.msg(data.msg, {time : 1000});
+                    console.log(data.err_msg);
+                    setTimeout("javascript:location.href='./advertisementPublish'", 1000);
+                }else{
+                    console.log(data.err_msg);
+                    layer.msg(data.msg, {time : 1000});
+                }
+
+            }
+        })
+        return false;
+    }
+
+</script>
+</html>
+
+
+

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快涨新闻列表</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__CSS__/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__CSS__/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__CSS__/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="__CSS__/animate.min.css" rel="stylesheet">
+    <link href="__CSS__/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+</head>
+<style>
+   .table-hover{
+      hot: red;
+    }
+   .red{
+    color: red;
+  }
+
+</style>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>新闻列表</h5>
+        </div>
+        <div class="ibox-content">
+            <h3>头条列表</h3>
+            <!--搜索框结束-->
+            <table class="table table-condensed table-hover">
+              <!-- On rows -->
+                <tr>
+                <th class="active">序号</th>
+                <th class="success">标题</th>
+                <th class="warning">发布时间</th>
+                <th class="danger">转发量</th>
+                <th class="info">来源</th>
+                <th class="info">状态</th>
+                <th class="info" style="color:red;">操作</th>
+
+                </tr>
+                <!-- On cells (`td` or `th`) -->
+                {volist name="fastitem" id="vo"}
+                  <tr>
+                       <td class="active">{$vo.index}</td>
+                       <td class="success" onclick="fastdetail('{$vo._id}')" ><a>{$vo.title}</a></td>
+                       <td class="warning">{$vo.publishedAt}</td>
+                       <td class="danger"></td>
+                       <td class="info">{$vo.source}</td>
+                       <td class="info" onclick="check('{$vo._id}')" ><a>查看</a></td>
+                       <td class="info"  onclick="delfast('{$vo._id}')"><a style="color:red;">删除<a></td>
+                  </tr>
+                {/volist}
+                <!-- On cells (`td` or `th`) -->
+            </table>
+            <!-- End Example Pagination -->
+            <h3>新闻列表</h3>
+            <!--搜索框结束-->
+            <table class="table table-condensed table-hover">
+              <!-- On rows -->
+                <tr>
+                <th class="active">序号</th>
+                <th class="success">标题</th>
+                <th class="warning">发布时间</th>
+                <th class="danger">转发量</th>
+                <th class="info">来源</th>
+                <th class="info">状态</th>
+                <th class="info">操作</th>
+                </tr>
+                <!-- On cells (`td` or `th`) -->
+                {volist name="arr" id="vo"}
+                  <tr>
+                       <td class="active">{$vo.index}</td>
+                       <td class="success" onclick="detail('{$vo._id}')" ><a>{$vo.title}</a></td>
+                       <td class="warning">{$vo.publishedAt}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>({$vo.timedif}小时前)</strong></td>
+                       <td class="danger">{$vo.count}</td>
+                       <td class="info">{$vo.source}</td>
+                       <td class="info">{$vo.status}</td>
+                       {switch name="$vo.status"}
+                          {case value="已发布"}
+                             <td class="info" onclick="check('{$vo._id}')" ></td>
+                          {/case}
+                          {case value="已创建"}
+                             <td class="info" onclick="del('{$vo._id}')" ><a>发布</a></td>
+                          {/case}
+                          {case value="已删除"}
+                             <td class="info" onclick="del('{$vo._id}')" ></td>
+                          {/case}
+                          {default /}
+                              <td class="info" onclick="publish('{$vo._id}')" ><a>发布</a></td>
+                      {/switch}
+                  </tr>
+                {/volist}
+
+            </table>
+            <!-- End Example Pagination -->
+        </div>
+    </div>
+</div>
+<!-- End Panel Other -->
+</div>
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/content.min.js?v=1.0.0"></script>
+<script src="__JS__/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="__JS__/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+<script src="__JS__/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="__JS__/plugins/suggest/bootstrap-suggest.min.js"></script>
+<script src="__JS__/plugins/layer/laydate/laydate.js"></script>
+<script src="__JS__/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script>
+//发布操作
+function publish($id)
+{
+       //alert($id);
+      var jz;
+        $.ajax({
+            type:'GET', //方法类型
+            contentType: "application/json; charset=utf-8",
+            //url:"http://192.168.1.64/index/fund/getlist",//请求地址
+            url:"./publish",//请求地址
+            data:{ "id": $id },
+            dataType:'json', //数据类型
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:callback,//请求成功处理函数
+            error: fail
+            });
+           //返回函数
+           function  callback(data)
+           {
+                  //  alert(data); //获得请求返回对象；
+                //  var str = JSON.stringify(data);
+                //关闭加载层
+                layer.close(jz);
+
+                layer.open({
+                  type: 2,
+                   title: '发布新闻',
+                   skin: 'layui-layer-rim', //加上边框
+                   maxmin: true, //开启最大化最小化按钮
+                   area: ['900px', '500px'], //宽高
+                   //content: "./publish?id="+dd,
+                   content: "/admin/fastrise/publish?id="+$id,
+                });
+           }
+           function  fail(data)
+           {
+             //、、关闭加载层
+             layer.close(jz);
+              layer.msg('网络错误,请从新发布');
+           }
+      return false;
+}
+//查询操作
+function check($mm)
+{
+      // alert($mm);
+      var jz;
+        $.ajax({
+            type:'get', //方法类型
+            contentType: "application/json; charset=utf-8",
+            //url:"http://192.168.1.64/index/fund/getlist",//请求地址
+            url:"./check",//请求地址
+            data: {
+              id:$mm
+             },
+            dataType:'json', //数据类型
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:callback,//请求成功处理函数
+            error: fail
+            });
+           //返回函数
+           function  callback(data)
+           {
+                  //  alert(data); //获得请求返回对象；
+                //  var str = JSON.stringify(data);
+                //关闭加载层
+                layer.close(jz);
+                layer.open({
+                  type: 2,
+                  title: data['title'],
+                    maxmin: true, //开启最大化最小化按钮
+                  skin: 'layui-layer-rim', //加上边框
+                  area: ['900px', '700px'], //宽高
+                  //content:data,
+                  content: "./check?id="+$mm,
+                });
+           }
+           function  fail(data)
+           {
+             //关闭加载层
+             layer.close(jz);
+              alert(fail);
+           }
+}
+function delfast($mm)
+{
+
+   //alert($mm);
+    layer.confirm('真到要删除吗？', {
+      btn: ['删除','取消'] //按钮
+    }, function(){
+                  var jz;
+                  $.ajax({
+                    type:'get', //方法类型
+                    contentType: "application/json; charset=utf-8",
+                    //url:"http://192.168.1.64/index/fund/getlist",//请求地址
+                    url:"./delfast",//请求地址
+                    data: {
+                      id:$mm
+                     },
+                    dataType:'json', //数据类型
+                    beforeSend:function(){
+                        jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+                    },
+                    success:callback,//请求成功处理函数
+                    error: fail
+                    });
+                   //返回函数
+                   function  callback(data)
+                   {
+                        layer.close(jz);
+                        data =  JSON.parse(data);
+                        if (data['message'] == "ok")
+                        {
+                          layer.msg('成功删除快涨头条！ 2秒后刷新页面');
+                         //swal("删除-强制词/主题添加完成！ 2秒后刷新页面");
+                          setTimeout("location.reload()",2000);
+                        }else {
+                          layer.msg('删除失败,3秒钟后重新删除');
+                          setTimeout("location.reload()",3000);
+                        }
+                   }
+                   function  fail(data)
+                   {
+                     //关闭加载层
+                     layer.close(jz);
+                      swal("网络错误!", "", "error");
+                   }
+        },
+        function(){
+          layer.msg('取消成功');
+        }
+      );
+}
+
+
+
+
+function del($mm)
+{
+
+   //alert($mm);
+    layer.confirm('真到要删除吗？', {
+      btn: ['删除','取消'] //按钮
+    }, function(){
+                  var jz;
+                  $.ajax({
+                    type:'get', //方法类型
+                    contentType: "application/json; charset=utf-8",
+                    //url:"http://192.168.1.64/index/fund/getlist",//请求地址
+                    url:"./delete",//请求地址
+                    data: {
+                      id:$mm
+                     },
+                    dataType:'json', //数据类型
+                    beforeSend:function(){
+                        jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+                    },
+                    success:callback,//请求成功处理函数
+                    error: fail
+                    });
+                   //返回函数
+                   function  callback(data)
+                   {
+                        layer.close(jz);
+                        if (data['message'] == "ok")
+                        {
+                          layer.msg('删除成功');
+                          location.reload()
+                        }else {
+                          //swal("删除失败!", "", "error");
+                          layer.msg('删除失败');
+                          location.reload()
+                        }
+                   }
+                   function  fail(data)
+                   {
+                     //关闭加载层
+                     layer.close(jz);
+                      swal("网络错误!", "", "error");
+                   }
+        },
+        function(){
+          layer.msg('取消成功');
+        }
+      );
+}
+
+//详情操作
+function fastdetail($mm)
+{
+       //alert($mm);
+          var jz;
+        $.ajax({
+            type:'get', //方法类型
+            contentType: "application/json; charset=utf-8",
+            url:"./fastdetail",//请求地址
+            data: {
+              id:$mm
+             },
+            dataType:'json', //数据类型
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:callback,//请求成功处理函数
+            error: fail
+            });
+           //返回函数
+           function  callback(data)
+           {
+             //关闭加载层
+             layer.close(jz);
+                var html = '';
+                html += '<div>';
+                html += '<div style="padding:10px;">来源：'+data['source']+'</div>';
+                html += '<div style="padding:10px;">发布时间：'+data['createdAt']+'</div>';
+                html += '<div style="padding:10px;">更新时间：'+data['updatedAt']+'</div>';
+                html += '<div style="padding:10px 10px;">'+data['content']+'</div>';
+                html += '</div>';
+                layer.open({
+                  type: 1,
+                  title: data['title'],
+                    maxmin: true, //开启最大化最小化按钮
+                  skin: 'layui-layer-rim', //加上边框
+                  area: ['900px', '600px'], //宽高
+                  // content: data['content']
+                  content: html
+                });
+           }
+           function  fail(data)
+           {
+             //关闭加载层
+             layer.close(jz);
+           }
+}
+
+//详情操作
+function detail($mm)
+{
+       //alert($mm);
+      // alert($mm);
+          var jz;
+        $.ajax({
+            type:'get', //方法类型
+            contentType: "application/json; charset=utf-8",
+            url:"./detail",//请求地址
+            data: {
+              id:$mm
+             },
+            dataType:'json', //数据类型
+            beforeSend:function(){
+                jz = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:callback,//请求成功处理函数
+            error: fail
+            });
+           //返回函数
+           function  callback(data)
+           {
+             //关闭加载层
+             layer.close(jz);
+                var html = '';
+                html += '<div>';
+                html += '<div style="padding:10px;">来源：'+data['source']+'</div>';
+                html += '<div style="padding:10px;">发布时间：'+data['publishedAt']+'</div>';
+                html += '<div style="padding:10px 10px;">'+data['content']+'</div>';
+                html += '</div>';
+
+                layer.open({
+                  type: 1,
+                  title: data['title'],
+                    maxmin: true, //开启最大化最小化按钮
+                  skin: 'layui-layer-rim', //加上边框
+                  area: ['800px', '600px'], //宽高
+                  // content: data['content']
+                  content: html
+                });
+           }
+           function  fail(data)
+           {
+             //关闭加载层
+             layer.close(jz);
+           }
+}
+
+
+</script>
+<script>
+$(document).ready(function(){
+
+  layer.load();
+
+  setTimeout(function(){
+ layer.closeAll('loading');
+}, 500);
+
+});
+</script>
+</body>
+</html>

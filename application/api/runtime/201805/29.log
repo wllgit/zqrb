@@ -1,0 +1,482 @@
+[ 2018-05-29T13:15:10+08:00 ] 127.0.0.1 127.0.0.1 GET /news?page=1&offset=10&sign=9e66f8bff80b18ac7d836f56e6e72c94
+[ log ] securities.cm:8080/news?page=1&offset=10&sign=9e66f8bff80b18ac7d836f56e6e72c94 [运行时间：0.009151s][吞吐率：109.28req/s] [内存消耗：398.08kb] [文件加载：50]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000585s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_news` [ RunTime:0.001488s ]
+[ sql ] [ SQL ] SELECT `news`.`id`,`news`.`title`,`news`.`comments_num`,`news`.`publish_time`,`news`.`allow_comment`,`news`.`source_type`,listSource.source_path AS listSource__source_path FROM `scs_news` `news` INNER JOIN `scs_news_source` `listSource` ON `news`.`id`=`listSource`.`news_id` WHERE  `news`.`is_delete` = 0  AND `news`.`column_id` = 1  AND `news`.`is_show` = 1 ORDER BY is_top desc,sort desc LIMIT 0,10   [ RunTime:0.000539s ]
+[ sql ] [ SQL ] SELECT `news`.`id`,`news`.`title`,`news`.`comments_num`,`news`.`publish_time`,`news`.`allow_comment`,`news`.`source_type`,listSource.source_path AS listSource__source_path FROM `scs_news` `news` INNER JOIN `scs_news_source` `listSource` ON `news`.`id`=`listSource`.`news_id` WHERE  `news`.`is_delete` = 0  AND `news`.`column_id` = 1  AND `news`.`is_show` = 1 ORDER BY is_top desc,sort desc LIMIT 0,10   [ RunTime:0.000505s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:28:51+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001865s][吞吐率：536.22req/s] [内存消耗：198.65kb] [文件加载：35]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:29:19+08:00 ] 127.0.0.1 127.0.0.1 POST /api/Index/userList
+[ log ] securities.cm:8080/api/Index/userList [运行时间：0.002217s][吞吐率：451.05req/s] [内存消耗：198.28kb] [文件加载：35]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:31:12+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002729s][吞吐率：366.44req/s] [内存消耗：184.63kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:32:08+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002489s][吞吐率：401.79req/s] [内存消耗：189.66kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:34:09+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.007457s][吞吐率：134.10req/s] [内存消耗：308.73kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:35:53+08:00 ] 127.0.0.1 127.0.0.1 GET /news/1?sign=2abc38a973d47a45cbd32a226720d8da
+[ log ] securities.cm:8080/news/1?sign=2abc38a973d47a45cbd32a226720d8da [运行时间：0.004855s][吞吐率：205.97req/s] [内存消耗：386.59kb] [文件加载：48]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000564s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_news` [ RunTime:0.001348s ]
+[ sql ] [ SQL ] SELECT `id`,`title`,`comments_num`,`detail`,`source`,`praise_num` FROM `scs_news` WHERE  `id` = 1 LIMIT 1    [ RunTime:0.000371s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:39:46+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.002159s][吞吐率：463.15req/s] [内存消耗：329.21kb] [文件加载：45]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:39:52+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002167s][吞吐率：461.47req/s] [内存消耗：211.25kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:43:57+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001901s][吞吐率：526.06req/s] [内存消耗：183.95kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:47:16+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001838s][吞吐率：544.08req/s] [内存消耗：181.34kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:47:20+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.005108s][吞吐率：195.78req/s] [内存消耗：299.30kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:47:32+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.005142s][吞吐率：194.48req/s] [内存消耗：301.52kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:47:34+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001511s][吞吐率：661.77req/s] [内存消耗：182.72kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:47:37+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.002302s][吞吐率：434.42req/s] [内存消耗：301.10kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:47:53+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.002636s][吞吐率：379.33req/s] [内存消耗：308.23kb] [文件加载：45]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:47:58+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001427s][吞吐率：700.69req/s] [内存消耗：188.95kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:48:13+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001638s][吞吐率：610.52req/s] [内存消耗：187.16kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:48:13+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001660s][吞吐率：602.37req/s] [内存消耗：186.73kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:48:19+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.008202s][吞吐率：121.92req/s] [内存消耗：305.12kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:48:28+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.002765s][吞吐率：361.64req/s] [内存消耗：306.49kb] [文件加载：45]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:48:31+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001528s][吞吐率：654.44req/s] [内存消耗：188.53kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:48:55+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001527s][吞吐率：654.95req/s] [内存消耗：191.16kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:49:17+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001628s][吞吐率：614.28req/s] [内存消耗：189.67kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:49:22+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.007649s][吞吐率：130.73req/s] [内存消耗：306.79kb] [文件加载：45]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:50:40+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001620s][吞吐率：617.26req/s] [内存消耗：187.86kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:50:49+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.002006s][吞吐率：498.49req/s] [内存消耗：305.82kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:54:01+08:00 ] 127.0.0.1 127.0.0.1 POST /news
+[ log ] securities.cm:8080/news [运行时间：0.002603s][吞吐率：384.16req/s] [内存消耗：289.25kb] [文件加载：45]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:54:40+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001508s][吞吐率：663.13req/s] [内存消耗：183.95kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:55:15+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002408s][吞吐率：415.28req/s] [内存消耗：197.48kb] [文件加载：35]
+
+---------------------------------------------------------------
+[ 2018-05-29T13:56:05+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002554s][吞吐率：391.52req/s] [内存消耗：184.74kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T14:10:56+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.005341s][吞吐率：187.23req/s] [内存消耗：186.77kb] [文件加载：40]
+[ error ] [8]Undefined property: app\api\controller\User::$logic[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/api/controller/User.php:72]
+
+---------------------------------------------------------------
+[ 2018-05-29T14:12:29+08:00 ] 127.0.0.1 127.0.0.1 POST /sendMsg
+[ log ] securities.cm:8080/sendMsg [运行时间：0.001892s][吞吐率：528.58req/s] [内存消耗：182.15kb] [文件加载：37]
+
+---------------------------------------------------------------
+[ 2018-05-29T14:23:53+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.008051s][吞吐率：124.21req/s] [内存消耗：304.59kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T14:59:49+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.006543s][吞吐率：152.83req/s] [内存消耗：304.58kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:01:56+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002497s][吞吐率：400.49req/s] [内存消耗：303.28kb] [文件加载：48]
+[ error ] [8]未定义变量: phone[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/common/logic/User.php:37]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:03:57+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.007661s][吞吐率：130.53req/s] [内存消耗：394.51kb] [文件加载：53]
+[ error ] [10501]SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 1[/usr/local/var/www/securities/zqrb-server-php/ZQRB/thinkphp/library/think/db/Connection.php:405]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000571s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+
+---------------------------------------------------------------
+[ 2018-05-29T15:06:57+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.013756s][吞吐率：72.70req/s] [内存消耗：413.25kb] [文件加载：53]
+[ error ] [10501]SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'scs_id' at row 1[/usr/local/var/www/securities/zqrb-server-php/ZQRB/thinkphp/library/think/db/Connection.php:405]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000483s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.002166s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:08:18+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.006699s][吞吐率：149.27req/s] [内存消耗：412.14kb] [文件加载：53]
+[ error ] [10501]SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'scs_id' at row 1[/usr/local/var/www/securities/zqrb-server-php/ZQRB/thinkphp/library/think/db/Connection.php:405]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000514s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.002043s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:09:54+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.007203s][吞吐率：138.83req/s] [内存消耗：413.26kb] [文件加载：53]
+[ error ] [10501]SQLSTATE[HY000]: General error: 1364 Field 'create_time' doesn't have a default value[/usr/local/var/www/securities/zqrb-server-php/ZQRB/thinkphp/library/think/db/Connection.php:405]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000484s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001572s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:12:58+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.055256s][吞吐率：18.10req/s] [内存消耗：412.93kb] [文件加载：52]
+[ error ] [8]未定义变量: data[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/api/controller/User.php:75]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000588s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001527s ]
+[ sql ] [ SQL ] INSERT INTO `scs_user` (`scs_id` , `phone` , `nickname` , `password` , `token` , `token_expire_time` , `last_login_time` , `update_time` , `create_time`) VALUES ('scs_aKpBn79620' , '17719031992' , '用户doq6272' , 'd862b7d381e398b7e0404664306034e5' , 'BKwuD56147' , 1528182778 , 1527577978 , 1527577978 , 1527577978)           [ RunTime:0.047639s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:28:14+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.003599s][吞吐率：277.86req/s] [内存消耗：305.95kb] [文件加载：49]
+[ error ] [8]Use of undefined constant FAIL_STATUS - assumed 'FAIL_STATUS'[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/common/logic/User.php:38]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:29:18+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002239s][吞吐率：446.63req/s] [内存消耗：318.78kb] [文件加载：44]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:29:50+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.001581s][吞吐率：632.53req/s] [内存消耗：302.10kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:29:58+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001259s][吞吐率：794.38req/s] [内存消耗：318.34kb] [文件加载：44]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:32:03+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002052s][吞吐率：487.31req/s] [内存消耗：318.34kb] [文件加载：44]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:32:19+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.001822s][吞吐率：548.85req/s] [内存消耗：302.10kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:32:23+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001258s][吞吐率：794.83req/s] [内存消耗：318.34kb] [文件加载：44]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:34:02+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001673s][吞吐率：597.73req/s] [内存消耗：319.45kb] [文件加载：44]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:34:05+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002045s][吞吐率：489.02req/s] [内存消耗：302.10kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:34:07+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002186s][吞吐率：457.49req/s] [内存消耗：302.10kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:34:18+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001583s][吞吐率：631.67req/s] [内存消耗：318.34kb] [文件加载：44]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:34:54+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002221s][吞吐率：450.27req/s] [内存消耗：303.21kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:34:56+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.001391s][吞吐率：718.82req/s] [内存消耗：302.10kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:34:58+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002029s][吞吐率：492.81req/s] [内存消耗：302.10kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:34:59+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.001741s][吞吐率：574.33req/s] [内存消耗：302.10kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:36:05+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002178s][吞吐率：459.15req/s] [内存消耗：303.21kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:37:45+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002753s][吞吐率：363.24req/s] [内存消耗：305.19kb] [文件加载：48]
+[ error ] [0]致命错误: Class 'app\api\controller\Session' not found[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/api/controller/User.php:116]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:38:15+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.004473s][吞吐率：223.55req/s] [内存消耗：303.21kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:41:58+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.008284s][吞吐率：120.71req/s] [内存消耗：306.12kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:42:46+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.005475s][吞吐率：182.65req/s] [内存消耗：302.55kb] [文件加载：47]
+[ error ] [0]致命错误: Class 'app\common\logic\Cache' not found[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/common/logic/User.php:38]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:42:58+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.057018s][吞吐率：17.54req/s] [内存消耗：415.39kb] [文件加载：52]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000643s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001463s ]
+[ sql ] [ SQL ] INSERT INTO `scs_user` (`scs_id` , `phone` , `nickname` , `password` , `token` , `token_expire_time` , `last_login_time` , `update_time` , `create_time`) VALUES ('scs_3OK4r16742' , '17719031992' , '用户JHv1652' , 'd862b7d381e398b7e0404664306034e5' , '4n2BN11889' , 1528184578 , 1527579778 , 1527579778 , 1527579778)           [ RunTime:0.045103s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:44:29+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002071s][吞吐率：482.83req/s] [内存消耗：324.60kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:44:36+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.003097s][吞吐率：322.89req/s] [内存消耗：304.65kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:44:52+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002014s][吞吐率：496.48req/s] [内存消耗：196.68kb] [文件加载：35]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:45:28+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.005891s][吞吐率：169.75req/s] [内存消耗：304.65kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:46:06+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001869s][吞吐率：535.06req/s] [内存消耗：323.38kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:46:35+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.001555s][吞吐率：643.10req/s] [内存消耗：323.38kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:47:10+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002873s][吞吐率：348.08req/s] [内存消耗：324.49kb] [文件加载：47]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:48:21+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.004185s][吞吐率：238.94req/s] [内存消耗：307.77kb] [文件加载：50]
+[ error ] [0]致命错误: Class 'Cache' not found[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/common.php:165]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:48:48+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.106739s][吞吐率：9.37req/s] [内存消耗：368.75kb] [文件加载：50]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000531s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001346s ]
+[ sql ] [ SQL ] INSERT INTO `scs_user` (`scs_id` , `phone` , `nickname` , `password` , `token` , `token_expire_time` , `last_login_time` , `update_time` , `create_time`) VALUES ('scs_TUICL76628' , '17719031993' , '用户xoa5562' , 'd862b7d381e398b7e0404664306034e5' , 'PfdVw64054' , 1528184928 , 1527580128 , 1527580128 , 1527580128)           [ RunTime:0.101228s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:51:27+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.003829s][吞吐率：261.16req/s] [内存消耗：305.76kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:52:16+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.104520s][吞吐率：9.57req/s] [内存消耗：368.38kb] [文件加载：50]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000550s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001471s ]
+[ sql ] [ SQL ] INSERT INTO `scs_user` (`scs_id` , `phone` , `nickname` , `password` , `token` , `token_expire_time` , `last_login_time` , `update_time` , `create_time`) VALUES ('scs_gLjEh50224' , '17719031994' , '用户EZR3948' , 'd862b7d381e398b7e0404664306034e5' , 'yrpsM72119' , 1528185136 , 1527580336 , 1527580336 , 1527580336)           [ RunTime:0.100091s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T15:53:05+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002354s][吞吐率：424.83req/s] [内存消耗：304.65kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T16:04:37+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.002971s][吞吐率：336.57req/s] [内存消耗：322.73kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T16:08:55+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002767s][吞吐率：361.42req/s] [内存消耗：305.76kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T16:09:38+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.078631s][吞吐率：12.72req/s] [内存消耗：366.97kb] [文件加载：49]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000534s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001296s ]
+[ sql ] [ SQL ] INSERT INTO `scs_user` (`scs_id` , `phone` , `nickname` , `password` , `token` , `token_expire_time` , `last_login_time` , `last_login_ip` , `update_time` , `create_time`) VALUES ('scs_KDUvc26673' , '17719031995' , '用户Jm89237' , '070744f7fa290c6c3c468c884fccb98c' , 'jJwkn86508' , 1528186178 , 1527581378 , '127.0.0.1' , 1527581378 , 1527581378)            [ RunTime:0.074454s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:02:13+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&password=791898&sign=e6e15660233cd1c005f55fead1e1330a
+[ log ] securities.cm:8080/user?phone=17719031995&password=791898&sign=e6e15660233cd1c005f55fead1e1330a [运行时间：0.001827s][吞吐率：547.34req/s] [内存消耗：197.27kb] [文件加载：35]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:03:24+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&password=791898&sign=e6e15660233cd1c005f55fead1e1330a
+[ log ] securities.cm:8080/user?phone=17719031995&password=791898&sign=e6e15660233cd1c005f55fead1e1330a [运行时间：0.001207s][吞吐率：828.59req/s] [内存消耗：196.83kb] [文件加载：35]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:05:15+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&password=791898&sign=e6e15660233cd1c005f55fead1e1330a
+[ log ] securities.cm:8080/user?phone=17719031995&password=791898&sign=e6e15660233cd1c005f55fead1e1330a [运行时间：0.014218s][吞吐率：70.33req/s] [内存消耗：197.94kb] [文件加载：35]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:07:03+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&password=791898&sign=c4dd6603a88332203c41150ab1f47147
+[ log ] securities.cm:8080/user?phone=17719031995&password=791898&sign=c4dd6603a88332203c41150ab1f47147 [运行时间：0.025946s][吞吐率：38.54req/s] [内存消耗：396.55kb] [文件加载：52]
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'avater' in 'field list'[/usr/local/var/www/securities/zqrb-server-php/ZQRB/thinkphp/library/think/db/Connection.php:362]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000550s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001323s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:07:21+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&password=791898&sign=c4dd6603a88332203c41150ab1f47147
+[ log ] securities.cm:8080/user?phone=17719031995&password=791898&sign=c4dd6603a88332203c41150ab1f47147 [运行时间：0.008247s][吞吐率：121.25req/s] [内存消耗：379.80kb] [文件加载：48]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000550s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001859s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.000612s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:10:50+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&password=791898&sign=c4dd6603a88332203c41150ab1f47147
+[ log ] securities.cm:8080/user?phone=17719031995&password=791898&sign=c4dd6603a88332203c41150ab1f47147 [运行时间：0.005924s][吞吐率：168.81req/s] [内存消耗：379.80kb] [文件加载：48]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000527s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001552s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.000453s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:11:25+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&password=791896&sign=a67dc707c7c6568ef364e1e3a2d01660
+[ log ] securities.cm:8080/user?phone=17719031995&password=791896&sign=a67dc707c7c6568ef364e1e3a2d01660 [运行时间：0.005173s][吞吐率：193.31req/s] [内存消耗：397.70kb] [文件加载：46]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000486s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001481s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.000564s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:11:44+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&password=791898&sign=c4dd6603a88332203c41150ab1f47147
+[ log ] securities.cm:8080/user?phone=17719031995&password=791898&sign=c4dd6603a88332203c41150ab1f47147 [运行时间：0.007916s][吞吐率：126.33req/s] [内存消耗：378.70kb] [文件加载：48]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000495s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.002168s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.000573s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:12:20+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.003883s][吞吐率：257.52req/s] [内存消耗：304.68kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:13:17+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=813089&sign=bb993e391b2b5cb0fa0c63958a7041b1
+[ log ] securities.cm:8080/user?phone=17719031995&code=813089&sign=bb993e391b2b5cb0fa0c63958a7041b1 [运行时间：0.006514s][吞吐率：153.51req/s] [内存消耗：448.05kb] [文件加载：51]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000509s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001948s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.000447s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:13:43+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=813086&sign=23cb7fcb794b09d9480f07c858bcc300
+[ log ] securities.cm:8080/user?phone=17719031995&code=813086&sign=23cb7fcb794b09d9480f07c858bcc300 [运行时间：0.002553s][吞吐率：391.70req/s] [内存消耗：196.83kb] [文件加载：35]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:14:13+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=813086&sign=e7a7d7f33fb428604527e55fd4cc3475
+[ log ] securities.cm:8080/user?phone=17719031995&code=813086&sign=e7a7d7f33fb428604527e55fd4cc3475 [运行时间：0.006225s][吞吐率：160.64req/s] [内存消耗：448.05kb] [文件加载：51]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000495s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001454s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.000516s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:15:50+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=813086&sign=e7a7d7f33fb428604527e55fd4cc3475
+[ log ] securities.cm:8080/user?phone=17719031995&code=813086&sign=e7a7d7f33fb428604527e55fd4cc3475 [运行时间：0.007827s][吞吐率：127.76req/s] [内存消耗：449.16kb] [文件加载：51]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000747s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001841s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.000421s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:17:05+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=813086&sign=e7a7d7f33fb428604527e55fd4cc3475
+[ log ] securities.cm:8080/user?phone=17719031995&code=813086&sign=e7a7d7f33fb428604527e55fd4cc3475 [运行时间：0.002289s][吞吐率：436.86req/s] [内存消耗：323.41kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:17:41+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=813089&sign=bb993e391b2b5cb0fa0c63958a7041b1
+[ log ] securities.cm:8080/user?phone=17719031995&code=813089&sign=bb993e391b2b5cb0fa0c63958a7041b1 [运行时间：0.001897s][吞吐率：527.12req/s] [内存消耗：322.32kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:17:51+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002470s][吞吐率：404.86req/s] [内存消耗：304.68kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:18:23+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=673104&sign=a941e995af1c16e75c9b5533677f46c6
+[ log ] securities.cm:8080/user?phone=17719031995&code=673104&sign=a941e995af1c16e75c9b5533677f46c6 [运行时间：0.009403s][吞吐率：106.35req/s] [内存消耗：448.05kb] [文件加载：51]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000495s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.002106s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.002666s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:19:03+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=673103&sign=6f153dee320059d83f52f01b08e1db9d
+[ log ] securities.cm:8080/user?phone=17719031995&code=673103&sign=6f153dee320059d83f52f01b08e1db9d [运行时间：0.004592s][吞吐率：217.77req/s] [内存消耗：322.30kb] [文件加载：46]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:19:25+08:00 ] 127.0.0.1 127.0.0.1 GET /user?phone=17719031995&code=673104&sign=a941e995af1c16e75c9b5533677f46c6
+[ log ] securities.cm:8080/user?phone=17719031995&code=673104&sign=a941e995af1c16e75c9b5533677f46c6 [运行时间：0.005002s][吞吐率：199.92req/s] [内存消耗：448.05kb] [文件加载：51]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000496s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001589s ]
+[ sql ] [ SQL ] SELECT `id`,`nickname`,`password`,`token`,`token_expire_time`,`avatar`,`phone` FROM `scs_user` WHERE  `phone` = '17719031995' LIMIT 1    [ RunTime:0.000461s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:28:05+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.002877s][吞吐率：347.58req/s] [内存消耗：305.79kb] [文件加载：48]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:28:31+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.003090s][吞吐率：323.61req/s] [内存消耗：307.73kb] [文件加载：51]
+[ error ] [8]未定义变量: query[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/common/logic/User.php:50]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:29:40+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.006754s][吞吐率：148.06req/s] [内存消耗：457.29kb] [文件加载：54]
+[ error ] [8]Use of undefined constant FILE_CODE - assumed 'FILE_CODE'[/usr/local/var/www/securities/zqrb-server-php/ZQRB/application/common/logic/User.php:51]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000518s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.002205s ]
+[ sql ] [ SQL ] SELECT * FROM `scs_user` LIMIT 1   [ RunTime:0.000391s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:30:02+08:00 ] 127.0.0.1 127.0.0.1 POST /user
+[ log ] securities.cm:8080/user [运行时间：0.005310s][吞吐率：188.33req/s] [内存消耗：410.51kb] [文件加载：49]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000517s ] mysql:dbname=securities;host=127.0.0.1;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `scs_user` [ RunTime:0.001385s ]
+[ sql ] [ SQL ] SELECT * FROM `scs_user` LIMIT 1   [ RunTime:0.000513s ]
+
+---------------------------------------------------------------
+[ 2018-05-29T17:31:52+08:00 ] 127.0.0.1 127.0.0.1 POST /sendCode
+[ log ] securities.cm:8080/sendCode [运行时间：0.001914s][吞吐率：522.46req/s] [内存消耗：196.71kb] [文件加载：35]
+
+---------------------------------------------------------------
