@@ -1,0 +1,130 @@
+
+html, body {
+    height: 100%;
+    background-color: #ededed;
+    min-height: 400px
+}
+
+.slider_logo {
+    background-image: url("../images/logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 30px;
+    width: 200px;
+    float: left;
+    padding-left: 45px;
+}
+
+.slider_logo span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cb_pic {
+    padding: 5px;
+    margin: 6px 6px 0 7px;
+    height: auto;
+    color: #fff;
+    box-shadow: 0px 0px 8px 5px #e1e1e1;
+    border-radius: 5px;
+}
+
+.cb_pic img {
+    position: relative;
+    float: right;
+}
+
+.cb_pic span {
+    width: 100%;
+    display: block;
+    margin-top: -7px;
+}
+
+.cb_r {
+    background-image: url("../images/card_each_r.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    float: left;
+    width: 23%;
+    text-align: center;
+}
+
+.cb_o {
+    background-image: url("../images/card_each_o.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    float: left;
+    width: 23%;
+    text-align: center;
+}
+
+.cb_p {
+    background-image: url("../images/card_each_p.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    float: left;
+    width: 23%;
+    text-align: center;
+}
+
+.cb_b {
+    background-image: url("../images/card_each_b.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    float: left;
+    width: 23%;
+    text-align: center;
+}
+
+/*子页面的二分*/
+.huojing-wrapper {
+    height: 47%;
+    margin-top: 10px;
+    min-width: 1200px;
+    float: left;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    min-height: 320px;
+
+}
+
+/*左侧菜单栏对应的右侧整块*/
+.right-paro {
+    height: 98%;
+    margin-top: 10px;
+    color: #fff;
+    float: left;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    min-height: 320px;
+   /* min-width: 1200px;*/
+}
+
+input, select{
+    BACKGROUND-COLOR: transparent;
+}
+
+
+
+.table> thead > tr > th{
+
+    border: 0px solid transparent
+
+}
+.table> tbody > tr > td{
+
+    border: 0px solid transparent
+
+}
+
+.modal-content{
+    color: #fff;
+}

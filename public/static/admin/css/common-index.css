@@ -1,0 +1,238 @@
+.col-md-3, .col-md-6 {
+    height: 100%;
+}
+
+html, body {
+    background-color: #ededed;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+li {
+    float: left;
+    list-style-type: none;
+}
+
+.nav_show_btn {
+    width: 100%;
+    height: 5px;
+    background-color: white;
+
+}
+
+.page_slider {
+    background-color: #fff;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 10px 20px 10px 20px;
+    height: 50px;
+    box-shadow: 0px 0px 20px 5px #aaa;
+    min-width: 1300px;
+    display: none;
+}
+
+.page_body {
+    background-color: #ededed;
+    padding: 10px 15px 10px 15px;
+    min-width: 1300px;
+    height: 100%;
+}
+
+.card_body {
+    width: 100%;
+    float: left;
+    height: 100%;
+}
+
+.card_right {
+    width: 100%;
+    float: left;
+    height: 100%;
+}
+
+.card_white {
+    background-color: #fff;
+    width: 100%;
+}
+
+.card_page {
+    background-color: #fff;
+    padding: 8px;
+    height: 95%;
+
+}
+
+.cf_count {
+    background-color: #fff;
+    height: 31%;
+    padding: 0 10px 0 10px;
+
+}
+
+.change_border li {
+    cursor: pointer;
+    height: 33px;
+    padding: 10px 10px 0 10px;
+    font-size: 16px;
+}
+
+.cf_trend {
+    background-color: #fff;
+    height: 31%;
+    margin-top: 10px;
+    padding: 0 10px 0 10px;
+}
+
+.cf_history {
+    background-color: #fff;
+    height: 40%;
+    padding: 0 10px 0 10px;
+}
+
+.cf_console_time {
+    background-color: #fff;
+    height: 54%;
+    margin-top: 10px;
+    padding: 0 10px 0 10px;
+}
+
+.cf_online {
+    background-color: #fff;
+    height: 13%;
+    margin-top: 10px;
+    padding: 8px 15px 0 10px;
+}
+
+.cf_tongji {
+    background-color: #fff;
+    height: 31%;
+    margin-top: 10px;
+    padding: 8px 15px 0 10px;
+}
+
+.online, .manage, .monitor {
+    margin-top: 10px;
+}
+
+.online span {
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+.manage span {
+    width: 45%;
+    float: left;
+    text-align: center;
+}
+
+.monitor span {
+    width: 50%;
+    float: left;
+    padding-left: 14px;
+    padding-bottom: 10px;
+}
+
+.online_title {
+    height: 25px;
+    line-height: 25px;
+    font-size: 16px;
+    padding-left: 10px;
+    border-bottom: 1px solid #aaa;
+}
+
+.cb_trend li {
+    padding: 10px 5px 0 5px;
+    font-size: 16px;
+}
+
+.select_btn {
+    float: right;
+    border: 1px solid red;
+    margin: 9px 10px 0 10px;
+    border-radius: 3px;
+    width: 70px;
+}
+
+.select_btn label {
+    cursor: pointer;
+}
+
+.select_btn label {
+    width: 34px;
+    float: left;
+    text-align: center;
+}
+
+.seb_checked {
+    background-color: red;
+    color: #fff;
+}
+
+.cfc_content {
+    padding: 10px;
+    width: 100%;
+    height: 90%;
+}
+
+/*豆腐块列表*/
+.cfc_index {
+    width: 100%;
+    height: 100%;
+}
+
+.cfc_index ul {
+    width: 100%;
+    height: 78%;
+    overflow: auto;
+
+}
+
+.cfc_index ul li {
+    width: 100%;
+
+}
+
+.cfci_loc {
+    width: 70%;
+    float: left;
+    padding-left: 40px;
+
+}
+
+.cfci_cou {
+    padding-right: 0;
+    float: left;
+    width: 30%;
+}
+
+.cfl_1 {
+    width: 70%;
+    float: left;
+    overflow: hidden;
+    font-size: 12px;
+    height: 18px;
+}
+
+.cfc_1 {
+    float: left;
+    padding-left: 25px;
+    font-size: 12px;
+    height: 18px;
+}
+
+.change_border {
+    height: 33px;
+    border-bottom: 1px solid #aaa;
+}
+
+.map-sh {
+    width: 100%;
+    text-align: center;
+    padding-top: 40px;
+    height: 88%;
+}
+

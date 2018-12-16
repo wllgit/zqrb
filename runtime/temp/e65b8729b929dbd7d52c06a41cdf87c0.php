@@ -1,0 +1,93 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:82:"E:\demo\zqrb-server-php\public/../application/admin\view\wordblack\sourcelist.html";i:1535952502;}*/ ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="__CSS__/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__CSS__/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__CSS__/animate.min.css" rel="stylesheet">
+    <link href="__CSS__/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__CSS__/style.min.css?v=4.1.1" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="/__BOOT__/js/html5shiv.js"></script>
+    <script src="/__BOOT__/js/respond.min.js"></script>
+    <![endif]-->
+    <!--自定义样式-->
+    <style>
+        .ibox-content{height: 630px;}
+        .text-1{margin-top: 20px;}
+        .span-1{color: #00a0e9;border-style: solid; border-width: 2px;border-color: #00a2d4;}
+        .div-11{background-color: #E5E6E7;padding: 10px;}
+        .bt{margin-left: 10px;}
+        .hang{display: inline-block;margin-bottom:5px;}
+        .span-1{padding: 0px 5px 0 5px;border-radius: 6px;}
+        .close-sign{top:-10px;left: -15px;background-color: #e5e6e8; border-radius: 30px;}
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox-content">
+        <header class="panel-heading tab-bg-dark-navy-blue">
+            <h2 class="nav nav-tabs">添加来源黑名单</h2>
+        </header>
+        <div class="content">
+            <div class="form-group col-sm-12 text-1">
+                <label class="col-sm-2">添加来源黑名单</label>
+                <input type="text" class="col-sm-4 cont" required="required"  name="word">
+                <button onClick="article_save_submit();" class="btn btn-primary bt" id="btn1" name="publish" type="submit">提交</button>
+            </div>
+            <div class="form-group col-sm-12 text-1">
+                <label class="col-sm-2">历史来源黑名单</label>
+                <div class="col-sm-6 div-11">
+                    <?php if(is_array($list) || $list instanceof \think\Collection): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                    <div class="hang <?php echo $vo['id']; ?>">
+                        <label class="span-1"><?php echo $vo['content']; ?></label>
+                        <span onclick="dele_word(this,'<?php echo $vo['id']; ?>');" class="glyphicon glyphicon-remove-circle close-sign" aria-hidden="true"></span>
+                    </div>
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script type="text/javascript">
+    function article_save_submit(){
+        var word = $('input[name=word]').val();
+
+        var data = {'word':word};
+        var url = '/admin/wordblack/savesource';
+        $.post(url,data,function(data){
+            var info = $.parseJSON(data);
+            if (info.isSuccess!=0) {
+                layer.msg(info.msg,{icon:6,time:1000});
+                setTimeout(function(){location.reload();},1000);
+            }else{
+                layer.msg(info.msg,{icon:5,time:1000});
+                setTimeout(function(){location.reload();},1000);
+            };
+        });
+    }
+    function dele_word(obj,id) {
+        var data = {'id':id};
+        var url = '/admin/wordblack/delesource';
+
+        $.post(url,data,function(data){
+            var info = $.parseJSON(data);
+            if (info.isSuccess!=0) {
+                $(obj).parents(".hang").remove();
+                layer.msg('已删除!',{icon: 6,time:1000});
+            }else{
+                layer.msg('删除失败!',{icon: 6,time:1000});
+            };
+
+        });
+    }
+
+</script>
+</body>
+</html>

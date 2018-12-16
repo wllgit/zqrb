@@ -1,0 +1,57 @@
+.task-detail{padding:10px;border-bottom: 1px solid #9EA6B7;height: 110px;}
+.task-detail > .detail-column{margin-top: 1rem;}
+.task-detail > div >p:nth-child(1){width: 30%;float: left}
+.task-detail > div >p:nth-child(2){width: 70%;float: left;text-align: left;}
+
+
+.select_btn {
+    float: left;
+    background-color: #F0F0F0;
+    border-radius: 15px;
+    border: 1px solid #552b2b2b;
+    width: 63px !important;
+}
+
+.select_btn label {
+    width: 30px;
+    height: 30px;
+    display: block;
+    float: left;
+    transition: all 250ms ease-in;
+    margin-bottom: 0px !important;
+}
+
+.left_checked {
+    background-color: #83e482;
+    border-radius: 15px;
+    color: #fff;
+}
+
+.right_checked {
+    background-color: red;
+    border-radius: 15px;
+    color: #fff;
+}
+
+.task-line {
+    width: 100%;
+    height: 58px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #442b2b2b;
+
+}
+
+.task-line p {
+    width: 67%;
+    float: left;
+    margin-right: 10px;
+    font-size: 14px;
+    text-align: left;
+}
+
+
+.input-file{
+    display: none;
+}
+

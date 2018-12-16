@@ -1,0 +1,279 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+html {
+    /*    height: 100%;
+        overflow: hidden;*/
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: #fff;
+    position: relative;
+}
+@media screen and (max-width: 1920px){
+    html {
+        font-size: 512px;
+    }
+}
+@media screen and (max-width: 1536px){
+    html {
+        font-size: 409px;
+    }
+}
+@media screen and (max-width: 1440px){
+    html {
+        font-size: 384px;
+    }
+}
+@media screen and (max-width: 1280px){
+    html {
+        font-size: 341px;
+    }
+}
+@media screen and (max-width: 1080px){
+    html {
+        font-size: 288px;
+    }
+}
+@media screen and (max-width: 1024px){
+    html {
+        font-size: 273px;
+    }
+}
+@media screen and (max-width: 966px){
+    html {
+        font-size: 257px;
+    }
+}
+@media screen and (max-width: 960px){
+    html {
+        font-size: 256px;
+    }
+}
+@media screen and (max-width: 854px){
+    html {
+        font-size: 227px;
+    }
+}
+@media screen and (max-width: 800px){
+    html {
+        font-size: 213px;
+    }
+}
+@media screen and (max-width: 768px){
+    html {
+        font-size: 204px;
+    }
+}
+@media screen and (max-width: 720px){
+    html {
+        font-size: 192px;
+    }
+}
+@media screen and (max-width: 640px){
+    html {
+        font-size: 170px;
+    }
+}
+@media screen and (max-width: 600px){
+    html {
+        font-size: 160px;
+    }
+}
+@media screen and (max-width: 540px){
+    html {
+        font-size: 144px;
+    }
+}
+@media screen and (max-width: 480px){
+    html {
+        font-size: 128px;
+    }
+}
+@media screen and (max-width: 424px){
+    html {
+        font-size: 113px;
+    }
+}
+@media screen and (max-width: 414px){
+    html {
+        font-size: 110px;
+    }
+}
+@media screen and (max-width: 400px){
+    html {
+        font-size: 106px;
+    }
+}
+@media screen and (max-width: 384px){
+    html {
+        font-size: 102px;
+    }
+}
+@media screen and (max-width: 375px){
+    html {
+        font-size: 100px;
+    }
+}
+@media screen and (max-width: 360px){
+    html {
+        font-size: 96px;
+    }
+}
+@media screen and (max-width: 320px){
+    html {
+        font-size: 85px;
+    }
+}
+@media screen and (max-width: 213px){
+    html {
+        font-size: 56px;
+    }
+}
+body {
+    position: relative;
+    /*height: 100%;
+    overflow: hidden;*/
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, "\5FAE\8F6F\96C5\9ED1", "\9ED1\4F53", Arial, "Lucida Grande", sans-serif;
+    font-weight: 400;
+    background: white;
+    -webkit-tap-highlight-color: transparent;
+    color: #000;
+    -webkit-font-smoothing: antialiased;
+}
+.news{
+    padding: 0.15rem;
+    font-size: 0.16rem;
+    background: white;
+}
+.header{
+    width: 100%;
+    height: 100%;
+}
+.header .header_img{
+    width: 3.45rem;
+    height: 1.30rem;
+    margin-bottom: 0.16rem;
+}
+.header .header_title{
+    margin-bottom: 0.10rem;
+    width: 3.42rem;
+    height: 0.50rem;
+    line-height: 0.25rem;
+    color: RGBA(51, 51, 51, 1);
+}
+.header_date{
+    font-size: 0.14rem;
+    line-height: 0.13rem;
+    color: RGBA(153, 153, 153, 1);
+}
+.btn-audio{
+    width: 0.13rem;
+    height: 0.16rem;
+    float: right;
+    background: url("../image/img/Group Copy 4@2x.png") center center / 100% 100% no-repeat;
+}
+.audio-play{
+    height: 0.30rem;
+    width: 100%;
+}
+.audio-right{
+    /*height: 0.50rem;*/
+    margin-top: -0.15rem;
+}
+.progress-bar-bg {
+    background-color: #d9d9d9;
+    position: relative;
+    height: 2px;
+    cursor: pointer;
+}
+.progress-bar {
+    background-color: #649fec;
+    width: 0;
+    height: 2px;
+}
+.progress-bar-bg span {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-color: #3e87e8;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -5px;
+    margin-left: -5px;
+    cursor: pointer;
+}
+.audio-time{
+    margin-top: 0.05rem;
+    overflow: hidden;
+    font-size: 0.12rem;
+    color: #cccccc;
+}
+.audi-length-current{
+    float: left;
+}
+.audio-length-total{
+    float: right;
+}
+.header_reader{
+    display: inline-block;
+    margin-top: 0.10rem;
+    font-size: 0.14rem;
+    line-height: 0.13rem;
+    color: RGBA(102, 102, 102, 1);
+}
+.content{
+    margin-top: 0.15rem;
+    margin-bottom: 0.60rem;
+    text-align: justify;
+    overflow: hidden;
+    text-indent: 2em;
+    line-height: 0.28rem;
+    color: RGBA(102, 102, 102, 1);
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 0.60rem;
+    background: url("../image/zqrb_download.png") center center / 100% 100% no-repeat;
+}
+.download_btn{
+    position: absolute;
+    right: 0;
+    display: block;
+    width: 1.00rem;
+    height: 0.60rem;
+}
+.guide{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    background-color: rgba(0,0,0,0.7);
+    z-index:3;
+}
+.guide .content1{
+    width: 80%;
+    height: 1.00rem;
+    margin: 0.20rem auto;
+}
+.guide-text{
+    color: white;
+    height: 0.50rem;
+    line-height: 0.50rem;
+    font-size: 0.18rem;
+    width: 60%;
+    float: left;
+}
+.guide img{
+    width: 40%;
+    float: left;
+}

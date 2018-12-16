@@ -1,0 +1,22 @@
+/*可以在这里添加你自己的css*/
+img {
+    max-width: 30%; /*图片自适应宽度*/
+    float: left; /*图片横向排列*/
+    margin-left: 10px; /*图片左右间隔*/
+    margin-top: 10px; /*图片上下间隔*/
+}
+body {
+    overflow-y: scroll !important;
+}
+.view {
+    word-break: break-all;
+}
+.vote_area {
+    display: block;
+}
+.vote_iframe {
+    background-color: transparent;
+    border: 0 none;
+    height: 100%;
+}
+#edui1_imagescale{display:none !important;}
