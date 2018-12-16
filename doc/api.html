@@ -1,0 +1,988 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>api.md</title><link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'><style type='text/css'>html, body {overflow-x: initial !important;}.CodeMirror { height: auto; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; }
+.CodeMirror-lines { padding: 4px 0px; }
+.CodeMirror pre { }
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { background-color: white; }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-color: rgb(247, 247, 247); white-space: nowrap; }
+.CodeMirror-linenumbers { }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.CodeMirror div.CodeMirror-cursor { border-left-width: 1px; border-left-style: solid; border-left-color: black; z-index: 3; }
+.CodeMirror div.CodeMirror-secondarycursor { border-left-width: 1px; border-left-style: solid; border-left-color: silver; }
+.CodeMirror.cm-keymap-fat-cursor div.CodeMirror-cursor { width: auto; border: 0px; background-color: rgb(119, 238, 119); z-index: 1; background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror div.CodeMirror-cursor.CodeMirror-overwrite { }
+.cm-tab { display: inline-block; }
+.cm-s-typora-default .cm-header, .cm-s-typora-default .cm-property { color: rgb(217, 79, 138); }
+.cm-s-typora-default pre.cm-header1:not(.cm-atom) :not(.cm-overlay) { font-size: 2rem; line-height: 2rem; }
+.cm-s-typora-default pre.cm-header2:not(.cm-atom) :not(.cm-overlay) { font-size: 1.4rem; line-height: 1.4rem; }
+.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number { color: rgb(149, 132, 134); }
+.cm-s-typora-default .cm-table-row, .cm-s-typora-default .cm-block-start { font-family: monospace; }
+.cm-s-typora-default .cm-comment, .cm-s-typora-default .cm-code { color: rgb(74, 90, 159); font-family: monospace; }
+.cm-s-typora-default .cm-tag { color: rgb(169, 68, 66); }
+.cm-s-typora-default .cm-string { color: rgb(126, 134, 169); }
+.cm-s-typora-default .cm-link { color: rgb(196, 122, 15); text-decoration: underline; }
+.cm-s-typora-default .cm-variable-2, .cm-s-typora-default .cm-variable-1 { color: inherit; }
+.cm-s-typora-default .cm-overlay { font-size: 1rem; font-family: monospace; }
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor { border-left-width: 3px; border-left-style: solid; border-left-color: rgb(228, 98, 154); }
+.cm-s-typora-default .CodeMirror-activeline-background { left: -60px; right: -30px; background-color: rgba(204, 204, 204, 0.2); background-position: initial initial; background-repeat: initial initial; }
+.cm-s-typora-default .CodeMirror-gutters { border-right-style: none; background-color: inherit; }
+.cm-s-typora-default .cm-trailing-space-new-line::after, .cm-startspace::after, .cm-starttab .cm-tab::after { content: '•'; position: absolute; left: 0px; opacity: 0; font-family: LetterGothicStd, monospace; }
+.os-windows .cm-startspace::after, .os-windows .cm-starttab .cm-tab::after { left: -0.1em; }
+.cm-starttab .cm-tab::after { content: ' '; }
+.cm-startspace, .cm-tab, .cm-starttab, .cm-trailing-space-a, .cm-trailing-space-b, .cm-trailing-space-new-line { font-family: monospace; position: relative; }
+.cm-s-typora-default .cm-trailing-space-new-line::after { content: '↓'; opacity: 0.3; }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: black; }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-property { color: black; }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: blue; }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: bold; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: rgb(255, 0, 0); }
+.cm-invalidchar { color: rgb(255, 0, 0); }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { margin-bottom: -30px; margin-right: -30px; padding-bottom: 30px; padding-right: 30px; height: 100%; outline: none; position: relative; box-sizing: content-box; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow-x: hidden; overflow-y: scroll; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow-y: hidden; overflow-x: scroll; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; background-color: transparent; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: -webkit-fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-widget { }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.CodeMirror-selected { background-color: rgb(217, 217, 217); background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror-focused .CodeMirror-selected { background-color: rgb(215, 212, 240); background-position: initial initial; background-repeat: initial initial; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror span { }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+.CodeMirror-lint-markers { width: 16px; }
+.CodeMirror-lint-tooltip { background-color: infobackground; border: 1px solid black; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; color: infotext; font-family: monospace; overflow: hidden; padding: 2px 5px; position: fixed; white-space: pre-wrap; z-index: 10000; max-width: 600px; opacity: 0; transition: opacity 0.4s; font-size: 0.8em; }
+.CodeMirror-lint-mark-error, .CodeMirror-lint-mark-warning { background-position: left bottom; background-repeat: repeat no-repeat; }
+.CodeMirror-lint-mark-error { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==); }
+.CodeMirror-lint-marker-error, .CodeMirror-lint-marker-warning { cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: middle; position: relative; background-position: center center; background-repeat: no-repeat no-repeat; }
+.CodeMirror-lint-message-error, .CodeMirror-lint-message-warning { padding-left: 18px; background-position: left top; background-repeat: no-repeat no-repeat; }
+.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW7AAC7AACxAAC7AAC7AAAAAAC4AAC5AAD///+7AAAUdclpAAAABnRSTlMXnORSiwCK0ZKSAAAATUlEQVR42mWPOQ7AQAgDuQLx/z8csYRmPRIFIwRGnosRrpamvkKi0FTIiMASR3hhKW+hAN6/tIWhu9PDWiTGNEkTtIOucA5Oyr9ckPgAWm0GPBog6v4AAAAASUVORK5CYII=); }
+.CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAANlBMVEX/uwDvrwD/uwD/uwD/uwD/uwD/uwD/uwD/uwD6twD/uwAAAADurwD2tQD7uAD+ugAAAAD/uwDhmeTRAAAADHRSTlMJ8mN1EYcbmiixgACm7WbuAAAAVklEQVR42n3PUQqAIBBFUU1LLc3u/jdbOJoW1P08DA9Gba8+YWJ6gNJoNYIBzAA2chBth5kLmG9YUoG0NHAUwFXwO9LuBQL1giCQb8gC9Oro2vp5rncCIY8L8uEx5ZkAAAAASUVORK5CYII=); }
+.CodeMirror-lint-marker-multiple { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAACVBMVEUAAAAAAAC/v7914kyHAAAAAXRSTlMAQObYZgAAACNJREFUeNo1ioEJAAAIwmz/H90iFFSGJgFMe3gaLZ0od+9/AQZ0ADosbYraAAAAAElFTkSuQmCC); width: 100%; height: 100%; background-position: right bottom; background-repeat: no-repeat no-repeat; }
+
+
+html { font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { background-color: rgb(181, 214, 252); text-shadow: none; background-position: initial initial; background-repeat: initial initial; }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space: pre-wrap; overflow-x: auto; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+.typora-export #write { margin: 0px auto; }
+#write > p:first-child, #write > ul:first-child, #write > ol:first-child, #write > pre:first-child, #write > blockquote:first-child, #write > div:first-child, #write > table:first-child { margin-top: 30px; }
+#write li > table:first-child { margin-top: -20px; }
+img { max-width: 100%; vertical-align: middle; }
+input, button, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+::before, ::after, * { box-sizing: border-box; }
+#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write div, #write pre { width: inherit; }
+#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6 { position: relative; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
+.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0rem; -webkit-margin-after: 0rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: bold; font-style: italic; }
+a { cursor: pointer; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; margin: 4px 0px 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 80px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+pre { white-space: pre-wrap; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
+.md-fences.mock-cm { white-space: pre-wrap; }
+.show-fences-line-number .md-fences { padding-left: 0px; }
+.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; padding-top: 1em; padding-bottom: 1em; }
+.footnotes + .footnotes { margin-top: -1em; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background-color: transparent; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: normal; text-align: left; box-sizing: content-box; direction: ltr; background-position: initial initial; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li p, li .mathjax-block { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; }
+@media print { 
+  html, body { height: 100%; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
+  p { orphans: 4; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 1cm; padding-right: 1cm; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0mm; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 2.86rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
+p + .mathjax-block { margin-top: -1.143rem; }
+.mathjax-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: none; box-shadow: none; }
+.task-list { list-style-type: none; }
+.task-list-item { position: relative; padding-left: 1em; }
+.task-list-item input { position: absolute; top: 0px; left: 0px; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc::after, .md-toc-content::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); text-decoration: none; }
+.md-toc-inner:hover { }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: bold; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: '.'; }
+.md-tag { opacity: 0.5; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: monospace; }
+code { text-align: left; }
+h1 .md-tag, h2 .md-tag, h3 .md-tag, h4 .md-tag, h5 .md-tag, h6 .md-tag { font-weight: initial; opacity: 0.35; }
+a.md-print-anchor { border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: none !important; background-color: transparent !important; text-shadow: initial !important; background-position: initial initial !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0em; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: monospace; }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: normal; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+
+
+@include-when-export url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/**
+ * css forked from https://github.com/GitbookIO/gitbook 
+ * www.gitbook.com
+ * Apache License
+ * https://github.com/GitbookIO/gitbook/blob/master/LICENSE
+ **/
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/sougukeji/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/sougukeji/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/sougukeji/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/sougukeji/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff')
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write{
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 20px 30px 40px 30px;
+	padding-top: 20px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+body > *:first-child {
+    margin-top: 0 !important;
+}
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/sougukeji/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 4px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+    border-bottom: 1px solid #ddd;
+}
+
+body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h3:first-child,
+body > h4:first-child,
+body > h5:first-child,
+body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+a:first-child h1,
+a:first-child h2,
+a:first-child h3,
+a:first-child h4,
+a:first-child h5,
+a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0;
+}
+h1 p,
+h2 p,
+h3 p,
+h4 p,
+h5 p,
+h6 p {
+    margin-top: 0;
+}
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dddddd;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-gutters {
+    border-right: 1px solid #ddd;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+.task-list{
+	padding-left: 0;
+}
+
+.task-list-item {
+	padding-left:32px;
+}
+
+.task-list-item input {
+  top: 3px;
+  left: 8px;
+}
+
+@media screen and (min-width: 914px) {
+    /*body {
+        width: 854px;
+        margin: 0 auto;
+    }*/
+}
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag{
+	color: inherit;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#md-notification:before {
+    top: 10px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><div class='md-toc' mdtype='toc'><p class="md-toc-content"><span class="md-toc-item md-toc-h1" data-ref="c14581"><a class="md-toc-inner" style="" href="#header-c14581">1. pe管理系统API定义</a></span><span class="md-toc-item md-toc-h2" data-ref="c14582"><a class="md-toc-inner" style="" href="#header-c14582">1.1. 修订说明</a></span><span class="md-toc-item md-toc-h1" data-ref="c14626"><a class="md-toc-inner" style="" href="#header-c14626">2. 用户接口</a></span><span class="md-toc-item md-toc-h3" data-ref="c14627"><a class="md-toc-inner" style="" href="#header-c14627">2.1. 发送验证码</a></span><span class="md-toc-item md-toc-h3" data-ref="c14699"><a class="md-toc-inner" style="" href="#header-c14699">2.2. 登录（验证短信接口）</a></span><span class="md-toc-item md-toc-h3" data-ref="c14843"><a class="md-toc-inner" style="" href="#header-c14843">2.3. 获取个人信息接口</a></span><span class="md-toc-item md-toc-h3" data-ref="c14982"><a class="md-toc-inner" style="" href="#header-c14982">2.4. 个人信息-获取部门接口</a></span><span class="md-toc-item md-toc-h3" data-ref="c15125"><a class="md-toc-inner" style="" href="#header-c15125">2.5. 修改个人信息接口</a></span><span class="md-toc-item md-toc-h3" data-ref="c15227"><a class="md-toc-inner" style="" href="#header-c15227">2.6. 用户头像上传接口</a></span><span class="md-toc-item md-toc-h1" data-ref="c15321"><a class="md-toc-inner" style="" href="#header-c15321">3. 资讯接口</a></span><span class="md-toc-item md-toc-h3" data-ref="c15322"><a class="md-toc-inner" style="" href="#header-c15322">3.1. 资讯列表</a></span><span class="md-toc-item md-toc-h3" data-ref="c15472"><a class="md-toc-inner" style="" href="#header-c15472">3.2. 资讯详情</a></span><span class="md-toc-item md-toc-h3" data-ref="c16473"><a class="md-toc-inner" style="" href="#header-c16473">3.3. 新增公司关注接口</a></span><span class="md-toc-item md-toc-h1" data-ref="c16553"><a class="md-toc-inner" style="" href="#header-c16553">4. 项目接口</a></span><span class="md-toc-item md-toc-h3" data-ref="c16554"><a class="md-toc-inner" style="" href="#header-c16554">4.1. 项目列表</a></span><span class="md-toc-item md-toc-h3" data-ref="c16686"><a class="md-toc-inner" style="" href="#header-c16686">4.2. 申请项目新增数据接口</a></span><span class="md-toc-item md-toc-h1" data-ref="c16784"><a class="md-toc-inner" style="" href="#header-c16784">5. 上市信息接口</a></span><span class="md-toc-item md-toc-h3" data-ref="c16785"><a class="md-toc-inner" style="" href="#header-c16785">5.1. 股票行情接口</a></span><span class="md-toc-item md-toc-h3" data-ref="c16989"><a class="md-toc-inner" style="" href="#header-c16989"> </a></span></p></div><h1><a name='header-c14581' class='md-header-anchor '></a>1. pe管理系统API定义</h1><h2><a name='header-c14582' class='md-header-anchor '></a>1.1. 修订说明</h2><table><thead><tr><th>版本号</th><th>修订人</th><th>修订时间</th><th>说明</th></tr></thead><tbody><tr><td>Version1.0</td><td>magic</td><td>2017-07-20</td><td>新增登录功能</td></tr></tbody></table><p>1.2. 说明</p><ul><li><p>基础URL：<code>http://192.168.1.64:8081</code>正式环境会修改</p></li><li><p>当message=&quot;ok&quot;时，表示调用接口成功，其他表示失败返回说明。</p></li><li><p>企业appkey 由后端提供 一段随机字符串 海通appkey为d5f17cafef0829b5 </p></li><li><p>sign安全加密认证的参数</p><p>1.将接口需要提交的参数（不含sign）按名字排序（字典序）</p><p>2.将所有参数用下面方法拼接起来：</p></li></ul><p>  ​      <code>参数1=value1&amp;参数2=value2&amp;…&amp;参数n=valuen</code></p><p>​       3.将步骤2得到的字符串后面再拼上pe2017Signkey</p><p>​       4.将步骤3得到的字符串进行MD5运算，最后结果作为sign参数的值。</p><p>  <strong>计算sign的java代码举例：</strong></p><pre class='md-fences mock-cm' style='display:block;position:relative'>  public static String getSign(Map&lt;String, String&gt; params){
+    String sign = &quot;&quot;;
+    Map&lt;String, String&gt; treeMap = new java.util.TreeMap&lt;String, String&gt;();
+    if(params!=null){
+      if(params!=null &amp;&amp; params.size()&gt;0){
+        for(Map.Entry&lt;String, String&gt; entry: params.entrySet()){
+          treeMap.put(entry.getKey(), entry.getValue());
+        }
+      }
+    }
+
+    //获取MD5加密信息
+    StringBuffer buffer = new StringBuffer();
+    for(Map.Entry&lt;String, String&gt; entry : treeMap.entrySet()){
+               buffer.append(entry.getKey()).append(&quot;=&quot;).append(entry.getValue()).append(&quot;&amp;&quot;);
+    }
+   
+    buffer.deleteCharAt(buffer.length()-1);
+    buffer.append(&quot;pe2017Signkey&quot;);
+    sign = MD5.encoding(buffer.toString(), null);
+
+      return sign;
+  }</pre><ul><li>每个接口都必须传appkey和sign参数</li></ul><h1><a name='header-c14626' class='md-header-anchor '></a>2. 用户接口</h1><h3><a name='header-c14627' class='md-header-anchor '></a>2.1. 发送验证码</h3><ul><li>地址：<code>/api/index/send_code</code></li></ul><ul><li><p>请求格式<br/></p><ul><li>HTTP请求方式： <code>POST</code> </li><li>支持格式： <code>JSON</code> </li></ul></li><li><p>请求参数</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >phone</td><td style='text-align:left;' >int</td><td style='text-align:left;' ></td><td style='text-align:left;' >手机号码</td><td style='text-align:left;' ></td></tr></tbody></table></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >[]</td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/index/send_code</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+  &quot;message&quot;: &quot;ok&quot;,
+  &quot;timestamp&quot;: 1490679496293,
+  &quot;payload&quot;: []
+}</pre><h3><a name='header-c14699' class='md-header-anchor '></a>2.2. 登录（验证短信接口）</h3><ul><li>地址：<code>/api/index/verify_code</code></li></ul><ul><li><p>请求格式<br/></p><ul><li>HTTP请求方式： <code>POST</code> </li><li>支持格式： <code>JSON</code> </li></ul></li><li><p>请求参数</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >phone</td><td style='text-align:left;' >Int</td><td style='text-align:left;' ></td><td style='text-align:left;' >手机号码</td><td style='text-align:left;' >登录手机号</td></tr><tr><td style='text-align:left;' >code</td><td style='text-align:left;' >Int</td><td style='text-align:left;' ></td><td style='text-align:left;' >手机验证码</td><td style='text-align:left;' >用户手机收到的验证码</td></tr></tbody></table></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败，失败信息可能是手机号不正确，验证码失效等等</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >[]</td></tr></tbody></table></li></ul><ul><li><p>返回参数</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>uid</td><td>Int</td><td>用户id</td><td></td></tr><tr><td>2</td><td>name</td><td>Varchar</td><td>用户姓名</td><td></td></tr><tr><td>3</td><td>phone</td><td>Varchar</td><td>手机号</td><td></td></tr><tr><td>4</td><td>depart_name</td><td>Int</td><td>部门id</td><td></td></tr><tr><td>5</td><td>position</td><td>Varchar</td><td>职位</td><td></td></tr><tr><td>6</td><td>email</td><td>Varchar</td><td>邮箱</td><td></td></tr><tr><td>7</td><td>project</td><td>Varchar</td><td>项目</td><td></td></tr><tr><td>8</td><td>memo</td><td>Text</td><td>备注</td><td></td></tr><tr><td>9</td><td>url</td><td>Varchar</td><td>图像链接地址</td><td></td></tr></tbody></table></li><li><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/index/verify_code</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+  &quot;message&quot;: &quot;ok&quot;,
+  &quot;timestamp&quot;: 1500544643087,
+  &quot;payload&quot;: {
+    &quot;uid&quot;: 19,
+    &quot;name&quot;: null,
+    &quot;phone&quot;: &quot;18701780251&quot;,
+    &quot;depart_name&quot;: &quot;&quot;,
+    &quot;position&quot;: null,
+    &quot;email&quot;: null,
+    &quot;project&quot;: null,
+    &quot;memo&quot;: null,
+    &quot;url&quot;: null
+  }
+}</pre></li></ul><h3><a name='header-c14843' class='md-header-anchor '></a>2.3. 获取个人信息接口</h3><ul><li>地址：<code>/api/userFont/getFrontUserInfo</code></li></ul><ul><li><p>请求格式<br/></p><ul><li>HTTP请求方式： <code>POST</code> </li><li>支持格式： <code>JSON</code> </li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th></tr></thead><tbody><tr><td>uid</td><td>Int</td><td></td><td>用户ID（非空必传 ）</td></tr></tbody></table></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >data[]</td></tr></tbody></table></li><li><p>data[]信息如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>url</td><td>Varchar</td><td>链接</td><td>头像图片链接</td></tr><tr><td>2</td><td>name</td><td>Varchar</td><td>姓名</td><td></td></tr><tr><td>3</td><td>position</td><td>Varchar</td><td>职位</td><td></td></tr><tr><td>4</td><td>phone</td><td>Varchar</td><td>手机号码</td><td></td></tr><tr><td>5</td><td>email</td><td>Varchar</td><td>邮件</td><td></td></tr><tr><td>6</td><td>depart_id</td><td>Int</td><td>部门ID</td><td></td></tr><tr><td>7</td><td>project</td><td>Varchar</td><td>项目</td><td></td></tr><tr><td>8</td><td>memo</td><td>Text</td><td>备注</td><td></td></tr><tr><td>9</td><td>uid</td><td>Int</td><td>用户ID</td><td></td></tr><tr><td>10</td><td>depart_name</td><td>Varchar</td><td>部门名称</td><td></td></tr></tbody></table><p> ​</p></li></ul><ul><li><p>请求：</p><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/userFont/getFrontUserInfo</pre></li><li><p>返回：</p><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501568924060,
+	&quot;payload&quot;:
+		{
+		&quot;uid&quot;:1,
+		&quot;name&quot;:&quot;ewr&quot;,
+		&quot;phone&quot;:&quot;18895634289&quot;,
+		&quot;depart_id&quot;:2,
+		&quot;position&quot;:&quot;经理&quot;,
+		&quot;email&quot;:&quot;1401128960@qq.com&quot;,
+		&quot;project&quot;:&quot;dsf&quot;,
+		&quot;memo&quot;:&quot;sdasad&quot;,
+        &quot;depart_name&quot;:&quot;拓展部&quot;,
+        &quot;url&quot;:&quot;&quot;http:\/\/pe.location.com\/uploads\/20170802\/c2a918b118cc25f0c2783aa66f4e055e.jpg&quot;，
+	
+		}
+}</pre></li></ul><h3><a name='header-c14982' class='md-header-anchor '></a>2.4. 个人信息-获取部门接口</h3><ul><li>地址：<code>/api/UserFont/getDepartmentInfo</code></li></ul><ul><li><p>请求格式<br/></p><ul><li>HTTP请求方式： <code>POST</code> </li><li>支持格式： <code>JSON</code> </li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th><th>描述</th></tr></thead><tbody><tr><td>appkey</td><td>varchar</td><td></td><td>企业唯一标识符</td><td>必传参数（非空）</td></tr></tbody></table><p>​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >[db_name,depart_id,data[]]</td></tr></tbody></table></li></ul><ul><li><p>de_name对应每个部门名称</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>db_name</td><td>String</td><td>部门名称</td><td></td></tr><tr><td>2</td><td>depart_id</td><td>Int</td><td>部门id</td><td>部门ID对应部门名称</td></tr><tr><td>3</td><td>data</td><td>Array</td><td>对应部门下所有人信息</td><td></td></tr></tbody></table></li><li><p>data[]信息如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>url</td><td>Varchar</td><td>链接</td><td>头像图片链接</td></tr><tr><td>2</td><td>name</td><td>Varchar</td><td>姓名</td><td></td></tr><tr><td>3</td><td>position</td><td>Varchar</td><td>职位</td><td></td></tr><tr><td>4</td><td>phone</td><td>Varchar</td><td>手机号码</td><td></td></tr><tr><td>5</td><td>email</td><td>Varchar</td><td>邮件</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/UserFont/getDepartmentInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501310532570,
+	&quot;payload&quot;:
+		[
+		{&quot;de_name&quot;:&quot;开发部&quot;,
+		&#39;depart_id&#39;:1,
+		&quot;data&quot;:
+			[{&quot;url&quot;:null,
+			&quot;name&quot;:&quot;小二&quot;,
+			&quot;position&quot;:&quot;ppp&quot;,
+			&quot;phone&quot;:&quot;15800421946&quot;,
+			&quot;email&quot;:&quot;14011289@qq.com&quot;}
+			]},
+			
+		{&quot;de_name&quot;:&quot;拓展部&quot;,
+		&#39;depart_id&#39;:2,
+		&quot;data&quot;:
+			[{&quot;url&quot;:null,
+			&quot;name&quot;:&quot;小三&quot;,
+			&quot;position&quot;:&quot;ioo&quot;,
+			&quot;phone&quot;:&quot;18701780251&quot;,
+			&quot;email&quot;:&quot;1455555@qq.com&quot;},
+			
+			{&quot;url&quot;:null,
+			&quot;name&quot;:&quot;小四&quot;,
+			&quot;position&quot;:&quot;yyy&quot;,
+			&quot;phone&quot;:&quot;18895625589&quot;,
+			&quot;email&quot;:&quot;18865555@qq.com&quot;}
+			]},
+			
+		{&quot;de_name&quot;:&quot;外联部&quot;,
+		&#39;depart_id&#39;:3,
+		&quot;data&quot;:
+			[] }]
+}</pre><h3><a name='header-c15125' class='md-header-anchor '></a>2.5. 修改个人信息接口</h3><ul><li>地址：<code>/api/userFont/changeMyInfo</code></li></ul><ul><li><p>请求格式<br/></p><ul><li>HTTP请求方式： <code>POST</code> </li><li>支持格式： <code>JSON</code> </li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th></tr></thead><tbody><tr><td>uid</td><td>Int</td><td></td><td>用户ID（非空必传）</td></tr><tr><td>name</td><td>Varchar</td><td></td><td>用户姓名（可空）</td></tr><tr><td>depart_id</td><td>Int</td><td></td><td>部门ID（可空depart_id来源于获取部门接口的depart_id）</td></tr><tr><td>position</td><td>Varchar</td><td></td><td>职位（可空）</td></tr><tr><td>project</td><td>Varchar</td><td></td><td>项目（可空）</td></tr><tr><td>memo</td><td>Text</td><td></td><td>备注（可空）</td></tr><tr><td>email</td><td>Varchar</td><td></td><td>邮箱（可空）</td></tr></tbody></table><p>​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >Null</td></tr></tbody></table><p>示例</p></li></ul><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/userFont/changeMyInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501226954687,
+	&quot;payload&quot;:null	
+}</pre><h3><a name='header-c15227' class='md-header-anchor '></a>2.6. 用户头像上传接口</h3><ul><li>地址：<code>/api/Userfont/uploadImage</code></li></ul><ul><li><p>请求格式<br/></p><ul><li>HTTP请求方式： <code>POST</code> </li><li>支持格式： <code>JSON</code> </li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th></tr></thead><tbody><tr><td>uid</td><td>Int</td><td></td><td>用户ID（非空必传）</td></tr><tr><td>image</td><td>File</td><td></td><td>图片文件(type=&#39;file&#39;,  name=&#39;image&#39;)form_data格式</td></tr></tbody></table><p>​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >String</td></tr></tbody></table><p>示例
+​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >Url</td><td style='text-align:left;' >String</td><td style='text-align:left;' ></td><td style='text-align:left;' >图片url</td><td style='text-align:left;' >完全路径</td></tr></tbody></table></li></ul><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/userFont/uploadImage</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501226954687,	&quot;payload&quot;:&quot;http:\/\/pe.ll.com\/uploads\/20170803\/2aa744c830c0a2e5b014af1457556161.jpg&quot;	
+}</pre><h1><a name='header-c15321' class='md-header-anchor '></a>3. 资讯接口</h1><h3><a name='header-c15322' class='md-header-anchor '></a>3.1. 资讯列表</h3><ul><li>地址：<code>/api/news/newsLists</code></li></ul><ul><li><p>请求格式</p><ul><li>HTTP请求方式： <code>POST</code></li><li>支持格式： <code>JSON</code></li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th><th>描述</th></tr></thead><tbody><tr><td>page</td><td>Int</td><td>1</td><td>页数</td><td>第几页（可空）</td></tr><tr><td>pageSize</td><td>Int</td><td>20</td><td>每页数量</td><td>可空</td></tr><tr><td>uid</td><td>Int</td><td></td><td>登录用户id</td><td>可空（如果传递了user_id,则表示关注）</td></tr><tr><td>type</td><td>Int</td><td></td><td>类型</td><td>可空（1是负面，2是舆情）</td></tr><tr><td>company_id</td><td>Int</td><td></td><td>公司id</td><td>可空（公司详情非空）</td></tr></tbody></table><p>​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >[data]</td></tr></tbody></table></li><li><p>payload.data是一个数组，结构如下：下面是全部勾选情况下的数据，实际以具体勾选的选项为准</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>title</td><td>Varchar</td><td>新闻标题</td><td></td></tr><tr><td>2</td><td>time</td><td>Datetime</td><td>新闻发表时间</td><td></td></tr><tr><td>3</td><td>source</td><td>Varchar</td><td>新闻来源</td><td></td></tr><tr><td>4</td><td>tag</td><td>Varchar</td><td>新闻标签</td><td>多个标签以#分割且已在末尾加上强制词（如果table_id=13则忽略强制词）</td></tr><tr><td>5</td><td>company_id</td><td>Int</td><td>公司编号</td><td></td></tr><tr><td>6</td><td>table_id</td><td>int</td><td>资讯对应的表id</td><td>对应新闻类型表</td></tr><tr><td>7</td><td>data_id</td><td>Int</td><td>数据id</td><td>对应某个新闻类型的某条新闻</td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsLists</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+  &quot;message&quot;: &quot;ok&quot;,
+  &quot;timestamp&quot;: 1500544643087,
+  &quot;payload&quot;: [
+        {
+              &quot;title&quot;: &quot;百度百科下架百科词条代编代写违规商品&quot;,
+              &quot;time&quot;: &quot;2017-07-28 09:50:00&quot;,
+              &quot;source&quot;: &quot;新浪科技&quot;,
+              &quot;tag&quot;: &quot;&quot;,
+              &quot;company_id&quot;: 1,
+              &quot;table_id&quot;: 13,
+              &quot;data_id&quot;: 59
+          },
+          {
+              &quot;title&quot;: &quot;PayPal第二季度净营收31.36亿美元 增长27%&quot;,
+              &quot;time&quot;: &quot;2017-07-28 09:43:32&quot;,
+              &quot;source&quot;: &quot;ebrun亿邦动力&quot;,
+              &quot;tag&quot;: &quot;#百度&quot;,
+              &quot;company_id&quot;: 1,
+              &quot;table_id&quot;: 13,
+              &quot;data_id&quot;: 56
+          }
+    ]
+
+}</pre><h3><a name='header-c15472' class='md-header-anchor '></a>3.2. 资讯详情</h3><ul><li>地址：<code>/api/news/newsInfo</code></li></ul><ul><li><p>请求格式</p><ul><li>HTTP请求方式： <code>POST</code></li><li>支持格式： <code>JSON</code></li></ul></li><li><p>请求参数</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >table_id</td><td style='text-align:left;' >Int</td><td style='text-align:left;' ></td><td style='text-align:left;' >数据表名</td><td style='text-align:left;' >table_id(非空)的值不同，对应的新闻类型也不同，具体情况如下：                                                                                1=&gt;法律诉讼      2=&gt;法院公告   3=&gt;失信人                               4=&gt;被执行人      5=&gt;行政处罚   6=&gt;严重违法                          7=&gt;股权出质      8=&gt;动产抵押   9=&gt;欠税公告                       10=&gt;经营异常   11=&gt;开庭公告 12=&gt;司法拍卖                 13=&gt;新闻舆情</td></tr><tr><td style='text-align:left;' >data_id</td><td style='text-align:left;' >Int</td><td style='text-align:left;' ></td><td style='text-align:left;' >新闻id</td><td style='text-align:left;' >data_id(非空)新闻类型的某条新闻 例如：table_id=1,data_id=2即新闻类型是法律诉讼的第二条新闻</td></tr></tbody></table></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >字段说明</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >[data]</td></tr></tbody></table></li><li><p>s payload.data是一个数组，table_id值不同，返回的字段也不同</p><p>​</p></li><li><p>当table_id=1时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>submittime</td><td>Datatime</td><td>提交时间</td><td></td></tr><tr><td>2</td><td>title</td><td>Varchar</td><td>标题</td><td></td></tr><tr><td>3</td><td>casetype</td><td>Varchar</td><td>案件类型</td><td></td></tr><tr><td>4</td><td>caseno</td><td>Varchar</td><td>案件号</td><td></td></tr><tr><td>5</td><td>court</td><td>Varchar</td><td>法院</td><td></td></tr><tr><td>6</td><td>doctype</td><td>Varchar</td><td>文书类型</td><td></td></tr><tr><td>7</td><td>url</td><td>Varchar</td><td>原文链接地址</td><td></td></tr><tr><td>8</td><td>uuid</td><td>Varchar</td><td>唯一标识符</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501138492151,
+	&quot;payload&quot;:
+		{
+		&quot;submittime&quot;:&quot;2017-07-26 19:34:22&quot;,
+		&quot;title&quot;:&quot;111&quot;,
+		&quot;casetype&quot;:&quot;民事案件&quot;,
+		&quot;caseno&quot;:&quot;（2016）晋0106民初1174号&quot;,
+		&quot;court&quot;:&quot;太原市迎泽区人民法院&quot;,
+		&quot;doctype&quot;:&quot;民事裁定书&quot;,
+		&quot;url&quot;:&quot;http:\/\/wenshu.com&quot;,
+		&quot;uuid&quot;:&quot;e1bf8bb9f39446809c6c839669ad4a84&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=2时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>publishdate</td><td>Datatime</td><td>刊登日期</td><td></td></tr><tr><td>2</td><td>party1</td><td>Varchar</td><td>原告</td><td></td></tr><tr><td>3</td><td>party2</td><td>Varchar</td><td>当事人</td><td></td></tr><tr><td>4</td><td>bltntypename</td><td>Varchar</td><td>公告类型名称</td><td></td></tr><tr><td>5</td><td>courtcode</td><td>Varchar</td><td>法院名</td><td></td></tr><tr><td>6</td><td>content</td><td>Text</td><td>案件内容</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501139313047,
+	&quot;payload&quot;:
+		{
+		&quot;publishdate&quot;:&quot;2017-07-27 15:05:09&quot;,
+		&quot;party1&quot;:&quot;李盛彬&quot;,
+		&quot;party2&quot;:&quot;杨伟&quot;,
+		&quot;bltntypename&quot;:&quot;起诉状副本及开庭传票&quot;,
+		&quot;courtcode&quot;:&quot;古丈县人民法院&quot;,
+		&quot;content&quot;:&quot;杨伟：本院受理原告李盛彬诉你及北京百度网讯科技有限公司买卖合同纠纷一案，现依法向你公			告送达起诉&quot;
+		}
+	}</pre><p></p><ul><li><p>当table_id=3时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>iname</td><td>Varchar</td><td>失信人名或公司名称</td><td></td></tr><tr><td>2</td><td>casecode</td><td>Varchar</td><td>执行依据文号</td><td></td></tr><tr><td>3</td><td>cardnum</td><td>Varchar</td><td>身份证号／组织机构代码</td><td></td></tr><tr><td>4</td><td>areaname</td><td>Varchar</td><td>省份</td><td></td></tr><tr><td>5</td><td>courtname</td><td>Varchar</td><td>执行法院</td><td></td></tr><tr><td>6</td><td>gistid</td><td>Varchar</td><td>案号</td><td></td></tr><tr><td>7</td><td>regdate</td><td>Datetime</td><td>立案时间</td><td></td></tr><tr><td>8</td><td>gistunit</td><td>Varchar</td><td>做出执行依据单位</td><td></td></tr><tr><td>9</td><td>duty</td><td>Text</td><td>法律生效文书确定的义务</td><td></td></tr><tr><td>10</td><td>performance</td><td>Varchar</td><td>被执行人的履行情况</td><td></td></tr><tr><td>11</td><td>publishdate</td><td>Datetime</td><td>发布时间</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501140536547,
+	&quot;payload&quot;:
+		{
+		&quot;iname&quot;:&quot;天津信裕房地产发展有限公司&quot;,
+		&quot;casecode&quot;:&quot;(2016)津0103执4676号&quot;,
+		&quot;cardnum&quot;:&quot;60056316-5&quot;,
+		&quot;areaname&quot;:&quot;天津&quot;,
+		&quot;courtname&quot;:&quot;天津市河西区人民法院&quot;,
+		&quot;regdate&quot;:&quot;(2014)西民一初字第751号&quot;,
+		&quot;gistunit&quot;:&quot;天津市河西区人民法院&quot;,
+		&quot;duty&quot;:&quot;一、被告于2014年12月31日前返还原告借款200000元，于2015年12月31日前返还原告剩余,
+		&quot;performance&quot;:&quot;全部未履行&quot;,
+		&quot;publishdate&quot;:&quot;2017-07-27 15:28:20&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=4时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>caseCreateTime</td><td>Datetime</td><td>立案时间</td><td></td></tr><tr><td>2</td><td>execMoney</td><td>Varchar</td><td>执行标的</td><td></td></tr><tr><td>3</td><td>caseCode</td><td>Varchar</td><td>案号</td><td></td></tr><tr><td>4</td><td>execCourtName</td><td>Varchar</td><td>执行法院</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501141580304,
+	&quot;payload&quot;:
+		{
+		&quot;caseCreateTime&quot;:&quot;2017-07-27 15:38:37&quot;,
+		&quot;execMoney&quot;:&quot;北京市民法院&quot;,
+		&quot;caseCode&quot;:&quot;(2016)京1066号&quot;,
+		&quot;execCourtName&quot;:&quot;北京市海淀区&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=5时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>decisionDate</td><td>Datetime</td><td>行政处罚日期</td><td></td></tr><tr><td>2</td><td>punishNumber</td><td>Varchar</td><td>行政处罚决定书文号</td><td></td></tr><tr><td>3</td><td>type</td><td>Varchar</td><td>违法行为类型</td><td></td></tr><tr><td>4</td><td>departmentName</td><td>Varchar</td><td>作出行政处罚决定机关名称</td><td></td></tr><tr><td>5</td><td>content</td><td>Text</td><td>行政处罚内容</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501142066422,
+	&quot;payload&quot;:
+		{
+		&quot;decisionDate&quot;:&quot;2017-07-27 13:49:21&quot;,
+		&quot;punishNumber&quot;:&quot;德工商处字(2015)303 号&quot;,
+		&quot;type&quot;:&quot;违反,对擅自销售卫星地面接收设施的行政处罚&quot;,
+		&quot;departmentName&quot;:&quot;福建省德化县工商行政管理局&quot;,
+		&quot;content&quot;:&quot;罚款0.1万元，没收违法所得和非法财物&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=6时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>putDate</td><td>Datetime</td><td>列入日期</td><td></td></tr><tr><td>2</td><td>putReason</td><td>Text</td><td>列入原因</td><td></td></tr><tr><td>3</td><td>putDepartment</td><td>Varchar</td><td>决定列入部门(作出决定机关</td><td></td></tr><tr><td>4</td><td>removeReason</td><td>Text</td><td>移除原因</td><td></td></tr><tr><td>5</td><td>removeDepartment</td><td>Varchar</td><td>决定移除部门</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501142982940,
+	&quot;payload&quot;:
+		{
+		&quot;putDate&quot;:&quot;2017-07-27 16:04:47&quot;,
+		&quot;putReason&quot;:&quot;提交虚假材料或者采取其他欺诈手段隐瞒重要事实，取得公司变更或者注销登记，被撤销登记的&quot;,
+		&quot;putDepartment&quot;:&quot;陕西省工商行政管理局&quot;,
+		&quot;removeReason&quot;:null,
+		&quot;removeDepartment&quot;:null
+		}
+}</pre><p></p><ul><li><p>当table_id=7时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>regNumber</td><td>Varchar</td><td>登记编号</td><td></td></tr><tr><td>2</td><td>pledgor</td><td>Varchar</td><td>出质人</td><td></td></tr><tr><td>3</td><td>pledgee</td><td>Varchar</td><td>质权人</td><td></td></tr><tr><td>4</td><td>state</td><td>Varchar</td><td>状态</td><td></td></tr><tr><td>5</td><td>equityAmount</td><td>Smallint</td><td>出质股权数额</td><td></td></tr><tr><td>6</td><td>certifNumberR</td><td>Varchar</td><td>质权人证照/证件号码</td><td></td></tr><tr><td>7</td><td>regDate</td><td>Datetime</td><td>股权出质设立登记日期</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501144621304,
+	&quot;payload&quot;:
+		{
+		&quot;regNumber&quot;:&quot;0267&quot;,
+		&quot;pledgor&quot;:&quot;夏立江&quot;,
+		&quot;pledgee&quot;:&quot;兰州汇通投资担保有限公司&quot;,
+		&quot;state&quot;:&quot;无效&quot;,
+		&quot;equityAmount&quot;:380,
+		&quot;certifNumberR&quot;:&quot;4535&quot;,
+		&quot;regDate&quot;:&quot;2017-07-27 16:24:55&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=8时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>regDate</td><td>Datetme</td><td>登记日期</td><td></td></tr><tr><td>2</td><td>regNum</td><td>Varchar</td><td>登记编号</td><td></td></tr><tr><td>3</td><td>type</td><td>Varchar</td><td>被担保债权种类</td><td></td></tr><tr><td>4</td><td>amount</td><td>Varchar</td><td>被担保债权数额</td><td></td></tr><tr><td>5</td><td>regDepartment</td><td>Varchar</td><td>登记机关</td><td></td></tr><tr><td>6</td><td>term</td><td>Varchar</td><td>债务人履行债务的期限</td><td></td></tr><tr><td>8</td><td>scope</td><td>Varchar</td><td>担保范围</td><td></td></tr><tr><td>9</td><td>remark</td><td>Text</td><td>备注</td><td></td></tr><tr><td>10</td><td>overviewType</td><td>Varchar</td><td>概况种类</td><td></td></tr><tr><td>11</td><td>overviewAmount</td><td>Varchar</td><td>概况数额</td><td></td></tr><tr><td>12</td><td>overviewScope</td><td>Varchar</td><td>概况担保的范围</td><td></td></tr><tr><td>13</td><td>overviewTerm</td><td>Varchar</td><td>概况债务人履行债务的期限</td><td></td></tr><tr><td>14</td><td>overviewRemark</td><td>Text</td><td>概况备注</td><td></td></tr><tr><td>15</td><td>pawnInfoList</td><td>Text</td><td>抵押物信息json数据</td><td></td></tr><tr><td>16</td><td>peopleInfoList</td><td>Text</td><td>抵押人信息json数据</td><td></td></tr></tbody></table></li><li><p>pawnInfoList  (抵押物信息)  字段说明</p><table><thead><tr><th>返回值字段</th><th>字段类型</th><th>字段说明</th></tr></thead><tbody><tr><td>pawnName</td><td>String</td><td>名称</td></tr><tr><td>ownership</td><td>String</td><td>所有权归属</td></tr><tr><td>detail</td><td>String</td><td>数量、质量、状况、所在地等情况</td></tr><tr><td>remark</td><td>String</td><td>备注</td></tr></tbody></table></li><li><p>peopleInfoList（抵押人信息） 字段说明</p><table><thead><tr><th>返回值字段</th><th>字段类型</th><th>字段说明</th></tr></thead><tbody><tr><td>peopleName</td><td>String</td><td>抵押权人名称</td></tr><tr><td>liceseType</td><td>String</td><td>抵押权人证照/证件类型</td></tr><tr><td>licenseNum</td><td>String</td><td>证照/证件号码</td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501655074984,
+	&quot;payload&quot;:
+		{&quot;regDate&quot;:&quot;2015-01-08 00:00:00&quot;,
+		&quot;regNum&quot;:&quot;冶工商押登字[2014]646&quot;,
+		&quot;type&quot;:&quot;借款合同&quot;,
+		&quot;amount&quot;:&quot;300万元&quot;,
+		&quot;regDepartment&quot;:&quot;大冶市工商行政管理局&quot;,
+		&quot;term&quot;:null,&quot;scope&quot;:&quot;主债权、利息等，详见合同&quot;,
+		&quot;remark&quot;:&quot;&quot;,
+		&quot;overviewType&quot;:null,
+		&quot;overviewAmount&quot;:null,
+		&quot;overviewScope&quot;:null,
+		&quot;overviewRemark&quot;:null,
+		&quot;pawnInfoList&quot;:
+			[{&quot;detail&quot;:&quot;共1台，价值40万元，其他同上&quot;,
+			&quot;ownership&quot;:&quot;自有&quot;,
+			&quot;pawnName&quot;:&quot;泥浆泵&quot;
+			}],
+		&quot;peopleInfoList&quot;:
+			[{&quot;licenseNum&quot;:&quot;420281000007873&quot;,
+			&quot;peopleName&quot;:&quot;黄石市中小企业信用担保有限责任公司大冶分公司&quot;,
+			&quot;liceseType&quot;:&quot;营业执照&quot;
+			}]
+		}
+}</pre><p></p><ul><li><p>当table_id=9时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>name</td><td>Varchar</td><td>纳税人名称</td><td></td></tr><tr><td>2</td><td>taxCategory</td><td>Varchar</td><td>欠税税种</td><td></td></tr><tr><td>3</td><td>personIdNumber</td><td>Varchar</td><td>证件号码</td><td></td></tr><tr><td>4</td><td>legalpersonName</td><td>Varchar</td><td>法人或负责人名称</td><td></td></tr><tr><td>5</td><td>location</td><td>Varchar</td><td>经营地点</td><td></td></tr><tr><td>6</td><td>newOwnTaxBalance</td><td>Int</td><td>当前新发生欠税余额</td><td></td></tr><tr><td>7</td><td>ownTaxBalance</td><td>Int</td><td>欠税余额</td><td></td></tr><tr><td>8</td><td>taxIdNumber</td><td>Varchar</td><td>纳税人识别号</td><td></td></tr><tr><td>9</td><td>type</td><td>Varchar</td><td>类型</td><td>0国税 1地税</td></tr><tr><td>10</td><td>publishDate</td><td>Datetime</td><td>发布时间</td><td></td></tr><tr><td>11</td><td>tax_authority</td><td>Varchar</td><td>税务机关</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501147665723,
+	&quot;payload&quot;:
+		{
+		&quot;name&quot;:&quot;大爷&quot;,
+		&quot;taxCategory&quot;:&quot;营业税、城市维护建设税等&quot;,
+		&quot;personIdNumber&quot;:&quot;32423423&quot;,
+		&quot;location&quot;:&quot;洪山区珞瑜路196号&quot;,
+		&quot;legalpersonName&quot;:&quot;小华&quot;,
+		&quot;newOwnTaxBalance&quot;:23,
+		&quot;ownTaxBalance&quot;:42324,
+		&quot;taxIdNumber&quot;:&quot;234&quot;,
+		&quot;type&quot;:1
+		&quot;publishDate&quot;:&quot;2017-07-27 17:36:02&quot;,
+		&quot;tax_authority&quot;：&quot;洪山国税局&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=10时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>putDate</td><td>Datetime</td><td>列入日期</td><td></td></tr><tr><td>2</td><td>putReason</td><td>Varchar</td><td>列入经营异常名录原因</td><td></td></tr><tr><td>3</td><td>putDepartment</td><td>Varchar</td><td>列入部门</td><td></td></tr><tr><td>4</td><td>removeDate</td><td>Datetime</td><td>移出日期</td><td></td></tr><tr><td>5</td><td>removeReason</td><td>Varchar</td><td>移出原因</td><td></td></tr><tr><td>6</td><td>removeDepartment</td><td>Varchar</td><td>移出部门</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501148338677,
+	&quot;payload&quot;:
+		{
+		&quot;putDate&quot;:&quot;2017-07-27 17:36:02&quot;,
+		&quot;putReason&quot;:&quot;未按照规定报送2014年度年度报告&quot;,
+		&quot;putDepartment&quot;:&quot;长沙市工商行政管理局天心分局&quot;,
+		&quot;removeDate&quot;:&quot;2017-07-29 17:36:26&quot;,
+		&quot;removeReason&quot;:&quot;依法补报了未报年份的年度报告并公示&quot;,
+		&quot;removeDepartment&quot;:&quot;长沙市工商行政管理局天心分局&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=11时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>case_name</td><td>Varchar</td><td>案由</td><td></td></tr><tr><td>2</td><td>caseno</td><td>Varchar</td><td>案号</td><td></td></tr><tr><td>3</td><td>court_date</td><td>Datetime</td><td>开庭日期</td><td></td></tr><tr><td>4</td><td>schedu_date</td><td>Datetime</td><td>排期日期</td><td></td></tr><tr><td>5</td><td>undertake_department</td><td>Varchar</td><td>承办部门</td><td></td></tr><tr><td>6</td><td>presiding_judge</td><td>Varchar</td><td>审判长/主审人</td><td></td></tr><tr><td>7</td><td>appellant</td><td>Varchar</td><td>上诉人</td><td></td></tr><tr><td>8</td><td>appellee</td><td>Varchar</td><td>被上诉人</td><td></td></tr><tr><td>9</td><td>court</td><td>Varchar</td><td>法院</td><td></td></tr><tr><td>10</td><td>courtroom</td><td>Varchar</td><td>法庭</td><td></td></tr><tr><td>11</td><td>area</td><td>Varchar</td><td>地区</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501149285579,
+	&quot;payload&quot;:
+		{
+		&quot;case_name&quot;:&quot;赔偿案&quot;,
+		&quot;caseno&quot;:&quot;213131&quot;,
+		&quot;court_date&quot;:&quot;2017-07-27 17:49:33&quot;,
+		&quot;area&quot;:&quot;上海&quot;,
+		&quot;schedu_date&quot;:&quot;2017-07-27 17:49:39&quot;,
+		&quot;undertake_department&quot;:&quot;上海人民法院&quot;,
+		&quot;presiding_judge&quot;:&quot;小王&quot;,
+		&quot;appellant&quot;:&quot;张三&quot;,
+		&quot;appellee&quot;:&quot;李四&quot;,
+		&quot;court&quot;:&quot;上海法院&quot;,
+		&quot;courtroom&quot;:&quot;上海法庭&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=12时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>title</td><td>Varchar</td><td>标题</td><td></td></tr><tr><td>2</td><td>auction_time</td><td>Datetime</td><td>委托法院拍卖时间</td><td></td></tr><tr><td>3</td><td>entrusted_court</td><td>Varchar</td><td>委托法院内容</td><td></td></tr><tr><td>4</td><td>content</td><td>Text</td><td>内容</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501150196248,
+	&quot;payload&quot;:
+		{&quot;
+		title&quot;:&quot;这是xxx标题&quot;,
+		&quot;auction_time&quot;:&quot;2017-07-27 18:06:58&quot;,
+		&quot;entrusted_court&quot;:&quot;委托法院干一些事&quot;,
+		&quot;content&quot;:&quot;这是内容&quot;
+		}
+}</pre><p></p><ul><li><p>当table_id=13时，返回字段如下</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>format_content</td><td>Text</td><td>内容</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/newsInfo</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501150196248,
+	&quot;payload&quot;:
+		{&quot;
+		&quot;format_content&quot;:&quot;这是内容&quot;
+		}
+}</pre><h3><a name='header-c16473' class='md-header-anchor '></a>3.3. 新增公司关注接口</h3><ul><li>地址：<code>/api/news/ncFocus</code></li></ul><ul><li><p>请求格式</p><ul><li>HTTP请求方式： <code>POST</code></li><li>支持格式： <code>JSON</code></li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th><th>描述</th></tr></thead><tbody><tr><td>uid</td><td>Int</td><td></td><td>登录用户id</td><td>非空</td></tr><tr><td>company_id</td><td>Int</td><td></td><td>公司id</td><td>非空</td></tr></tbody></table><p>​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >1</td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/ncFocus</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+  &quot;message&quot;: &quot;ok&quot;,
+  &quot;timestamp&quot;: 1500544643087,
+  &quot;payload&quot;: 1
+}</pre><h1><a name='header-c16553' class='md-header-anchor '></a>4. 项目接口</h1><h3><a name='header-c16554' class='md-header-anchor '></a>4.1. 项目列表</h3><ul><li>地址：<code>/api/news/focusCompanyLists</code></li></ul><ul><li><p>请求格式</p><ul><li>HTTP请求方式： <code>POST</code></li><li>支持格式： <code>JSON</code></li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th><th>描述</th></tr></thead><tbody><tr><td>page</td><td>Int</td><td>1</td><td>页数</td><td>第几页（可空）</td></tr><tr><td>pageSize</td><td>Int</td><td>20</td><td>每页数量</td><td>可空</td></tr><tr><td>user_id</td><td>Int</td><td></td><td>登录用户id</td><td>可空（如果传递了user_id,则表示关注）</td></tr><tr><td>type</td><td>Int</td><td></td><td>类型</td><td>可空（1是拟投，2是已投，若空则取拟投+已投）</td></tr></tbody></table><p>​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >[data]</td></tr></tbody></table></li><li><p>payload.data是一个数组，结构如下：下面是全部勾选情况下的数据，实际以具体勾选的选项为准</p><table><thead><tr><th>序号</th><th>参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td>name</td><td>Varchar</td><td>公司名称</td><td></td></tr><tr><td>2</td><td>state</td><td>Datetime</td><td>现状</td><td>A轮  B轮  类似这些（type=2时取此数据）</td></tr><tr><td>3</td><td>update_time</td><td>Varchar</td><td>最近更新时间</td><td>（type=2时取此数据）</td></tr><tr><td>4</td><td>add_time</td><td>Varchar</td><td>录入时间</td><td>（type=1时取此数据）</td></tr><tr><td>5</td><td>status</td><td>Int</td><td>状态（默认1）</td><td>0禁用 1准备中  2已完成（type=1时取此数据）</td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/focusCompanyLists</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501226954687,
+	&quot;payload&quot;:
+		[
+		{&quot;name&quot;:&quot;北京百度网度科技有限公司&quot;,
+		&quot;state&quot;:null,
+		&quot;update_time&quot;:null,
+		&quot;add_time&quot;:null,
+		&quot;status&quot;:1
+		},
+		{&quot;name&quot;:&quot;北京聚能鼎力科技股份有限公司&quot;,
+		&quot;state&quot;:null,
+		&quot;update_time&quot;:null,
+		&quot;add_time&quot;:null,
+		&quot;status&quot;:1
+		},
+		{&quot;name&quot;:&quot;北京麦轮泰电子商务股份有限公司&quot;,
+		&quot;state&quot;:null,
+		&quot;update_time&quot;:null,
+		&quot;add_time&quot;:null,
+		&quot;status&quot;:1
+		}]
+}</pre><h3><a name='header-c16686' class='md-header-anchor '></a>4.2. 申请项目新增数据接口</h3><ul><li>地址：<code>/api/news/applyNewProject</code></li></ul><ul><li><p>请求格式</p><ul><li>HTTP请求方式： <code>POST</code></li><li>支持格式： <code>JSON</code></li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th><th>描述</th></tr></thead><tbody><tr><td>name</td><td>varchar</td><td></td><td>公司名称</td><td>必传参数（非空）</td></tr><tr><td>legalPersonName</td><td>varchar</td><td></td><td>法人</td><td>可空</td></tr><tr><td>regLocation</td><td>varchar</td><td></td><td>注册地址</td><td>可空</td></tr><tr><td>creditCode</td><td>varchar</td><td></td><td>统一社会信用代码</td><td>可空</td></tr><tr><td>info</td><td>text</td><td></td><td>其他信息</td><td>可空</td></tr></tbody></table><p>​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' ></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/news/applyNewProject</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501237308579,
+	&quot;payload&quot;:null
+	}</pre><h1><a name='header-c16784' class='md-header-anchor '></a>5. 上市信息接口</h1><h3><a name='header-c16785' class='md-header-anchor '></a>5.1. 股票行情接口</h3><ul><li>地址：/api/Listinformation/volatility</li></ul><ul><li><p>请求格式</p><ul><li>HTTP请求方式： <code>POST</code></li><li>支持格式： <code>JSON</code></li></ul></li><li><p>请求参数</p><table><thead><tr><th>参数</th><th>类型</th><th>默认值</th><th>中文名</th><th>描述</th></tr></thead><tbody><tr><td>company_id</td><td>Int</td><td></td><td>公司ID</td><td>非空</td></tr></tbody></table><p>​</p></li><li><p>返回格式</p><table><thead><tr><th style='text-align:left;' >参数</th><th style='text-align:left;' >类型</th><th style='text-align:left;' >默认值</th><th style='text-align:left;' >中文名</th><th style='text-align:left;' >描述</th></tr></thead><tbody><tr><td style='text-align:left;' >message</td><td style='text-align:left;' >string</td><td style='text-align:left;' ></td><td style='text-align:left;' >状态信息</td><td style='text-align:left;' >ok表示成功，其他均为失败</td></tr><tr><td style='text-align:left;' >timestamp</td><td style='text-align:left;' >long</td><td style='text-align:left;' ></td><td style='text-align:left;' >服务器毫秒时间戳</td><td style='text-align:left;' ></td></tr><tr><td style='text-align:left;' >payload</td><td style='text-align:left;' >object</td><td style='text-align:left;' ></td><td style='text-align:left;' >附加数据</td><td style='text-align:left;' >[data]</td></tr></tbody></table></li><li><p>payload.data是一个数组，结构如下：下面是全部勾选情况下的数据，实际以具体勾选的选项为准</p><table><thead><tr><th>序号</th><th style='text-align:left;' >参数</th><th>类型</th><th>字段说明</th><th>描述</th></tr></thead><tbody><tr><td>1</td><td style='text-align:left;' >stockcode</td><td>Int</td><td>股票号</td><td></td></tr><tr><td>2</td><td style='text-align:left;' >stockname</td><td>Varchar</td><td>股票名</td><td></td></tr><tr><td>3</td><td style='text-align:left;' >timeshow</td><td>Datetime</td><td>更新时间</td><td></td></tr><tr><td>4</td><td style='text-align:left;' >fvaluep</td><td>Varchar</td><td>市盈率</td><td></td></tr><tr><td>5</td><td style='text-align:left;' >tvalue</td><td>Varchar</td><td>总市值</td><td></td></tr><tr><td>6</td><td style='text-align:left;' >flowvalue</td><td>Varchar</td><td>流通市值</td><td></td></tr><tr><td>7</td><td style='text-align:left;' >tvaluep</td><td>Varchar</td><td>市净率</td><td></td></tr><tr><td>8</td><td style='text-align:left;' >topenprice</td><td>Varchar</td><td>今开</td><td></td></tr><tr><td>9</td><td style='text-align:left;' >tamount</td><td>Varchar</td><td>成交量</td><td></td></tr><tr><td>10</td><td style='text-align:left;' >trange</td><td>Varchar</td><td>振幅</td><td></td></tr><tr><td>11</td><td style='text-align:left;' >thighprice</td><td>Varchar</td><td>最高</td><td></td></tr><tr><td>12</td><td style='text-align:left;' >tamounttotal</td><td>Varchar</td><td>成交额</td><td></td></tr><tr><td>13</td><td style='text-align:left;' >tchange</td><td>Varchar</td><td>换手</td><td></td></tr><tr><td>14</td><td style='text-align:left;' >tlowprice</td><td>Varchar</td><td>最低</td><td></td></tr><tr><td>15</td><td style='text-align:left;' >pprice</td><td>Varchar</td><td>昨收</td><td></td></tr><tr><td>16</td><td style='text-align:left;' >tmaxprice</td><td>Varchar</td><td>涨停</td><td></td></tr><tr><td>17</td><td style='text-align:left;' >tminprice</td><td>Varchar</td><td>跌停</td><td></td></tr><tr><td>18</td><td style='text-align:left;' >hexm_curPrice</td><td>Varchar</td><td>当前价格</td><td></td></tr><tr><td>19</td><td style='text-align:left;' >hexm_float_price</td><td>Varchar</td><td>涨跌</td><td></td></tr><tr><td>20</td><td style='text-align:left;' >hexm_float_rate</td><td>Varchar</td><td>涨跌幅</td><td></td></tr></tbody></table></li></ul><p>示例</p><ul><li>请求：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>http://192.168.1.64:8081/api/Listinformation/volatility</pre><ul><li>返回：</li></ul><pre class='md-fences mock-cm' style='display:block;position:relative'>{
+	&quot;message&quot;:&quot;ok&quot;,
+	&quot;timestamp&quot;:1501741579705,
+	&quot;payload&quot;:		    
+		{
+		&quot;stockcode&quot;:1,
+		&quot;stockname&quot;:&quot;\u5e73\u5b89\u94f6\u884c&quot;,
+		&quot;stockType&quot;:1,
+		&quot;timeshow&quot;:&quot;2017-08-02 15:50:04&quot;,
+		&quot;fvaluep&quot;:&quot;6.321&quot;,
+		&quot;tvalue&quot;:&quot;0.84&quot;,
+		&quot;flowvalue&quot;:&quot;1548.00\u4ebf&quot;,
+		&quot;tvaluep&quot;:&quot;0.84&quot;,
+		&quot;topenprice&quot;:&quot;9.25&quot;,
+		&quot;tamount&quot;:&quot;4969.32\u4e07&quot;,
+		&quot;trange&quot;:&quot;0.77%&quot;,
+		&quot;thighprice&quot;:&quot;9.18&quot;,
+		&quot;tamounttotal&quot;:&quot;4.54\u4ebf&quot;,
+		&quot;tchange&quot;:&quot;0.29%&quot;,
+		&quot;tlowprice&quot;:&quot;9.11&quot;,
+		&quot;pprice&quot;:&quot;9.12&quot;,
+		&quot;tmaxprice&quot;:&quot;10.03&quot;,
+		&quot;tminprice&quot;:&quot;8.21&quot;,
+		&quot;hexm_curPrice&quot;:&quot;9.15&quot;,
+		&quot;hexm_float_price&quot;:&quot;0.03&quot;,
+		&quot;hexm_float_rate&quot;:&quot;0.03%&quot;
+	}
+}</pre><h3><a name='header-c16989' class='md-header-anchor '></a> </h3></div>
+</body>
+</html>
